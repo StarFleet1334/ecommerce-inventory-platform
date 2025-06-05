@@ -16,7 +16,7 @@ Our Inventory Microservice offers seamless management and real-time synchronizat
 * **Real-time Updates:** Changes in inventory are broadcast instantly using RocketMQ.
 * **Scalable Architecture:** Designed to handle increasing data and traffic effortlessly.
 * **Fault-Tolerance:** Reliable message delivery even in the event of network or system issues.
-
+* Swagger Link: http://localhost:8081/swagger-ui/index.html
 ---
 
 ## 🔗 REST API Endpoints
@@ -24,10 +24,7 @@ Our Inventory Microservice offers seamless management and real-time synchronizat
 | Method | Endpoint          | Description                   |
 | ------ | ----------------- | ----------------------------- |
 | POST   | `/inventory`      | Add a new inventory item      |
-| PUT    | `/inventory/{id}` | Update inventory details      |
 | DELETE | `/inventory/{id}` | Remove inventory item         |
-| GET    | `/inventory/{id}` | Get details of inventory item |
-| GET    | `/inventory`      | List all inventory items      |
 
 ---
 
