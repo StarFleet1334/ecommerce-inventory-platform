@@ -10,6 +10,17 @@ Our Inventory Microservice offers seamless management and real-time synchronizat
 
 ---
 
+## 📚 Run Information
+* First create the network (if not already created) -> docker network create rocketmq-net
+* Second in rocketmq folder, start RocketMQ services -> docker-compose up -d
+* Third in inventory service folder, start services :
+* 1. docker compose build
+* 2. docker compose up
+
+
+
+---
+
 ## 📌 Features
 
 * **Efficient CRUD Operations:** Quickly create, read, update, and delete inventory items.
@@ -47,5 +58,6 @@ The microservice publishes events to RocketMQ on key inventory operations:
 * **Swagger**
 
 ---
+
 
 📦 **Happy inventory managing!** 🚀
