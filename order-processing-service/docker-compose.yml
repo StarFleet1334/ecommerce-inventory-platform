@@ -1,0 +1,21 @@
+services:
+  order-processing-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: order-processing-service
+    environment:
+      - SPRING_APPLICATION_NAME=order-processing-service
+      - ROCKETMQ_NAME_SERVER=rmqnamesrv:9876
+      - ROCKETMQ_PRODUCER_GROUP=inventory-service-producer
+      - ROCKETMQ_TOPIC_INVENTORY=inventory_updates
+      - LOGGING_LEVEL_ROOT=INFO
+      - ROCKET_MQ_CONSUMER_GROUP=order-processing-group
+      - LOGGING_LEVEL_COM_EXAMPLE_INVENTORYSERVICE=DEBUG
+    networks:
+      - rocketmq-net
+
+networks:
+  rocketmq-net:
+    external: true
+    name: rocketmq-net

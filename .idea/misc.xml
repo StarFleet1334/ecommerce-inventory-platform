@@ -3,6 +3,7 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/inventory-service" />
+    <file type="web" url="file://$PROJECT_DIR$/order-processing-service" />
     <file type="web" url="file://$PROJECT_DIR$/rocketmq-service" />
   </component>
   <component name="ProjectRootManager">
