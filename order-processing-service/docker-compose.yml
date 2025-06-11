@@ -8,7 +8,8 @@ services:
       - SPRING_APPLICATION_NAME=order-processing-service
       - ROCKETMQ_NAME_SERVER=rmqnamesrv:9876
       - ROCKETMQ_PRODUCER_GROUP=inventory-service-producer
-      - ROCKETMQ_TOPIC_INVENTORY=inventory_updates
+      - ROCKETMQ_INVENTORY_ADD_TOPIC=inventory_add
+      - ROCKETMQ_INVENTORY_DELETE_TOPIC=inventory_delete
       - LOGGING_LEVEL_ROOT=INFO
       - ROCKET_MQ_CONSUMER_GROUP=order-processing-group
       - LOGGING_LEVEL_COM_EXAMPLE_INVENTORYSERVICE=DEBUG

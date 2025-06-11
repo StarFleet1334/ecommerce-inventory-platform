@@ -15,15 +15,18 @@ public class InventoryService {
     private final InventoryEventPublisher eventPublisher;
     private final InventoryEventRemover eventRemover;
 
-    @Value("${rocketmq.topic-inventory}")
+    @Value("${rocketmq.inventory_add_topic}")
     private String TOPIC_INVENTORY;
+
+    @Value("${rocketmq.inventory_delete_topic}")
+    private String TOPIC_DELETE;
 
     public InventoryItemResponse sendInventoryCreatedMessage(InventoryItem item) {
         return eventPublisher.sentMessage(TOPIC_INVENTORY, EventType.CREATED.getMessage(), item);
     }
 
     public void sendInventoryDeletedMessage(String itemId) {
-        eventRemover.sentMessage(TOPIC_INVENTORY, EventType.DELETED.getMessage(), itemId);
+        eventRemover.sentMessage(TOPIC_DELETE, EventType.DELETED.getMessage(), itemId);
     }
 
 }

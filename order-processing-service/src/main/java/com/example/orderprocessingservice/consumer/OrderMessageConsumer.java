@@ -1,7 +1,7 @@
 package com.example.orderprocessingservice.consumer;
 
-import com.example.orderprocessingservice.dto.InventoryMessage;
-import com.example.orderprocessingservice.service.InventoryService;
+import com.example.orderprocessingservice.handler.MessageHandler;
+import com.example.orderprocessingservice.handler.MessageHandlerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -12,59 +12,53 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class OrderMessageConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderMessageConsumer.class);
     private final DefaultMQPushConsumer consumer;
     private final ObjectMapper objectMapper;
-    private final InventoryService inventoryService;
+    private final MessageHandlerFactory messageHandlerFactory;
 
-    @Value("${rocketmq.topic}")
-    private String topic;
+    @Value("${rocketmq.inventory_add_topic}")
+    private String inventoryAddTopic;
+
+    @Value("${rocketmq.inventory_delete_topic}")
+    private String inventoryDeleteTopic;
 
     @PostConstruct
     public void init() throws Exception {
-        consumer.subscribe(topic, "*");
+        consumer.subscribe(inventoryAddTopic, "*");
+        consumer.subscribe(inventoryDeleteTopic, "*");
+
         consumer.registerMessageListener((MessageListenerConcurrently) (msgs, context) -> {
             for (MessageExt msg : msgs) {
-                try {
-                    String messageBody = new String(msg.getBody());
-                    LOGGER.info("Received inventory message: {}", messageBody);
+                String topic = msg.getTopic();
+                LOGGER.info("Received message from topic: {}", topic);
+                MessageHandler handler = messageHandlerFactory.getHandler(topic);
 
-                    InventoryMessage inventoryMessage = objectMapper.readValue(messageBody, InventoryMessage.class);
-                    processNewInventoryOrder(inventoryMessage);
-
+                if (handler != null) {
+                    return handler.handle(msg, objectMapper);
+                } else {
+                    LOGGER.error("No handler found for topic: {}", topic);
                     return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-                } catch (Exception e) {
-                    LOGGER.error("Error processing inventory message: {}", e.getMessage(), e);
-                    return ConsumeConcurrentlyStatus.RECONSUME_LATER;
                 }
             }
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         });
 
         consumer.start();
-        LOGGER.info("RocketMQ consumer started for topic: {}", topic);
-    }
-
-    private void processNewInventoryOrder(InventoryMessage message) {
-        LOGGER.info("Processing inventory update for product: {}, SKU: {}, Quantity: {}, Location: {}",
-                message.getProductName(),
-                message.getSku(),
-                message.getQuantity(),
-                message.getWarehouseLocation());
-
-        inventoryService.handleNewInventory(message);
+        LOGGER.info("RocketMQ consumer started for topics: {}, {}",
+                inventoryAddTopic, inventoryDeleteTopic);
     }
 
     @PreDestroy
     public void destroy() {
-        if (consumer != null) {
-            consumer.shutdown();
-        }
+        Optional.ofNullable(consumer).ifPresent(DefaultMQPushConsumer::shutdown);
     }
 }

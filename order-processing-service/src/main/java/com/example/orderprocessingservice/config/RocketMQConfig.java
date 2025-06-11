@@ -18,6 +18,8 @@ public class RocketMQConfig {
     public DefaultMQPushConsumer defaultMQPushConsumer() {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(consumerGroup);
         consumer.setNamesrvAddr(nameServer);
+        consumer.setVipChannelEnabled(false);
+        consumer.setMaxReconsumeTimes(3);
         return consumer;
     }
 }

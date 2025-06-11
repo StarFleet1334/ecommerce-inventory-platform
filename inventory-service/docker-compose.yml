@@ -10,7 +10,8 @@ services:
       - SPRING_APPLICATION_NAME=inventory-service
       - ROCKETMQ_NAME_SERVER=rmqnamesrv:9876
       - ROCKETMQ_PRODUCER_GROUP=inventory-service-producer
-      - ROCKETMQ_TOPIC_INVENTORY=inventory_updates
+      - ROCKETMQ_INVENTORY_ADD_TOPIC=inventory_add
+      - ROCKETMQ_INVENTORY_DELETE_TOPIC=inventory_delete
       - SERVER_PORT=8081
       - LOGGING_LEVEL_ROOT=INFO
       - LOGGING_LEVEL_COM_EXAMPLE_INVENTORYSERVICE=DEBUG

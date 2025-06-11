@@ -40,8 +40,8 @@ public class RocketMQInitializer implements InitializingBean {
 
     private List<com.example.rocketmqservice.model.TopicConfig> getTopicConfigurations() {
         return Arrays.asList(
-                new com.example.rocketmqservice.model.TopicConfig("inventory_updates", 4, 4),
-                new com.example.rocketmqservice.model.TopicConfig("inventory_alerts", 4, 4)
+                new com.example.rocketmqservice.model.TopicConfig("inventory_add", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("inventory_delete", 4, 4)
         );
 
     }
