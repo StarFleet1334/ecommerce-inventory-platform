@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: order-processing-service
+    env_file:
+      - .env
     environment:
       - SPRING_APPLICATION_NAME=order-processing-service
       - ROCKETMQ_NAME_SERVER=rmqnamesrv:9876

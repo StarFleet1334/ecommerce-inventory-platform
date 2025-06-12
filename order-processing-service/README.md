@@ -8,7 +8,13 @@ This is a Spring Boot-based microservice responsible for processing customer ord
 ## 📚 Run Information
 * docker compose build
 * docker-compose up -d
-
+* Add an.env file in a root project called: order-processing-service
+```bash
+   # Database Configuration
+   SPRING_DATASOURCE_URL=your-database-url
+   SPRING_DATASOURCE_USERNAME=your-database-username
+   SPRING_DATASOURCE_PASSWORD=your-database-password
+   ```
 
 ---
 

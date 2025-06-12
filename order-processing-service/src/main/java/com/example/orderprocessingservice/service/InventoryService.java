@@ -1,6 +1,8 @@
 package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.InventoryMessage;
+import com.example.orderprocessingservice.dto.dbModel.Inventory;
+import com.example.orderprocessingservice.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class InventoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryService.class);
+    private final InventoryRepository inventoryRepository;
 
     public void handleNewInventory(InventoryMessage message) {
         LOGGER.info("Processing new inventory for product: {}, SKU: {}, Quantity: {}, Location: {}",
@@ -17,6 +20,17 @@ public class InventoryService {
                 message.getSku(),
                 message.getQuantity(),
                 message.getWarehouseLocation());
+        Inventory inventory = Inventory.builder()
+                .productId(message.getId())
+                .productName(message.getProductName())
+                .sku(message.getSku())
+                .quantity(message.getQuantity())
+                .warehouseLocation(message.getWarehouseLocation())
+                .lastUpdated(message.getLastUpdated())
+                .build();
+        inventoryRepository.save(inventory);
+        LOGGER.info("Inventory saved successfully");
+
     }
 
     public void handleDeleteInventory(String id) {
