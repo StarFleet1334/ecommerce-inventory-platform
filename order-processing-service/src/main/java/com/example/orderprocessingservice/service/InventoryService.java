@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,8 +34,11 @@ public class InventoryService {
 
     }
 
+    @Transactional
     public void handleDeleteInventory(String id) {
         LOGGER.info("Processing inventory deletion for ID: {}", id);
+        inventoryRepository.deleteByProductId(id);
+        LOGGER.info("Inventory deleted successfully");
     }
 
 }
