@@ -14,10 +14,6 @@ public class OrderProcessingServiceApplication {
     /*
 
     1. WareHouse capacity should be updated based on stocks
-    2. Mv files into the more appropriate folder structure / hierarchy
-
-
-
 
      */
 }

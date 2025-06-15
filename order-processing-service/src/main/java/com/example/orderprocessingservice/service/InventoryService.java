@@ -1,7 +1,7 @@
 package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.InventoryMessage;
-import com.example.orderprocessingservice.dto.dbModel.Inventory;
+import com.example.orderprocessingservice.dto.model.Inventory;
 import com.example.orderprocessingservice.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
