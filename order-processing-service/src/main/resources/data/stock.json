@@ -15,11 +15,6 @@
     "quantity": 200
   },
   {
-    "ware_house_id": 1,
-    "product_id": "PID-YOG-005",
-    "quantity": 120
-  },
-  {
     "ware_house_id": 2,
     "product_id": "PID-BLU-010",
     "quantity": 200

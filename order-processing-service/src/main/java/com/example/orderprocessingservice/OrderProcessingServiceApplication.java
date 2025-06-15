@@ -10,10 +10,4 @@ public class OrderProcessingServiceApplication {
         SpringApplication.run(OrderProcessingServiceApplication.class, args);
     }
 
-
-    /*
-
-    1. WareHouse capacity should be updated based on stocks
-
-     */
 }

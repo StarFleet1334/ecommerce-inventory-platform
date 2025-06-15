@@ -111,7 +111,6 @@ public class DataLoader implements CommandLineRunner {
                 continue;
             }
 
-
             WareHouse wareHouse = wareHouseRepository.findById(wareHouseId)
                     .orElseThrow(() -> new RuntimeException("WareHouse not found with id: " + wareHouseId));
 
@@ -121,16 +120,12 @@ public class DataLoader implements CommandLineRunner {
                 continue;
             }
 
-            if (quantity < wareHouse.getMin_stock_level() || quantity > wareHouse.getMax_stock_level()) {
-                System.out.println("❌ Skipped: product " + productId + " quantity " + quantity +
-                        " violates min/max stock levels for warehouse " + wareHouse.getWare_house_name());
-                continue;
-            }
+            int currentTotal = warehouseTotals.getOrDefault(wareHouseId, 0);
+            int newTotal = currentTotal + quantity;
 
-            int totalSoFar = warehouseTotals.getOrDefault(wareHouseId, 0);
-            if (totalSoFar + quantity > wareHouse.getWare_house_capacity()) {
+            if (newTotal > wareHouse.getMax_stock_level()) {
                 System.out.println("❌ Skipped: adding " + quantity + " to " + wareHouse.getWare_house_name() +
-                        " exceeds total capacity (" + totalSoFar + "/" + wareHouse.getWare_house_capacity() + ")");
+                        " exceeds max_stock_level (" + newTotal + "/" + wareHouse.getMax_stock_level() + ")");
                 continue;
             }
 
@@ -140,9 +135,19 @@ public class DataLoader implements CommandLineRunner {
                     .quantity(quantity)
                     .build();
             validStocks.add(stock);
-            warehouseTotals.put(wareHouseId, totalSoFar + quantity);
+
+            wareHouse.setWare_house_capacity(newTotal);
+            warehouseTotals.put(wareHouseId, newTotal);
         }
 
-        stockRepository.saveAll(validStocks);
+        if (!validStocks.isEmpty()) {
+            stockRepository.saveAll(validStocks);
+            Set<Integer> updatedWarehouses = warehouseTotals.keySet();
+            List<WareHouse> warehousesToUpdate = wareHouseRepository.findAllById(updatedWarehouses);
+            for (WareHouse warehouse : warehousesToUpdate) {
+                warehouse.setWare_house_capacity(warehouseTotals.get(warehouse.getWare_house_id()));
+            }
+            wareHouseRepository.saveAll(warehousesToUpdate);
+        }
     }
 }
