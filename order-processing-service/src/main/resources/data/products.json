@@ -1,0 +1,65 @@
+[
+  {
+    "product_name": "Laptop",
+    "sku": "SKU-LAP-001",
+    "product_id": "PID-LAP-001",
+    "product_price": 999.9,
+    "product_description": "High-performance business laptop"
+  },
+  {
+    "product_name": "Wireless Mouse",
+    "sku": "SKU-MOU-002",
+    "product_id": "PID-MOU-002",
+    "product_price": 25.5,
+    "product_description": "Ergonomic wireless mouse"
+  },
+  {
+    "product_name": "Mechanical Keyboard",
+    "sku": "SKU-KEY-003",
+    "product_id": "PID-KEY-003",
+    "product_price": 75.0,
+    "product_description": "RGB backlit mechanical keyboard"
+  },
+  {
+    "product_name": "Frozen Berries",
+    "sku": "SKU-FRO-001",
+    "product_id": "PID-FRO-001",
+    "product_price": 15.9,
+    "product_description": "Frozen mixed berries for smoothies and baking"
+  },
+  {
+    "product_name": "Vaccines",
+    "sku": "SKU-VAC-002",
+    "product_id": "PID-VAC-002",
+    "product_price": 249.5,
+    "product_description": "Temperature-sensitive vaccines for medical use"
+  },
+  {
+    "product_name": "Dairy Milk",
+    "sku": "SKU-DAI-003",
+    "product_id": "PID-DAI-003",
+    "product_price": 2.5,
+    "product_description": "Pasteurized fresh milk requiring refrigeration"
+  },
+  {
+    "product_name": "Bluetooth Speaker",
+    "sku": "SKU-BLU-010",
+    "product_id": "PID-BLU-010",
+    "product_price": 45.9,
+    "product_description": "Portable wireless speaker"
+  },
+  {
+    "product_name": "USB-C Cable",
+    "sku": "SKU-CAB-011",
+    "product_id": "PID-CAB-011",
+    "product_price": 9.99,
+    "product_description": "1.5m fast-charging USB-C cable"
+  },
+  {
+    "product_name": "Office Chair",
+    "sku": "SKU-CHA-012",
+    "product_id": "PID-CHA-012",
+    "product_price": 139.0,
+    "product_description": "Ergonomic mesh office chair"
+  }
+]

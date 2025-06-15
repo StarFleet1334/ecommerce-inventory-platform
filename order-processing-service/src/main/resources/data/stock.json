@@ -1,0 +1,37 @@
+[
+  {
+    "ware_house_id": 3,
+    "product_id": "PID-FRO-001",
+    "quantity": 150
+  },
+  {
+    "ware_house_id": 3,
+    "product_id": "PID-VAC-002",
+    "quantity": 80
+  },
+  {
+    "ware_house_id": 3,
+    "product_id": "PID-DAI-003",
+    "quantity": 200
+  },
+  {
+    "ware_house_id": 1,
+    "product_id": "PID-YOG-005",
+    "quantity": 120
+  },
+  {
+    "ware_house_id": 2,
+    "product_id": "PID-BLU-010",
+    "quantity": 200
+  },
+  {
+    "ware_house_id": 2,
+    "product_id": "PID-CAB-011",
+    "quantity": 60
+  },
+  {
+    "ware_house_id": 2,
+    "product_id": "PID-CHA-012",
+    "quantity": 75
+  }
+]

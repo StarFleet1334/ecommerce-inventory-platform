@@ -1,0 +1,23 @@
+[
+  {
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "phone_number": "1112223333",
+    "ware_house_id": 1
+  },
+  {
+    "first_name": "Emma",
+    "last_name": "Watson",
+    "email": "emma.watson@example.com",
+    "phone_number": "4445556666",
+    "ware_house_id": 2
+  },
+  {
+    "first_name": "Robert",
+    "last_name": "Miller",
+    "email": "robert.m@example.com",
+    "phone_number": "7778889999",
+    "ware_house_id": 1
+  }
+]

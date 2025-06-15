@@ -1,0 +1,29 @@
+[
+  {
+    "ware_house_name": "Central Warehouse",
+    "ware_house_capacity": 0,
+    "is_refrigerated": false,
+    "min_stock_level": 0,
+    "max_stock_level": 1000,
+    "latitude": 36.7783,
+    "longitude": -119.4179
+  },
+  {
+    "ware_house_name": "East Coast Hub",
+    "ware_house_capacity": 335,
+    "is_refrigerated": false,
+    "min_stock_level": 50,
+    "max_stock_level": 500,
+    "latitude": 40.4406,
+    "longitude": -79.9959
+  },
+  {
+    "ware_house_name": "Southern Depot",
+    "ware_house_capacity": 430,
+    "is_refrigerated": true,
+    "min_stock_level": 80,
+    "max_stock_level": 800,
+    "latitude": 32.7767,
+    "longitude": -96.7970
+  }
+]

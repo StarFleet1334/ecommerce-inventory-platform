@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Supplier")
+@Table(name = "supplier")
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,21 +25,21 @@ public class Supplier {
     @Column(name = "supplier_id")
     private int supplier_id;
 
-    @Column(name = "firstName",unique = true,nullable = false,length = 10)
+    @Column(name = "first_name",unique = true,nullable = false,length = 10)
     @Size(max = 10)
-    private String firstName;
+    private String first_name;
 
-    @Column(name = "lastName",unique = true,nullable = false,length = 10)
+    @Column(name = "last_name",unique = true,nullable = false,length = 10)
     @Size(max = 10)
-    private String lastName;
+    private String last_name;
 
     @Column(name = "email",unique = true,nullable = false,length = 50)
     @Size(max = 50)
     private String email;
 
-    @Column(name = "phoneNumber",unique = true,nullable = false,length = 15)
+    @Column(name = "phone_number",unique = true,nullable = false,length = 15)
     @Size(max = 15)
-    private String phoneNumber;
+    private String phone_number;
 
     @Column(name = "latitude",nullable = false,precision = 10,scale = 8)
     @Digits(integer = 2,fraction = 8)

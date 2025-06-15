@@ -1,0 +1,26 @@
+[
+  {
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "email": "alice.smith@example.com",
+    "phone_number": "1234567890",
+    "latitude": 40.7128,
+    "longitude": -74.0060
+  },
+  {
+    "first_name": "David",
+    "last_name": "Lee",
+    "email": "david.lee@example.com",
+    "phone_number": "2223334444",
+    "latitude": 34.0522,
+    "longitude": -118.2437
+  },
+  {
+    "first_name": "Maria",
+    "last_name": "Gonzalez",
+    "email": "maria.g@example.com",
+    "phone_number": "5556667777",
+    "latitude": 41.8781,
+    "longitude": -87.6298
+  }
+]

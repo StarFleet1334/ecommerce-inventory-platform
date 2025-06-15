@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "customer_order")
 @Data
 @Builder
 @NoArgsConstructor

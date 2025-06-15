@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "Supply")
+@Table(name = "supply")
 @Data
 @Builder
 @NoArgsConstructor

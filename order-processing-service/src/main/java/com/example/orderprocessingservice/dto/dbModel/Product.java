@@ -1,6 +1,7 @@
 package com.example.orderprocessingservice.dto.dbModel;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Size;
@@ -9,10 +10,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Entity
-@Table(name = "Product")
+@Table(name = "product")
 @Data
 @Builder
 @NoArgsConstructor
@@ -24,23 +26,28 @@ public class Product {
     private BigInteger id;
 
     @Column(name = "product_name",nullable = false,length = 50)
+    @JsonProperty("product_name")
     @Size(max = 50)
-    private String productName;
+    private String product_name;
 
     @Column(name = "sku",nullable = false)
+    @JsonProperty("sku")
     @Size(max = 255)
     private String sku;
 
     @Column(name = "product_id",nullable = false,unique = true)
+    @JsonProperty("product_id")
     @Size(max = 255)
-    private String productId;
+    private String product_id;
 
     @Column(name = "product_price",nullable = false,precision = 4,scale = 1)
+    @JsonProperty("product_price")
     @Digits(integer = 3,fraction = 1)
-    private Double productPrice;
+    private BigDecimal product_price;
 
     @Column(name = "product_description",nullable = false,length = 200)
+    @JsonProperty("product_description")
     @Size(max = 200)
-    private String productDescription;
+    private String product_description;
 
 }

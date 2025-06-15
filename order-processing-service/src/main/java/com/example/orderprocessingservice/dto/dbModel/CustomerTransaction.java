@@ -1,6 +1,7 @@
 package com.example.orderprocessingservice.dto.dbModel;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "CustomerTransaction")
+@Table(name = "customer_transaction")
 @Data
 @Builder
 @NoArgsConstructor
@@ -26,8 +27,9 @@ public class CustomerTransaction {
     private Order order;
 
     @Column(name = "expected_delivery_time", nullable = false)
-    private OffsetDateTime expectedDeliveryTime;
+    private OffsetDateTime expected_delivery_time;
 
     @Column(name = "is_finished")
-    private boolean isFinished;
+    @JsonProperty("is_finished")
+    private boolean finished;
 }

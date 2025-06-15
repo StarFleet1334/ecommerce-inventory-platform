@@ -1,5 +1,6 @@
 package com.example.orderprocessingservice.dto.dbModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "WareHouse")
+@Table(name = "ware_house")
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,18 +24,19 @@ public class WareHouse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "wareHouse_id")
-    private int wareHouse_id;
+    @Column(name = "ware_house_id")
+    private int ware_house_id;
 
-    @Column(name = "wareHouse_name",unique = true,nullable = false,length = 20)
+    @Column(name = "ware_house_name",unique = true,nullable = false,length = 20)
     @Size(max = 20)
-    private String wareHouse_name;
+    private String ware_house_name;
 
-    @Column(name = "wareHouse_capacity",nullable = false)
-    private int wareHouse_capacity;
+    @Column(name = "ware_house_capacity",nullable = false)
+    private int ware_house_capacity;
 
-    @Column(name = "isRefrigerated")
-    private boolean isRefrigerated;
+    @Column(name = "is_refrigerated")
+    @JsonProperty("is_refrigerated")
+    private boolean refrigerated;
 
     @Column(name = "min_stock_level",nullable = false)
     private int min_stock_level;

@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Stock")
+@Table(name = "stock")
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,11 +19,11 @@ public class Stock {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "wareHouse_id", nullable = false)
+    @JoinColumn(name = "ware_house_id", nullable = false)
     private WareHouse wareHouse;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     private Product product;
 
     @Column(name = "quantity", nullable = false)

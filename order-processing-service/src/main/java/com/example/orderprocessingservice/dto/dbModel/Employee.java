@@ -1,6 +1,7 @@
 package com.example.orderprocessingservice.dto.dbModel;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Employee")
+@Table(name = "employee")
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,24 +22,34 @@ public class Employee {
     @Column(name = "employee_id")
     private int employee_id;
 
-    @Column(name = "firstName",nullable = false,length = 10)
+    @Column(name = "first_name",nullable = false,length = 10)
     @Size(max = 10)
-    private String firstName;
+    private String first_name;
 
-    @Column(name = "lastName",nullable = false,length = 10)
+    @Column(name = "last_name",nullable = false,length = 10)
     @Size(max = 10)
-    private String lastName;
+    private String last_name;
 
-    @Column(name = "phoneNumber",nullable = false,length = 15,unique = true)
+    @Column(name = "phone_number",nullable = false,length = 15,unique = true)
     @Size(max = 15)
-    private String phoneNumber;
+    private String phone_number;
 
     @Column(name = "email",nullable = false,length = 50,unique = true)
     @Size(max = 50)
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "wareHouse_id", nullable = false)
+    @JoinColumn(name = "ware_house_id", nullable = false)
     private WareHouse wareHouse;
+
+    @Transient
+    private Integer wareHouseId;
+
+    @JsonProperty("ware_house_id")
+    private void setWareHouseId(Integer id) {
+        this.wareHouseId = id;
+    }
+
+
 
 }

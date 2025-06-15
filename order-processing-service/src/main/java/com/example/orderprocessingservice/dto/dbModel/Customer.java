@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Customer")
+@Table(name = "customer")
 @Data
 @Builder
 @NoArgsConstructor
@@ -26,21 +26,21 @@ public class Customer {
     @Column(name = "customer_id")
     private int customer_id;
 
-    @Column(name = "firstName",nullable = false,length = 10)
+    @Column(name = "first_name",nullable = false,length = 10)
     @Size(max = 10)
-    private String firstName;
+    private String first_name;
 
-    @Column(name = "lastName",nullable = false,length = 10)
+    @Column(name = "last_name",nullable = false,length = 10)
     @Size(max = 10)
-    private String lastName;
+    private String last_name;
 
     @Column(name = "email",unique = true,nullable = false,length = 50)
     @Size(max = 50)
     private String email;
 
-    @Column(name = "phoneNumber",unique = true,nullable = false,length = 10)
+    @Column(name = "phone_number",unique = true,nullable = false,length = 10)
     @Size(max = 15)
-    private String phoneNumber;
+    private String phone_number;
 
     @Column(name = "latitude",nullable = false,precision = 10,scale = 8)
     @Digits(integer = 2,fraction = 8)
