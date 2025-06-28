@@ -22,7 +22,7 @@ public class DeleteEmployeeMessageHandler implements MessageHandler {
             String id = new String(message.getBody());
             LOGGER.info("Processing DELETE employee message for ID: {}", id);
 
-            // ... < service handles >
+            employeeService.handleDeleteEmployee(id);
 
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         } catch (Exception e) {

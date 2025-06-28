@@ -15,12 +15,13 @@ public class StockService {
     private final StockRepository stockRepository;
 
     public void handleNewStock(StockMP stock) {
+        LOGGER.info("Processing new stock: {}", stock);
 
     }
 
     @Transactional
     public void handleDeleteStock(String id) {
         LOGGER.info("Processing stock deletion for ID: {}", id);
-
+        // Deletion of Stock is not supported at the moment
     }
 }

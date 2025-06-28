@@ -22,7 +22,7 @@ public class DeleteSupplierMessageHandler implements MessageHandler {
             String id = new String(message.getBody());
             LOGGER.info("Processing DELETE supplier message for ID: {}", id);
 
-            // ... < service handles >
+            supplierService.handleDeleteSupplier(id);
 
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.example.orderprocessingservice.dto.model.personnel;
 
 
+import com.example.orderprocessingservice.utils.constants.EmployeeConstants;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -22,20 +23,20 @@ public class Employee {
     @Column(name = "employee_id")
     private int employee_id;
 
-    @Column(name = "first_name",nullable = false,length = 10)
-    @Size(max = 10)
+    @Column(name = "first_name",nullable = false,length = EmployeeConstants.MAX_FIRST_NAME_LENGTH)
+    @Size(max = EmployeeConstants.MAX_FIRST_NAME_LENGTH)
     private String first_name;
 
-    @Column(name = "last_name",nullable = false,length = 10)
-    @Size(max = 10)
+    @Column(name = "last_name",nullable = false,length = EmployeeConstants.MAX_LAST_NAME_LENGTH)
+    @Size(max = EmployeeConstants.MAX_LAST_NAME_LENGTH)
     private String last_name;
 
-    @Column(name = "phone_number",nullable = false,length = 15,unique = true)
-    @Size(max = 15)
+    @Column(name = "phone_number",nullable = false,length = EmployeeConstants.MAX_PHONE_NUMBER_LENGTH,unique = true)
+    @Size(max = EmployeeConstants.MAX_PHONE_NUMBER_LENGTH)
     private String phone_number;
 
-    @Column(name = "email",nullable = false,length = 50,unique = true)
-    @Size(max = 50)
+    @Column(name = "email",nullable = false,length = EmployeeConstants.MAX_EMAIL_LENGTH,unique = true)
+    @Size(max = EmployeeConstants.MAX_EMAIL_LENGTH)
     private String email;
 
     @ManyToOne

@@ -22,7 +22,7 @@ public class DeleteWareHouseMessageHandler implements MessageHandler {
             String id = new String(message.getBody());
             LOGGER.info("Processing DELETE warehouse message for ID: {}", id);
 
-            // ... < service handles >
+            wareHouseService.handleDeleteWareHouse(id);
 
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         } catch (Exception e) {

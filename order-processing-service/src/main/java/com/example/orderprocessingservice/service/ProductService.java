@@ -16,13 +16,14 @@ public class ProductService {
 
 
     public void handleNewProduct(ProductMP product) {
+        LOGGER.info("Processing new product: {}", product);
 
     }
 
     @Transactional
     public void handleDeleteProduct(String id) {
         LOGGER.info("Processing product deletion for ID: {}", id);
-
+        // Deletion of a Product is not supported at the moment
     }
 
 }

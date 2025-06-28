@@ -1,5 +1,6 @@
 package com.example.orderprocessingservice.dto.model.personnel;
 
+import com.example.orderprocessingservice.utils.constants.WareHouseConstants;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
@@ -27,8 +28,8 @@ public class WareHouse {
     @Column(name = "ware_house_id")
     private int ware_house_id;
 
-    @Column(name = "ware_house_name",unique = true,nullable = false,length = 20)
-    @Size(max = 20)
+    @Column(name = "ware_house_name",unique = true,nullable = false,length = WareHouseConstants.WAREHOUSE_NAME_LENGTH)
+    @Size(max = WareHouseConstants.WAREHOUSE_NAME_LENGTH)
     private String ware_house_name;
 
     @Column(name = "ware_house_capacity",nullable = false)
@@ -44,16 +45,16 @@ public class WareHouse {
     @Column(name = "max_stock_level",nullable = false)
     private int max_stock_level;
 
-    @Column(name = "latitude",nullable = false,precision = 10,scale = 8)
-    @Digits(integer = 2,fraction = 8)
-    @DecimalMin(value = "-90.0")
-    @DecimalMax(value = "90.0")
+    @Column(name = "latitude",nullable = false,precision = WareHouseConstants.LATITUDE_PRECISION,scale = WareHouseConstants.LATITUDE_SCALE)
+    @Digits(integer = WareHouseConstants.LATITUDE_DIGITS_INTEGER,fraction = WareHouseConstants.LATITUDE_DIGITS_FRACTIONAL)
+    @DecimalMin(value = WareHouseConstants.LATITUDE_MIN_DECIMAL)
+    @DecimalMax(value = WareHouseConstants.LATITUDE_MAX_DECIMAL)
     private BigDecimal latitude;
 
-    @Column(name = "longitude",nullable = false,precision = 11,scale = 8)
-    @Digits(integer = 3,fraction = 8)
-    @DecimalMin(value = "-180.0")
-    @DecimalMax(value = "180.0")
+    @Column(name = "longitude",nullable = false,precision = WareHouseConstants.LONGITUDE_PRECISION,scale = WareHouseConstants.LONGITUDE_SCALE)
+    @Digits(integer = WareHouseConstants.LONGITUDE_DIGITS_INTEGER,fraction = WareHouseConstants.LONGITUDE_DIGITS_FRACTIONAL)
+    @DecimalMin(value = WareHouseConstants.LONGITUDE_MIN_DECIMAL)
+    @DecimalMax(value = WareHouseConstants.LONGITUDE_MAX_DECIMAL)
     private BigDecimal longitude;
 
     @OneToMany(mappedBy = "wareHouse")
