@@ -25,16 +25,96 @@ public class OrderMessageConsumer {
     private final ObjectMapper objectMapper;
     private final MessageHandlerFactory messageHandlerFactory;
 
-    @Value("${rocketmq.inventory_add_topic}")
-    private String inventoryAddTopic;
+    /****
+     *
+     * Customer topic
+     *
+     */
+    @Value("${rocketmq.customer_add_topic}")
+    private String customerAddTopic;
 
-    @Value("${rocketmq.inventory_delete_topic}")
-    private String inventoryDeleteTopic;
+    @Value("${rocketmq.customer_delete_topic}")
+    private String customerDeleteTopic;
+
+    /****
+     *
+     * Employee topic
+     *
+     */
+    @Value("${rocketmq.employee_add_topic}")
+    private String employeeAddTopic;
+
+    @Value("${rocketmq.employee_delete_topic}")
+    private String employeeDeleteTopic;
+
+    /****
+     *
+     * Product topic
+     *
+     */
+    @Value("${rocketmq.product_add_topic}")
+    private String productAddTopic;
+
+    @Value("${rocketmq.product_delete_topic}")
+    private String productDeleteTopic;
+
+    /****
+     *
+     * Stock topic
+     *
+     */
+
+    @Value("${rocketmq.stock_add_topic}")
+    private String stockAddTopic;
+
+    @Value("${rocketmq.stock_delete_topic}")
+    private String stockDeleteTopic;
+
+    /****
+     *
+     * Supplier topic
+     *
+     */
+
+    @Value("${rocketmq.supplier_add_topic}")
+    private String supplierAddTopic;
+
+    @Value("${rocketmq.supplier_delete_topic}")
+    private String supplierDeleteTopic;
+
+
+    /****
+     *
+     * WareHouse topic
+     *
+     */
+
+    @Value("${rocketmq.warehouse_add_topic}")
+    private String warehouseAddTopic;
+
+    @Value("${rocketmq.warehouse_delete_topic}")
+    private String warehouseDeleteTopic;
+
 
     @PostConstruct
     public void init() throws Exception {
-        consumer.subscribe(inventoryAddTopic, "*");
-        consumer.subscribe(inventoryDeleteTopic, "*");
+        consumer.subscribe(customerAddTopic, "*");
+        consumer.subscribe(customerDeleteTopic, "*");
+
+        consumer.subscribe(employeeAddTopic, "*");
+        consumer.subscribe(employeeDeleteTopic, "*");
+
+        consumer.subscribe(productAddTopic, "*");
+        consumer.subscribe(productDeleteTopic, "*");
+
+        consumer.subscribe(stockAddTopic, "*");
+        consumer.subscribe(stockDeleteTopic, "*");
+
+        consumer.subscribe(supplierAddTopic, "*");
+        consumer.subscribe(supplierDeleteTopic, "*");
+
+        consumer.subscribe(warehouseAddTopic, "*");
+        consumer.subscribe(warehouseDeleteTopic, "*");
 
         consumer.registerMessageListener((MessageListenerConcurrently) (msgs, context) -> {
             for (MessageExt msg : msgs) {
@@ -53,8 +133,6 @@ public class OrderMessageConsumer {
         });
 
         consumer.start();
-        LOGGER.info("RocketMQ consumer started for topics: {}, {}",
-                inventoryAddTopic, inventoryDeleteTopic);
     }
 
     @PreDestroy

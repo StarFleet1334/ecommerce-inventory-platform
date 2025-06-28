@@ -1,0 +1,20 @@
+package com.example.orderprocessingservice.dto.mapped;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmployeeMP {
+
+    private String first_name;
+    private String last_name;
+    private String email;
+    private String phone_number;
+    private int ware_house_id;
+
+}

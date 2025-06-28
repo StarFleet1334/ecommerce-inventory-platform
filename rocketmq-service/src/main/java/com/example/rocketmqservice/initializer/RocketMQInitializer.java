@@ -40,8 +40,18 @@ public class RocketMQInitializer implements InitializingBean {
 
     private List<com.example.rocketmqservice.model.TopicConfig> getTopicConfigurations() {
         return Arrays.asList(
-                new com.example.rocketmqservice.model.TopicConfig("inventory_add", 4, 4),
-                new com.example.rocketmqservice.model.TopicConfig("inventory_delete", 4, 4)
+                new com.example.rocketmqservice.model.TopicConfig("customer_add", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("customer_delete", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("employee_add", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("employee_delete", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("product_add", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("product_delete", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("stock_add", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("stock_delete", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("supplier_add", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("supplier_delete", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("warehouse_add", 4, 4),
+                new com.example.rocketmqservice.model.TopicConfig("warehouse_delete", 4, 4)
         );
 
     }

@@ -1,5 +1,17 @@
 package com.example.orderprocessingservice.handler;
 
+import com.example.orderprocessingservice.handler.asset.AddProductMessageHandler;
+import com.example.orderprocessingservice.handler.asset.AddStockMessagehandler;
+import com.example.orderprocessingservice.handler.asset.DeleteProductMessageHandler;
+import com.example.orderprocessingservice.handler.asset.DeleteStockMessageHandler;
+import com.example.orderprocessingservice.handler.customer.AddCustomerMessageHandler;
+import com.example.orderprocessingservice.handler.customer.DeleteCustomerMessageHandler;
+import com.example.orderprocessingservice.handler.personnel.AddEmployeeMessageHandler;
+import com.example.orderprocessingservice.handler.personnel.AddWareHouseMessageHandler;
+import com.example.orderprocessingservice.handler.personnel.DeleteEmployeeMessageHandler;
+import com.example.orderprocessingservice.handler.personnel.DeleteWareHouseMessageHandler;
+import com.example.orderprocessingservice.handler.supplier.AddSupplierMessageHandler;
+import com.example.orderprocessingservice.handler.supplier.DeleteSupplierMessageHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,15 +22,61 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class MessageHandlerFactory {
-    private final AddInventoryMessageHandler addInventoryMessageHandler;
-    private final DeleteInventoryMessageHandler deleteInventoryMessageHandler;
     private Map<String, MessageHandler> handlers;
+
+    // Product Handlers
+    private final AddProductMessageHandler addProductMessageHandler;
+    private final DeleteProductMessageHandler deleteProductMessageHandler;
+
+    // Stock Handlers
+    private final AddStockMessagehandler addStockMessagehandler;
+    private final DeleteStockMessageHandler deleteStockMessageHandler;
+
+    // Customer Handlers
+    private final AddCustomerMessageHandler addCustomerMessageHandler;
+    private final DeleteCustomerMessageHandler deleteCustomerMessageHandler;
+
+    // Employee Handlers
+    private final AddEmployeeMessageHandler addEmployeeMessageHandler;
+    private final DeleteEmployeeMessageHandler deleteEmployeeMessageHandler;
+
+    // WareHouse Handlers
+    private final AddWareHouseMessageHandler addWareHouseMessageHandler;
+    private final DeleteWareHouseMessageHandler deleteWareHouseMessageHandler;
+
+    // Supplier Handlers
+    private final AddSupplierMessageHandler addSupplierMessageHandler;
+    private final DeleteSupplierMessageHandler deleteSupplierMessageHandler;
+
+
 
     @PostConstruct
     public void init() {
         handlers = new HashMap<>();
-        handlers.put("inventory_add", addInventoryMessageHandler);
-        handlers.put("inventory_delete", deleteInventoryMessageHandler);
+
+        // Product Handlers
+        handlers.put("product_add",addProductMessageHandler);
+        handlers.put("product_delete",deleteProductMessageHandler);
+
+        // Stock Handlers
+        handlers.put("stock_add",addStockMessagehandler);
+        handlers.put("stock_delete",deleteStockMessageHandler);
+
+        // Customer Handlers
+        handlers.put("customer_add",addCustomerMessageHandler);
+        handlers.put("customer_delete",deleteCustomerMessageHandler);
+
+        // Employee Handlers
+        handlers.put("employee_add",addEmployeeMessageHandler);
+        handlers.put("employee_delete",deleteEmployeeMessageHandler);
+
+        // WareHouse Handlers
+        handlers.put("warehouse_add",addWareHouseMessageHandler);
+        handlers.put("warehouse_delete",deleteWareHouseMessageHandler);
+
+        // Supplier Handlers
+        handlers.put("supplier_add",addSupplierMessageHandler);
+        handlers.put("supplier_delete",deleteSupplierMessageHandler);
     }
 
     public MessageHandler getHandler(String topic) {
