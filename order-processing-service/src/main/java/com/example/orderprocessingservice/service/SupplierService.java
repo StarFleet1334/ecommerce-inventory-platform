@@ -33,17 +33,6 @@ public class SupplierService {
         }
     }
 
-    private Supplier mapToSupplier(SupplierMP supplier) {
-        return Supplier.builder()
-                .first_name(supplier.getFirst_name())
-                .last_name(supplier.getLast_name())
-                .email(supplier.getEmail())
-                .phone_number(supplier.getPhone_number())
-                .latitude(supplier.getLatitude())
-                .longitude(supplier.getLongitude())
-                .build();
-    }
-
     @Transactional
     public void handleDeleteSupplier(String id) {
         LOGGER.info("Processing supplier deletion for ID: {}", id);
@@ -57,5 +46,16 @@ public class SupplierService {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid supplier ID format: " + id);
         }
+    }
+
+    private Supplier mapToSupplier(SupplierMP supplier) {
+        return Supplier.builder()
+                .firstName(supplier.getFirst_name())
+                .lastLame(supplier.getLast_name())
+                .email(supplier.getEmail())
+                .phoneNumber(supplier.getPhone_number())
+                .latitude(supplier.getLatitude())
+                .longitude(supplier.getLongitude())
+                .build();
     }
 }

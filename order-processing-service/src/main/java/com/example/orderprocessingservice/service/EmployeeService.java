@@ -57,10 +57,10 @@ public class EmployeeService {
 
     private Employee mapToEmployee(EmployeeMP employeeMP, WareHouse wareHouse) {
         return Employee.builder()
-                .first_name(employeeMP.getFirst_name())
-                .last_name(employeeMP.getLast_name())
+                .firstName(employeeMP.getFirst_name())
+                .lastName(employeeMP.getLast_name())
                 .email(employeeMP.getEmail())
-                .phone_number(employeeMP.getPhone_number())
+                .phoneNumber(employeeMP.getPhone_number())
                 .wareHouse(wareHouse)
                 .build();
     }

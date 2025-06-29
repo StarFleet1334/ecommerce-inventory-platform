@@ -30,20 +30,24 @@ public class WareHouse {
 
     @Column(name = "ware_house_name",unique = true,nullable = false,length = WareHouseConstants.WAREHOUSE_NAME_LENGTH)
     @Size(max = WareHouseConstants.WAREHOUSE_NAME_LENGTH)
-    private String ware_house_name;
+    @JsonProperty("ware_house_name")
+    private String wareHouseName;
 
     @Column(name = "ware_house_capacity",nullable = false)
-    private int ware_house_capacity;
+    @JsonProperty("ware_house_capacity")
+    private int wareHouseCapacity;
 
     @Column(name = "is_refrigerated")
     @JsonProperty("is_refrigerated")
     private boolean refrigerated;
 
     @Column(name = "min_stock_level",nullable = false)
-    private int min_stock_level;
+    @JsonProperty("min_stock_level")
+    private int minStockLevel;
 
     @Column(name = "max_stock_level",nullable = false)
-    private int max_stock_level;
+    @JsonProperty("max_stock_level")
+    private int maxStockLevel;
 
     @Column(name = "latitude",nullable = false,precision = WareHouseConstants.LATITUDE_PRECISION,scale = WareHouseConstants.LATITUDE_SCALE)
     @Digits(integer = WareHouseConstants.LATITUDE_DIGITS_INTEGER,fraction = WareHouseConstants.LATITUDE_DIGITS_FRACTIONAL)

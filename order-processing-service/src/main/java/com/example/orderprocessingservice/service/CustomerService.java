@@ -52,10 +52,10 @@ public class CustomerService {
 
     private Customer mapToCustomer(CustomerMP customer) {
         return Customer.builder()
-                .first_name(customer.getFirst_name())
-                .last_name(customer.getLast_name())
+                .firstName(customer.getFirst_name())
+                .lastName(customer.getLast_name())
                 .email(customer.getEmail())
-                .phone_number(customer.getPhone_number())
+                .phoneNumber(customer.getPhone_number())
                 .latitude(customer.getLatitude())
                 .longitude(customer.getLongitude())
                 .build();

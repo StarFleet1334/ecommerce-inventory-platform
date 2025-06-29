@@ -123,9 +123,9 @@ public class DataLoader implements CommandLineRunner {
             int currentTotal = warehouseTotals.getOrDefault(wareHouseId, 0);
             int newTotal = currentTotal + quantity;
 
-            if (newTotal > wareHouse.getMax_stock_level()) {
-                System.out.println("❌ Skipped: adding " + quantity + " to " + wareHouse.getWare_house_name() +
-                        " exceeds max_stock_level (" + newTotal + "/" + wareHouse.getMax_stock_level() + ")");
+            if (newTotal > wareHouse.getMaxStockLevel()) {
+                System.out.println("❌ Skipped: adding " + quantity + " to " + wareHouse.getWareHouseName() +
+                        " exceeds max_stock_level (" + newTotal + "/" + wareHouse.getMaxStockLevel() + ")");
                 continue;
             }
 
@@ -136,7 +136,7 @@ public class DataLoader implements CommandLineRunner {
                     .build();
             validStocks.add(stock);
 
-            wareHouse.setWare_house_capacity(newTotal);
+            wareHouse.setWareHouseCapacity(newTotal);
             warehouseTotals.put(wareHouseId, newTotal);
         }
 
@@ -145,7 +145,7 @@ public class DataLoader implements CommandLineRunner {
             Set<Integer> updatedWarehouses = warehouseTotals.keySet();
             List<WareHouse> warehousesToUpdate = wareHouseRepository.findAllById(updatedWarehouses);
             for (WareHouse warehouse : warehousesToUpdate) {
-                warehouse.setWare_house_capacity(warehouseTotals.get(warehouse.getWare_house_id()));
+                warehouse.setWareHouseCapacity(warehouseTotals.get(warehouse.getWare_house_id()));
             }
             wareHouseRepository.saveAll(warehousesToUpdate);
         }

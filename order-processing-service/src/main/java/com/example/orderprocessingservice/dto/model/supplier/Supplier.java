@@ -1,6 +1,7 @@
 package com.example.orderprocessingservice.dto.model.supplier;
 
 import com.example.orderprocessingservice.utils.constants.SupplierConstants;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -28,11 +29,13 @@ public class Supplier {
 
     @Column(name = "first_name",unique = true,nullable = false,length = SupplierConstants.MAX_FIRST_NAME_LENGTH)
     @Size(max = SupplierConstants.MAX_FIRST_NAME_LENGTH)
-    private String first_name;
+    @JsonProperty("first_name")
+    private String firstName;
 
     @Column(name = "last_name",unique = true,nullable = false,length = SupplierConstants.MAX_LAST_NAME_LENGTH)
     @Size(max = SupplierConstants.MAX_LAST_NAME_LENGTH)
-    private String last_name;
+    @JsonProperty("last_name")
+    private String lastLame;
 
     @Column(name = "email",unique = true,nullable = false,length = SupplierConstants.MAX_EMAIL_LENGTH)
     @Size(max = SupplierConstants.MAX_EMAIL_LENGTH)
@@ -40,7 +43,8 @@ public class Supplier {
 
     @Column(name = "phone_number",unique = true,nullable = false,length = SupplierConstants.MAX_PHONE_NUMBER_LENGTH)
     @Size(max = SupplierConstants.MAX_PHONE_NUMBER_LENGTH)
-    private String phone_number;
+    @JsonProperty("phone_number")
+    private String phoneNumber;
 
     @Column(name = "latitude",nullable = false,precision = SupplierConstants.LATITUDE_PRECISION,scale = SupplierConstants.LATITUDE_SCALE)
     @Digits(integer = SupplierConstants.LATITUDE_DIGITS_INTEGER,fraction = SupplierConstants.LATITUDE_DIGITS_FRACTIONAL)

@@ -2,6 +2,7 @@ package com.example.orderprocessingservice.dto.model.customer;
 
 
 import com.example.orderprocessingservice.utils.constants.CustomerConstants;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -29,11 +30,13 @@ public class Customer {
 
     @Column(name = "first_name",nullable = false,length = CustomerConstants.MAX_FIRST_NAME_LENGTH)
     @Size(max = CustomerConstants.MAX_FIRST_NAME_LENGTH)
-    private String first_name;
+    @JsonProperty("first_name")
+    private String firstName;
 
     @Column(name = "last_name",nullable = false,length = CustomerConstants.MAX_LAST_NAME_LENGTH)
     @Size(max = CustomerConstants.MAX_LAST_NAME_LENGTH)
-    private String last_name;
+    @JsonProperty("last_name")
+    private String lastName;
 
     @Column(name = "email",unique = true,nullable = false,length = CustomerConstants.MAX_EMAIL_LENGTH)
     @Size(max = CustomerConstants.MAX_EMAIL_LENGTH)
@@ -41,7 +44,8 @@ public class Customer {
 
     @Column(name = "phone_number",unique = true,nullable = false,length = CustomerConstants.MAX_PHONE_NUMBER_LENGTH)
     @Size(max = CustomerConstants.MAX_PHONE_NUMBER_LENGTH)
-    private String phone_number;
+    @JsonProperty("phone_number")
+    private String phoneNumber;
 
     @Column(name = "latitude",nullable = false,precision = CustomerConstants.LATITUDE_PRECISION,scale = CustomerConstants.LATITUDE_SCALE)
     @Digits(integer = CustomerConstants.LATITUDE_DIGITS_INTEGER,fraction = CustomerConstants.LATITUDE_DIGITS_FRACTIONAL)

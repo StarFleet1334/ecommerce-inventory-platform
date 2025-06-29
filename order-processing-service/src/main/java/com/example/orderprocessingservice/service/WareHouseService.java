@@ -50,11 +50,11 @@ public class WareHouseService {
 
     private WareHouse mapToWareHouse(WareHouseMP wareHouse) {
         return WareHouse.builder()
-                .ware_house_name(wareHouse.getWare_house_name())
-                .ware_house_capacity(0)
+                .wareHouseName(wareHouse.getWare_house_name())
+                .wareHouseCapacity(0)
                 .refrigerated(wareHouse.is_refrigerated())
-                .min_stock_level(wareHouse.getMin_stock_level())
-                .max_stock_level(wareHouse.getMax_stock_level())
+                .minStockLevel(wareHouse.getMin_stock_level())
+                .maxStockLevel(wareHouse.getMax_stock_level())
                 .latitude(wareHouse.getLatitude())
                 .longitude(wareHouse.getLongitude())
                 .build();
