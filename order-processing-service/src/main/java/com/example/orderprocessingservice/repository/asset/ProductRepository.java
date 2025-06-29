@@ -11,4 +11,7 @@ public interface ProductRepository extends JpaRepository<Product, BigInteger> {
     @Query("SELECT p FROM Product p WHERE p.product_id = :product_id")
     Product findByProductId(@Param("product_id") String product_id);
 
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Product p WHERE p.product_id = :product_id")
+    boolean existsByProductId(@Param("product_id") String product_id);
+
 }

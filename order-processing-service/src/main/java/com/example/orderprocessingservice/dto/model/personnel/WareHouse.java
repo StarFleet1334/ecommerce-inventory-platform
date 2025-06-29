@@ -26,7 +26,7 @@ public class WareHouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ware_house_id")
-    private int ware_house_id;
+    private int wareHouseId;
 
     @Column(name = "ware_house_name",unique = true,nullable = false,length = WareHouseConstants.WAREHOUSE_NAME_LENGTH)
     @Size(max = WareHouseConstants.WAREHOUSE_NAME_LENGTH)

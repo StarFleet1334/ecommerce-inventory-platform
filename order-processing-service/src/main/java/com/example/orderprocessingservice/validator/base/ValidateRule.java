@@ -103,5 +103,11 @@ public class ValidateRule<T> {
         return this;
     }
 
+    public ValidateRule<T> custom(Predicate<Object> validation, String errorMessage) {
+        validations.add(Pair.of(validation, errorMessage));
+        return this;
+    }
+
+
 
 }

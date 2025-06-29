@@ -22,7 +22,7 @@ public class DeleteStockMessageHandler implements MessageHandler {
             String id = new String(message.getBody());
             LOGGER.info("Processing DELETE stock message for ID: {}", id);
 
-            // ... < service handles >
+            stockService.handleDeleteStock(id);
 
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         } catch (Exception e) {
