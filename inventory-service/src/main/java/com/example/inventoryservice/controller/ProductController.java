@@ -20,7 +20,7 @@ public class ProductController implements ProductControllerInterface {
         LOGGER.info("Received request to delete product with id: {}", id);
         productService.sendProductDeleteMessage(id);
         LOGGER.info("Product deleted successfully");
-        return ResponseEntity.ok("Product successfully deleted");
+        return ResponseEntity.ok("Product deletion message successfully sent to the queue");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class ProductController implements ProductControllerInterface {
         LOGGER.info("Received request to create product: {}", productMessage);
         productService.sendProductCreateMessage(productMessage);
         LOGGER.info("Product created successfully");
-        return ResponseEntity.ok("Product successfully created");
+        return ResponseEntity.ok("Product creation message successfully sent to the queue");
     }
 }

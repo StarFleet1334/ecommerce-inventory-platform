@@ -20,7 +20,7 @@ public class WareHouseController implements WareHouseControllerInterface {
         LOGGER.info("Received request to delete warehouse with id: {}", id);
         wareHouseService.sendWareHouseDeleteMessage(id);
         LOGGER.info("WareHouse deleted successfully");
-        return ResponseEntity.ok("WareHouse successfully deleted");
+        return ResponseEntity.ok("WareHouse deletion message successfully sent to the queue");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class WareHouseController implements WareHouseControllerInterface {
         LOGGER.info("Received request to create warehouse: {}", wareHouseMessage);
         wareHouseService.sendWareHouseCreateMessage(wareHouseMessage);
         LOGGER.info("WareHouse created successfully");
-        return ResponseEntity.ok("WareHouse successfully created");
+        return ResponseEntity.ok("WareHouse creation message successfully sent to the queue");
     }
 }

@@ -20,7 +20,7 @@ public class EmployeeController implements EmployeeControllerInterface {
         LOGGER.info("Received request to delete employee with id: {}", id);
         employeeService.sendEmployeeDeleteMessage(id);
         LOGGER.info("Employee deleted successfully");
-        return ResponseEntity.ok("Employee successfully deleted");
+        return ResponseEntity.ok("Employee deletion message successfully sent to the queue");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class EmployeeController implements EmployeeControllerInterface {
         LOGGER.info("Received request to create employee: {}", employeeMessage);
         employeeService.sendEmployeeCreateMessage(employeeMessage);
         LOGGER.info("Employee created successfully");
-        return ResponseEntity.ok("Employee successfully created");
+        return ResponseEntity.ok("Employee creation message successfully sent to the queue");
     }
 }

@@ -20,7 +20,7 @@ public class CustomerController implements CustomerControllerInterface {
         LOGGER.info("Received request to delete customer with id: {}", id);
         customerService.sendCustomerDeleteMessage(id);
         LOGGER.info("Customer deleted successfully");
-        return ResponseEntity.ok("Customer successfully deleted");
+        return ResponseEntity.ok("Customer deletion message successfully sent to the queue");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class CustomerController implements CustomerControllerInterface {
         LOGGER.info("Received request to create customer: {}", customerMessage);
         customerService.sendCustomerCreateMessage(customerMessage);
         LOGGER.info("Customer created successfully");
-        return ResponseEntity.ok("Customer successfully created");
+        return ResponseEntity.ok("Customer creation message successfully sent to the queue");
     }
 }

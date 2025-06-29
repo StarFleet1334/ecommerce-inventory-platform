@@ -20,7 +20,7 @@ public class StockController implements StockControllerInterface {
         LOGGER.info("Received request to delete stock with id: {}", id);
         stockService.sendStockDeleteMessage(id);
         LOGGER.info("Stock deleted successfully");
-        return ResponseEntity.ok("Stock successfully deleted");
+        return ResponseEntity.ok("Stock deletion message successfully sent to the queue");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class StockController implements StockControllerInterface {
         LOGGER.info("Received request to create stock: {}", stockMessage);
         stockService.sendStockCreateMessage(stockMessage);
         LOGGER.info("Stock created successfully");
-        return ResponseEntity.ok("Stock successfully created");
+        return ResponseEntity.ok("Stock creation message successfully sent to the queue");
     }
 }

@@ -20,7 +20,7 @@ public class SupplierController implements SupplierControllerInterface {
         LOGGER.info("Received request to delete supplier with id: {}", id);
         supplierService.sendSupplierDeleteMessage(id);
         LOGGER.info("Supplier deleted successfully");
-        return ResponseEntity.ok("Supplier successfully deleted");
+        return ResponseEntity.ok("Supplier deletion message successfully sent to the queue");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class SupplierController implements SupplierControllerInterface {
         LOGGER.info("Received request to create supplier: {}", supplierMessage);
         supplierService.sendSupplierCreateMessage(supplierMessage);
         LOGGER.info("Supplier created successfully");
-        return ResponseEntity.ok("Supplier successfully created");
+        return ResponseEntity.ok("Supplier creation message successfully sent to the queue");
     }
 }
