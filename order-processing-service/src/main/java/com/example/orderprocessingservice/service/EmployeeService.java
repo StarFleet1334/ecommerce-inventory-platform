@@ -24,9 +24,8 @@ public class EmployeeService {
     public void handleNewEmployee(EmployeeMP employee) {
         LOGGER.info("Processing new employee: {}", employee);
 
-        employeeValidator.validateEmployee(employee);
+        employeeValidator.validate(employee);
 
-        // Validating WareHouse Existence for Employee
         WareHouse wareHouse = wareHouseRepository.findById(employee.getWare_house_id())
                 .orElseThrow(() -> new IllegalArgumentException("Warehouse with ID " + employee.getWare_house_id() + " does not exist"));
 
