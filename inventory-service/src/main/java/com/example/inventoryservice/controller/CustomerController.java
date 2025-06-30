@@ -1,6 +1,7 @@
 package com.example.inventoryservice.controller;
 
 import com.example.inventoryservice.entity.messages.CustomerMessage;
+import com.example.inventoryservice.entity.messages.CustomerOrderMessage;
 import com.example.inventoryservice.service.CustomerService;
 import com.example.inventoryservice.skeleton.CustomerControllerInterface;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,13 @@ public class CustomerController implements CustomerControllerInterface {
         customerService.sendCustomerCreateMessage(customerMessage);
         LOGGER.info("Customer created successfully");
         return ResponseEntity.ok("Customer creation message successfully sent to the queue");
+    }
+
+    @Override
+    public ResponseEntity<String> postCustomerOrder(CustomerOrderMessage customerOrderMessage) {
+        LOGGER.info("Received request to create customer order: {}", customerOrderMessage);
+        customerService.sentCustomerOrderMessage(customerOrderMessage);
+        LOGGER.info("Customer order created successfully");
+        return ResponseEntity.ok("Customer order creation message successfully sent to the queue");
     }
 }

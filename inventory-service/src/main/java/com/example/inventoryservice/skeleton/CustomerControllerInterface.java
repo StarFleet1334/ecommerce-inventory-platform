@@ -1,6 +1,7 @@
 package com.example.inventoryservice.skeleton;
 
 import com.example.inventoryservice.entity.messages.CustomerMessage;
+import com.example.inventoryservice.entity.messages.CustomerOrderMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,4 +28,12 @@ public interface CustomerControllerInterface {
             @ApiResponse(responseCode = "400", description = "Invalid or missing fields")
     })
     ResponseEntity<String> postCustomer(@RequestBody CustomerMessage customerMessage);
+
+    @PostMapping("/order")
+    @Operation(summary = "Add Order",description = "Add Customer Order")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Customer Order successfully added."),
+            @ApiResponse(responseCode = "400", description = "Invalid or missing fields")
+    })
+    ResponseEntity<String> postCustomerOrder(@RequestBody CustomerOrderMessage customerOrderMessage);
 }

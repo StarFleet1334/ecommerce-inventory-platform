@@ -1,7 +1,7 @@
 package com.example.orderprocessingservice.dto.model.transaction;
 
 
-import com.example.orderprocessingservice.dto.model.order.Order;
+import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class CustomerTransaction {
 
     @OneToOne
     @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    private CustomerOrder customerOrder;
 
     @Column(name = "expected_delivery_time", nullable = false)
     private OffsetDateTime expected_delivery_time;

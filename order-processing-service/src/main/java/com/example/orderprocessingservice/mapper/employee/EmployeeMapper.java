@@ -3,12 +3,15 @@ package com.example.orderprocessingservice.mapper.employee;
 import com.example.orderprocessingservice.dto.eventDto.EmployeeMP;
 import com.example.orderprocessingservice.dto.model.personnel.Employee;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
+import com.example.orderprocessingservice.exception.personnel.WareHouseException;
 import com.example.orderprocessingservice.mapper.base.BaseMapper;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public abstract class EmployeeMapper implements BaseMapper<EmployeeMP, Employee> {
@@ -28,8 +31,11 @@ public abstract class EmployeeMapper implements BaseMapper<EmployeeMP, Employee>
 
     @Named("mapWareHouse")
     protected WareHouse mapWareHouse(int wareHouseId) {
-        return wareHouseRepository.findById(wareHouseId)
-                .orElseThrow(() -> new IllegalArgumentException("WareHouse not found with id: " + wareHouseId));
+        Optional<WareHouse> wareHouse = wareHouseRepository.findById(wareHouseId);
+        if (wareHouse.isEmpty()) {
+            throw WareHouseException.notFound(wareHouseId);
+        }
+        return wareHouse.get();
     }
 }
 

@@ -95,6 +95,16 @@ public class OrderMessageConsumer {
     @Value("${rocketmq.warehouse_delete_topic}")
     private String warehouseDeleteTopic;
 
+    /****
+     *
+     *
+     * Customer Order
+     *
+     */
+
+    @Value("${rocketmq.customer_order_topic}")
+    private String customerOrderTopic;
+
 
     @PostConstruct
     public void init() throws Exception {
@@ -115,6 +125,8 @@ public class OrderMessageConsumer {
 
         consumer.subscribe(warehouseAddTopic, "*");
         consumer.subscribe(warehouseDeleteTopic, "*");
+
+        consumer.subscribe(customerOrderTopic, "*");
 
         consumer.registerMessageListener((MessageListenerConcurrently) (msgs, context) -> {
             for (MessageExt msg : msgs) {
