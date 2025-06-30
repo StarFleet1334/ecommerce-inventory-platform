@@ -2,6 +2,7 @@ package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.eventDto.EmployeeMP;
 import com.example.orderprocessingservice.dto.model.personnel.Employee;
+import com.example.orderprocessingservice.exception.personnel.EmployeeException;
 import com.example.orderprocessingservice.mapper.employee.EmployeeMapper;
 import com.example.orderprocessingservice.repository.personnel.EmployeeRepository;
 import com.example.orderprocessingservice.validator.EmployeeValidator;
@@ -42,7 +43,7 @@ public class EmployeeService {
         try {
             int employeeId = Integer.parseInt(id);
             if (!employeeRepository.existsById(employeeId)) {
-                throw new IllegalArgumentException("Employee with ID " + id + " does not exist");
+                throw EmployeeException.notFound(employeeId);
             }
             employeeRepository.deleteById(employeeId);
             LOGGER.info("Successfully deleted employee with ID: {}", id);

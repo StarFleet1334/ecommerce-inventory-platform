@@ -2,6 +2,7 @@ package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.eventDto.SupplierMP;
 import com.example.orderprocessingservice.dto.model.supplier.Supplier;
+import com.example.orderprocessingservice.exception.supplier.SupplierException;
 import com.example.orderprocessingservice.mapper.supplier.SupplierMapper;
 import com.example.orderprocessingservice.repository.supplier.SupplierRepository;
 import com.example.orderprocessingservice.validator.SupplierValidator;
@@ -41,7 +42,7 @@ public class SupplierService {
         try {
             int supplierId = Integer.parseInt(id);
             if (!supplierRepository.existsById(supplierId)) {
-                throw new IllegalArgumentException("Supplier with ID " + id + " does not exist");
+                throw SupplierException.notFound(supplierId);
             }
             supplierRepository.deleteById(supplierId);
             LOGGER.info("Successfully deleted supplier with ID: {}", id);

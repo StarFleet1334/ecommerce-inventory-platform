@@ -4,6 +4,7 @@ import com.example.orderprocessingservice.dto.eventDto.ProductMP;
 import com.example.orderprocessingservice.dto.model.asset.Product;
 import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
+import com.example.orderprocessingservice.exception.asset.ProductException;
 import com.example.orderprocessingservice.mapper.product.ProductMapper;
 import com.example.orderprocessingservice.repository.asset.ProductRepository;
 import com.example.orderprocessingservice.repository.asset.StockRepository;
@@ -47,7 +48,7 @@ public class ProductService {
 
         Product product = productRepository.findByProductId(id);
         if (product == null) {
-            throw new IllegalArgumentException("Product with ID " + id + " does not exist");
+            throw ProductException.notFound(id);
         }
         List<Stock> stocksToDelete = stockRepository.findAllByProductId(id);
         for (Stock stock : stocksToDelete) {

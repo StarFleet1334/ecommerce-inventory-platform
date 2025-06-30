@@ -3,6 +3,8 @@ package com.example.orderprocessingservice.service;
 import com.example.orderprocessingservice.dto.eventDto.StockMP;
 import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
+import com.example.orderprocessingservice.exception.asset.StockException;
+import com.example.orderprocessingservice.exception.personnel.WareHouseException;
 import com.example.orderprocessingservice.mapper.stock.StockMapper;
 import com.example.orderprocessingservice.repository.asset.StockRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
@@ -12,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,10 +37,7 @@ public class StockService {
         int newTotalStock = wareHouse.getWareHouseCapacity() + stock.getQuantity();
 
         if (newTotalStock > wareHouse.getMaxStockLevel()) {
-            throw new IllegalStateException(
-                    String.format("Adding %d items would exceed warehouse maximum capacity of %d",
-                            stock.getQuantity(), wareHouse.getMaxStockLevel())
-            );
+            throw StockException.capacityExceeded(wareHouse.getWareHouseId(),newTotalStock,wareHouse.getWareHouseCapacity());
         }
 
         Stock newStock = stockMapper.toEntity(stock);
@@ -61,21 +62,27 @@ public class StockService {
         try {
             int stockId = Integer.parseInt(id);
 
-            Stock stock = stockRepository.findById(stockId)
-                    .orElseThrow(() -> new IllegalArgumentException("Stock with ID " + id + " does not exist"));
-
-            WareHouse wareHouse = wareHouseRepository.findById(stock.getWareHouse().getWareHouseId())
-                    .orElseThrow(() -> new IllegalArgumentException("Warehouse not found for stock ID: " + id));
-
-            int newCapacity = wareHouse.getWareHouseCapacity() - stock.getQuantity();
-            if (newCapacity < wareHouse.getMinStockLevel()) {
-                LOGGER.warn("Deleting stock will bring warehouse {} below minimum stock level ({} < {})",
-                        wareHouse.getWareHouseId(), newCapacity, wareHouse.getMinStockLevel());
+            Optional<Stock> stock = stockRepository.findById(stockId);
+            if (stock.isEmpty()) {
+                throw StockException.notFound(id);
             }
 
-            wareHouse.setWareHouseCapacity(newCapacity);
-            wareHouseRepository.save(wareHouse);
-            stockRepository.delete(stock);
+            int wareHouseId = stock.get().getWareHouse().getWareHouseId();
+            Optional<WareHouse> wareHouse = wareHouseRepository.findById(wareHouseId);
+            if (wareHouse.isEmpty()) {
+                throw WareHouseException.notFound(wareHouseId);
+            }
+            WareHouse wareHouseEntity = wareHouse.get();
+
+            int newCapacity = wareHouseEntity.getWareHouseCapacity() - stock.get().getQuantity();
+            if (newCapacity < wareHouseEntity.getMinStockLevel()) {
+                LOGGER.warn("Deleting stock will bring warehouse {} below minimum stock level ({} < {})",
+                        wareHouseEntity.getWareHouseId(), newCapacity, wareHouseEntity.getMinStockLevel());
+            }
+
+            wareHouseEntity.setWareHouseCapacity(newCapacity);
+            wareHouseRepository.save(wareHouseEntity);
+            stockRepository.delete(stock.get());
 
             LOGGER.info("Successfully deleted Stock with ID: {} and updated warehouse capacity to {}",
                     id, newCapacity);

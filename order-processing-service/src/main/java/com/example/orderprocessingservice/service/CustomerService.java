@@ -2,6 +2,7 @@ package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.eventDto.CustomerMP;
 import com.example.orderprocessingservice.dto.model.customer.Customer;
+import com.example.orderprocessingservice.exception.customer.CustomerException;
 import com.example.orderprocessingservice.mapper.customer.CustomerMapper;
 import com.example.orderprocessingservice.repository.customer.CustomerRepository;
 import com.example.orderprocessingservice.validator.CustomerValidator;
@@ -43,7 +44,7 @@ public class CustomerService {
         try {
             int customerId = Integer.parseInt(id);
             if (!customerRepository.existsById(customerId)) {
-                throw new IllegalArgumentException("Customer with ID " + id + " does not exist");
+                throw CustomerException.notFound(customerId);
             }
             customerRepository.deleteById(customerId);
             LOGGER.info("Successfully deleted customer with ID: {}", id);

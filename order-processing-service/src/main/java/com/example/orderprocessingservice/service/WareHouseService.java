@@ -2,6 +2,7 @@ package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.eventDto.WareHouseMP;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
+import com.example.orderprocessingservice.exception.personnel.WareHouseException;
 import com.example.orderprocessingservice.mapper.warehouse.WarehouseMapper;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
 import com.example.orderprocessingservice.validator.WareHouseValidator;
@@ -41,7 +42,7 @@ public class WareHouseService {
         try {
             int wareHouseId = Integer.parseInt(id);
             if (!wareHouseRepository.existsById(wareHouseId)) {
-                throw new IllegalArgumentException("WareHouse with ID " + id + " does not exist");
+                throw WareHouseException.notFound(wareHouseId);
             }
             wareHouseRepository.deleteById(wareHouseId);
             LOGGER.info("Successfully deleted wareHouse with ID: {}", id);
