@@ -2,6 +2,7 @@ package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.mapped.WareHouseMP;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
+import com.example.orderprocessingservice.mapper.warehouse.WarehouseMapper;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
 import com.example.orderprocessingservice.validator.WareHouseValidator;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +17,14 @@ public class WareHouseService {
     private static final Logger LOGGER = LoggerFactory.getLogger(WareHouseService.class);
     private final WareHouseRepository wareHouseRepository;
     private final WareHouseValidator wareHouseValidator;
+    private final WarehouseMapper warehouseMapper;
 
     public void handleNewWareHouse(WareHouseMP wareHouse) {
         LOGGER.info("Processing new warehouse: {}", wareHouse);
 
         wareHouseValidator.validate(wareHouse);
 
-        WareHouse newWareHouse = mapToWareHouse(wareHouse);
+        WareHouse newWareHouse = warehouseMapper.toEntity(wareHouse);
 
         try {
             wareHouseRepository.save(newWareHouse);
@@ -48,15 +50,4 @@ public class WareHouseService {
         }
     }
 
-    private WareHouse mapToWareHouse(WareHouseMP wareHouse) {
-        return WareHouse.builder()
-                .wareHouseName(wareHouse.getWare_house_name())
-                .wareHouseCapacity(0)
-                .refrigerated(wareHouse.is_refrigerated())
-                .minStockLevel(wareHouse.getMin_stock_level())
-                .maxStockLevel(wareHouse.getMax_stock_level())
-                .latitude(wareHouse.getLatitude())
-                .longitude(wareHouse.getLongitude())
-                .build();
-    }
 }

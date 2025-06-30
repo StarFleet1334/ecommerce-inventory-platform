@@ -145,7 +145,7 @@ public class DataLoader implements CommandLineRunner {
             Set<Integer> updatedWarehouses = warehouseTotals.keySet();
             List<WareHouse> warehousesToUpdate = wareHouseRepository.findAllById(updatedWarehouses);
             for (WareHouse warehouse : warehousesToUpdate) {
-                warehouse.setWareHouseCapacity(warehouseTotals.get(warehouse.getWare_house_id()));
+                warehouse.setWareHouseCapacity(warehouseTotals.get(warehouse.getWareHouseId()));
             }
             wareHouseRepository.saveAll(warehousesToUpdate);
         }

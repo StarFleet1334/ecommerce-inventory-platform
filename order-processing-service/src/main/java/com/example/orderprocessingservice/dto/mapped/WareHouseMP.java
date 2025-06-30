@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class WareHouseMP {
 
     private String ware_house_name;
-    private boolean is_refrigerated;
+    private boolean refrigerated;
     private int min_stock_level;
     private int max_stock_level;
     private BigDecimal latitude;

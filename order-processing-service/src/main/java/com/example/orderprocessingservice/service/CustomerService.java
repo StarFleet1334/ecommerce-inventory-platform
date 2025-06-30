@@ -2,6 +2,7 @@ package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.mapped.CustomerMP;
 import com.example.orderprocessingservice.dto.model.customer.Customer;
+import com.example.orderprocessingservice.mapper.customer.CustomerMapper;
 import com.example.orderprocessingservice.repository.customer.CustomerRepository;
 import com.example.orderprocessingservice.validator.CustomerValidator;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class CustomerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerService.class);
     private final CustomerRepository customerRepository;
     private final CustomerValidator customerValidator;
+    private final CustomerMapper customerMapper;
 
     @Transactional
     public void handleNewCustomer(CustomerMP customer) {
@@ -24,7 +26,7 @@ public class CustomerService {
 
         customerValidator.validate(customer);
 
-        Customer newCustomer = mapToCustomer(customer);
+        Customer newCustomer = customerMapper.toEntity(customer);
 
         try {
             customerRepository.save(newCustomer);
@@ -50,14 +52,4 @@ public class CustomerService {
         }
     }
 
-    private Customer mapToCustomer(CustomerMP customer) {
-        return Customer.builder()
-                .firstName(customer.getFirst_name())
-                .lastName(customer.getLast_name())
-                .email(customer.getEmail())
-                .phoneNumber(customer.getPhone_number())
-                .latitude(customer.getLatitude())
-                .longitude(customer.getLongitude())
-                .build();
-    }
 }

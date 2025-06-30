@@ -1,10 +1,9 @@
 package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.mapped.StockMP;
-import com.example.orderprocessingservice.dto.model.asset.Product;
 import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
-import com.example.orderprocessingservice.repository.asset.ProductRepository;
+import com.example.orderprocessingservice.mapper.stock.StockMapper;
 import com.example.orderprocessingservice.repository.asset.StockRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
 import com.example.orderprocessingservice.validator.StockValidator;
@@ -21,7 +20,7 @@ public class StockService {
     private final StockRepository stockRepository;
     private final StockValidator stockValidator;
     private final WareHouseRepository wareHouseRepository;
-    private final ProductRepository productRepository;
+    private final StockMapper stockMapper;
 
     @Transactional
     public void handleNewStock(StockMP stock) {
@@ -30,7 +29,6 @@ public class StockService {
         stockValidator.validate(stock);
 
         WareHouse wareHouse = wareHouseRepository.findById(stock.getWare_house_id()).get();
-        Product product = productRepository.findByProductId(stock.getProduct_id());
 
         int newTotalStock = wareHouse.getWareHouseCapacity() + stock.getQuantity();
 
@@ -41,7 +39,7 @@ public class StockService {
             );
         }
 
-        Stock newStock = mapToStock(stock,wareHouse,product);
+        Stock newStock = stockMapper.toEntity(stock);
 
         try {
             stockRepository.save(newStock);
@@ -87,11 +85,4 @@ public class StockService {
         }
     }
 
-    private Stock mapToStock(StockMP stock, WareHouse wareHouse, Product product) {
-        return Stock.builder()
-                .wareHouse(wareHouse)
-                .product(product)
-                .quantity(stock.getQuantity())
-                .build();
-    }
 }

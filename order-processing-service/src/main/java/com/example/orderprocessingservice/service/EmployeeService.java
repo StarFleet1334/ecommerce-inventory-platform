@@ -2,9 +2,8 @@ package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.mapped.EmployeeMP;
 import com.example.orderprocessingservice.dto.model.personnel.Employee;
-import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
+import com.example.orderprocessingservice.mapper.employee.EmployeeMapper;
 import com.example.orderprocessingservice.repository.personnel.EmployeeRepository;
-import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
 import com.example.orderprocessingservice.validator.EmployeeValidator;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -17,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmployeeService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeService.class);
     private final EmployeeRepository employeeRepository;
-    private final WareHouseRepository wareHouseRepository;
     private final EmployeeValidator employeeValidator;
+    private final EmployeeMapper employeeMapper;
 
     @Transactional
     public void handleNewEmployee(EmployeeMP employee) {
@@ -26,10 +25,7 @@ public class EmployeeService {
 
         employeeValidator.validate(employee);
 
-        WareHouse wareHouse = wareHouseRepository.findById(employee.getWare_house_id())
-                .orElseThrow(() -> new IllegalArgumentException("Warehouse with ID " + employee.getWare_house_id() + " does not exist"));
-
-        Employee newEmployee = mapToEmployee(employee, wareHouse);
+        Employee newEmployee = employeeMapper.toEntity(employee);
 
         try {
             employeeRepository.save(newEmployee);
@@ -55,14 +51,5 @@ public class EmployeeService {
         }
     }
 
-    private Employee mapToEmployee(EmployeeMP employeeMP, WareHouse wareHouse) {
-        return Employee.builder()
-                .firstName(employeeMP.getFirst_name())
-                .lastName(employeeMP.getLast_name())
-                .email(employeeMP.getEmail())
-                .phoneNumber(employeeMP.getPhone_number())
-                .wareHouse(wareHouse)
-                .build();
-    }
 
 }

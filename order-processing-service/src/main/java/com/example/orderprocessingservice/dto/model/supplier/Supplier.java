@@ -35,7 +35,7 @@ public class Supplier {
     @Column(name = "last_name",unique = true,nullable = false,length = SupplierConstants.MAX_LAST_NAME_LENGTH)
     @Size(max = SupplierConstants.MAX_LAST_NAME_LENGTH)
     @JsonProperty("last_name")
-    private String lastLame;
+    private String lastName;
 
     @Column(name = "email",unique = true,nullable = false,length = SupplierConstants.MAX_EMAIL_LENGTH)
     @Size(max = SupplierConstants.MAX_EMAIL_LENGTH)

@@ -2,6 +2,7 @@ package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.mapped.SupplierMP;
 import com.example.orderprocessingservice.dto.model.supplier.Supplier;
+import com.example.orderprocessingservice.mapper.supplier.SupplierMapper;
 import com.example.orderprocessingservice.repository.supplier.SupplierRepository;
 import com.example.orderprocessingservice.validator.SupplierValidator;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +17,14 @@ public class SupplierService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SupplierService.class);
     private final SupplierRepository supplierRepository;
     private final SupplierValidator supplierValidator;
+    private final SupplierMapper supplierMapper;
 
     public void handleNewSupplier(SupplierMP supplier) {
         LOGGER.info("Processing new supplier: {}", supplier);
 
         supplierValidator.validate(supplier);
 
-        Supplier newSupplier = mapToSupplier(supplier);
+        Supplier newSupplier = supplierMapper.toEntity(supplier);
 
         try {
             supplierRepository.save(newSupplier);
@@ -48,14 +50,4 @@ public class SupplierService {
         }
     }
 
-    private Supplier mapToSupplier(SupplierMP supplier) {
-        return Supplier.builder()
-                .firstName(supplier.getFirst_name())
-                .lastLame(supplier.getLast_name())
-                .email(supplier.getEmail())
-                .phoneNumber(supplier.getPhone_number())
-                .latitude(supplier.getLatitude())
-                .longitude(supplier.getLongitude())
-                .build();
-    }
 }
