@@ -1,6 +1,6 @@
 package com.example.orderprocessingservice.handler.personnel;
 
-import com.example.orderprocessingservice.dto.mapped.EmployeeMP;
+import com.example.orderprocessingservice.dto.eventDto.EmployeeMP;
 import com.example.orderprocessingservice.handler.MessageHandler;
 import com.example.orderprocessingservice.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;

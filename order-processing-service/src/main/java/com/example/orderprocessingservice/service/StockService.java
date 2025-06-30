@@ -1,6 +1,6 @@
 package com.example.orderprocessingservice.service;
 
-import com.example.orderprocessingservice.dto.mapped.StockMP;
+import com.example.orderprocessingservice.dto.eventDto.StockMP;
 import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.mapper.stock.StockMapper;

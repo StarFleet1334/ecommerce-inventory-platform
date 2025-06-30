@@ -1,6 +1,6 @@
 package com.example.orderprocessingservice.validator;
 
-import com.example.orderprocessingservice.dto.mapped.StockMP;
+import com.example.orderprocessingservice.dto.eventDto.StockMP;
 import com.example.orderprocessingservice.repository.asset.ProductRepository;
 import com.example.orderprocessingservice.repository.asset.StockRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;

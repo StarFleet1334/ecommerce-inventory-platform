@@ -1,6 +1,6 @@
 package com.example.orderprocessingservice.validator;
 
-import com.example.orderprocessingservice.dto.mapped.WareHouseMP;
+import com.example.orderprocessingservice.dto.eventDto.WareHouseMP;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
 import com.example.orderprocessingservice.utils.constants.WareHouseConstants;
 import com.example.orderprocessingservice.validator.base.BaseEntityValidator;

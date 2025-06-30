@@ -1,6 +1,6 @@
 package com.example.orderprocessingservice.handler.asset;
 
-import com.example.orderprocessingservice.dto.mapped.ProductMP;
+import com.example.orderprocessingservice.dto.eventDto.ProductMP;
 import com.example.orderprocessingservice.handler.MessageHandler;
 import com.example.orderprocessingservice.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;

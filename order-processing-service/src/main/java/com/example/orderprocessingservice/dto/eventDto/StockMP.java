@@ -1,4 +1,4 @@
-package com.example.orderprocessingservice.dto.mapped;
+package com.example.orderprocessingservice.dto.eventDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

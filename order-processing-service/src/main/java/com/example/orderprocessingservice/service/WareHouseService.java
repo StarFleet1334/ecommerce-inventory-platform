@@ -1,6 +1,6 @@
 package com.example.orderprocessingservice.service;
 
-import com.example.orderprocessingservice.dto.mapped.WareHouseMP;
+import com.example.orderprocessingservice.dto.eventDto.WareHouseMP;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.mapper.warehouse.WarehouseMapper;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;

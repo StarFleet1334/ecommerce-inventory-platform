@@ -1,6 +1,6 @@
 package com.example.orderprocessingservice.mapper.product;
 
-import com.example.orderprocessingservice.dto.mapped.ProductMP;
+import com.example.orderprocessingservice.dto.eventDto.ProductMP;
 import com.example.orderprocessingservice.dto.model.asset.Product;
 import com.example.orderprocessingservice.mapper.base.BaseMapper;
 import org.mapstruct.Mapper;
