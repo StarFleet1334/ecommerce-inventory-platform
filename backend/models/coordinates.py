@@ -8,7 +8,7 @@ class Coordinates:
 
     def to_tuple(self) -> Tuple[float, float]:
         """Convert coordinates to a tuple format (latitude, longitude)"""
-        return (self.latitude, self.longitude)
+        return self.latitude, self.longitude
 
     @classmethod
     def from_tuple(cls, coords: Tuple[float, float]) -> 'Coordinates':
