@@ -1,0 +1,5 @@
+
+In Terminal
+1. Docker must be up and running either with client or GUI
+2. docker build -t eta-client .
+3. docker run eta-client

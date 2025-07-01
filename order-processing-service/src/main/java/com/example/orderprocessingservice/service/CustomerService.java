@@ -73,6 +73,7 @@ public class CustomerService {
 
         try {
             customerOrderRepository.save(newCustomerOrder);
+
             // ... here should follow later customer transaction table saving and logic
             // of time computation based on location of customer and wareHouse (For Now, Before Drivers are implemented!)
             LOGGER.info("Successfully saved new customer order: {}",customerOrder);
