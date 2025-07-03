@@ -4,4 +4,5 @@ import com.example.orderprocessingservice.dto.model.transaction.CustomerTransact
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerTransactionRepository extends JpaRepository<CustomerTransaction, Integer> {
+    CustomerTransaction findByCustomerOrder_OrderId(int orderId);
 }
