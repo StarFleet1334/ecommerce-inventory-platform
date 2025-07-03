@@ -8,6 +8,7 @@ import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
 import com.example.orderprocessingservice.dto.model.order.RouteCalculationResponse;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.dto.model.transaction.CustomerTransaction;
+import com.example.orderprocessingservice.exception.asset.StockException;
 import com.example.orderprocessingservice.exception.customer.CustomerException;
 import com.example.orderprocessingservice.mapper.customer.CustomerMapper;
 import com.example.orderprocessingservice.mapper.customer.CustomerOrderMapper;
@@ -87,13 +88,38 @@ public class CustomerService {
 
         customerOrderValidator.validate(customerOrder);
 
+        List<Stock> stockList = stockRepository.findAllByProductId(customerOrder.getProduct_id());
+        Stock selectedStock = null;
+        WareHouse selectedWareHouse = null;
+
+        for (Stock stock : stockList) {
+            if (stock.getQuantity() >= customerOrder.getProduct_amount()) {
+                selectedStock = stock;
+                selectedWareHouse = stock.getWareHouse();
+                break;
+            }
+        }
+
+        if (selectedStock == null) {
+            throw StockException.insufficientStock(customerOrder.getProduct_id(),customerOrder.getProduct_amount(),0);
+        }
+
+        selectedStock.setQuantity(selectedStock.getQuantity() - customerOrder.getProduct_amount ());
+        selectedWareHouse.setWareHouseCapacity(selectedWareHouse.getWareHouseCapacity() - customerOrder.getProduct_amount());
+
+        if (selectedStock.getQuantity() <= 0) {
+            stockRepository.delete(selectedStock);
+        }
+
+        stockRepository.save(selectedStock);
+        wareHouseRepository.save(selectedWareHouse);
+
         CustomerOrder newCustomerOrder = customerOrderMapper.toEntity(customerOrder);
 
         try {
             customerOrderRepository.save(newCustomerOrder);
             LOGGER.info("Successfully saved new customer order: {}", customerOrder);
 
-            List<Stock> stockList = stockRepository.findAllByProductId(customerOrder.getProduct_id());
             Set<Pair<BigDecimal, BigDecimal>> wareHouseList = new HashSet<>();
             for (Stock stock : stockList) {
                 WareHouse wareHouse = stock.getWareHouse();
@@ -140,8 +166,6 @@ public class CustomerService {
             LOGGER.error("Failed to save customer order: {}", e.getMessage());
             throw new RuntimeException("Failed to save customer order", e);
         }
-
-
     }
 
 }

@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: order-processing-service
+    ports:
+      - "8083:8083"
     env_file:
       - .env
     environment:
@@ -15,6 +17,7 @@ services:
       - LOGGING_LEVEL_ROOT=INFO
       - ROCKET_MQ_CONSUMER_GROUP=order-processing-group
       - LOGGING_LEVEL_COM_EXAMPLE_INVENTORYSERVICE=DEBUG
+      - SERVER_PORT=8083
     networks:
       - rocketmq-net
 
