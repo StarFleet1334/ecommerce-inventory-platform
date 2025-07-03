@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -105,28 +107,27 @@ public class OrderMessageConsumer {
     @Value("${rocketmq.customer_order_topic}")
     private String customerOrderTopic;
 
+    /****
+     *
+     *
+     * Supply
+     *
+     *
+     */
+
+    @Value("${rocketmq.supply_add_topic}")
+    private String supplyAddTopic;
+
+    @Value("${rocketmq.supply_delete_topic}")
+    private String supplyDeleteTopic;
+
 
     @PostConstruct
     public void init() throws Exception {
-        consumer.subscribe(customerAddTopic, "*");
-        consumer.subscribe(customerDeleteTopic, "*");
-
-        consumer.subscribe(employeeAddTopic, "*");
-        consumer.subscribe(employeeDeleteTopic, "*");
-
-        consumer.subscribe(productAddTopic, "*");
-        consumer.subscribe(productDeleteTopic, "*");
-
-        consumer.subscribe(stockAddTopic, "*");
-        consumer.subscribe(stockDeleteTopic, "*");
-
-        consumer.subscribe(supplierAddTopic, "*");
-        consumer.subscribe(supplierDeleteTopic, "*");
-
-        consumer.subscribe(warehouseAddTopic, "*");
-        consumer.subscribe(warehouseDeleteTopic, "*");
-
-        consumer.subscribe(customerOrderTopic, "*");
+        for (String topic : getAllTopics()) {
+            consumer.subscribe(topic, "*");
+            LOGGER.info("Subscribed to topic: {}", topic);
+        }
 
         consumer.registerMessageListener((MessageListenerConcurrently) (msgs, context) -> {
             for (MessageExt msg : msgs) {
@@ -151,4 +152,25 @@ public class OrderMessageConsumer {
     public void destroy() {
         Optional.ofNullable(consumer).ifPresent(DefaultMQPushConsumer::shutdown);
     }
+
+    private List<String> getAllTopics() {
+        return Arrays.asList(
+                customerAddTopic,
+                customerDeleteTopic,
+                employeeAddTopic,
+                employeeDeleteTopic,
+                productAddTopic,
+                productDeleteTopic,
+                stockAddTopic,
+                stockDeleteTopic,
+                supplierAddTopic,
+                supplierDeleteTopic,
+                warehouseAddTopic,
+                warehouseDeleteTopic,
+                customerOrderTopic,
+                supplyAddTopic,
+                supplyDeleteTopic
+        );
+    }
+
 }

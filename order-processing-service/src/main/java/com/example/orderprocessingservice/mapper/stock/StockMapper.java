@@ -4,6 +4,7 @@ import com.example.orderprocessingservice.dto.eventDto.StockMP;
 import com.example.orderprocessingservice.dto.model.asset.Product;
 import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
+import com.example.orderprocessingservice.exception.personnel.WareHouseException;
 import com.example.orderprocessingservice.mapper.base.BaseMapper;
 import com.example.orderprocessingservice.repository.asset.ProductRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
@@ -11,6 +12,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public abstract class StockMapper implements BaseMapper<StockMP, Stock> {
@@ -29,9 +32,11 @@ public abstract class StockMapper implements BaseMapper<StockMP, Stock> {
 
     @Named("mapWareHouse")
     protected WareHouse mapWareHouse(int wareHouseId) {
-        return wareHouseRepository.findById(wareHouseId)
-                .orElseThrow(() -> new IllegalArgumentException(
-                        String.format("WareHouse not found with id: %d", wareHouseId)));
+        Optional<WareHouse> wareHouse = wareHouseRepository.findById(wareHouseId);
+        if (wareHouse.isEmpty()) {
+            throw WareHouseException.notFound(wareHouseId);
+        }
+        return wareHouse.get();
     }
 
     @Named("mapProduct")
