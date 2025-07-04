@@ -1,9 +1,6 @@
 package com.example.orderprocessingservice.handler;
 
-import com.example.orderprocessingservice.handler.asset.AddProductMessageHandler;
-import com.example.orderprocessingservice.handler.asset.AddStockMessagehandler;
-import com.example.orderprocessingservice.handler.asset.DeleteProductMessageHandler;
-import com.example.orderprocessingservice.handler.asset.DeleteStockMessageHandler;
+import com.example.orderprocessingservice.handler.asset.*;
 import com.example.orderprocessingservice.handler.customer.AddCustomerMessageHandler;
 import com.example.orderprocessingservice.handler.customer.AddCustomerOrderMessageHandler;
 import com.example.orderprocessingservice.handler.customer.DeleteCustomerMessageHandler;
@@ -52,6 +49,10 @@ public class MessageHandlerFactory {
     // Customer Order Handler
     private final AddCustomerOrderMessageHandler addCustomerOrderMessageHandler;
 
+    // Supply Handlers
+    private final AddSupplyMessageHandler addSupplyMessageHandler;
+    private final DeleteSupplyMessageHandler deleteSupplyMessageHandler;
+
 
     @PostConstruct
     public void init() {
@@ -83,6 +84,10 @@ public class MessageHandlerFactory {
 
         // Customer Order Handlers
         handlers.put("customer_order",addCustomerOrderMessageHandler);
+
+        // Supply Handlers
+        handlers.put("supply_add",addSupplyMessageHandler);
+        handlers.put("supply_delete",deleteSupplyMessageHandler);
     }
 
     public MessageHandler getHandler(String topic) {

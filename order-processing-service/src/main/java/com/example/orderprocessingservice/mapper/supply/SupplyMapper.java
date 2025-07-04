@@ -12,59 +12,49 @@ import com.example.orderprocessingservice.mapper.base.BaseMapper;
 import com.example.orderprocessingservice.repository.asset.ProductRepository;
 import com.example.orderprocessingservice.repository.personnel.EmployeeRepository;
 import com.example.orderprocessingservice.repository.supplier.SupplierRepository;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
-
+@Mapper(componentModel = "spring")
 public abstract class SupplyMapper implements BaseMapper<SupplyMP, Supply> {
-
     @Autowired
     protected ProductRepository productRepository;
 
     @Autowired
-    protected EmployeeRepository employeeRepository;
-
-    @Autowired
     protected SupplierRepository supplierRepository;
 
+    @Autowired
+    protected EmployeeRepository employeeRepository;
+
     @Override
-    @Mapping(target = "id", ignore = true)
-    @Mapping(source = "supplier_id", target = "supplier", qualifiedByName = "mapSupplier")
     @Mapping(source = "product_id", target = "product", qualifiedByName = "mapProduct")
+    @Mapping(source = "supplier_id", target = "supplier", qualifiedByName = "mapSupplier")
     @Mapping(source = "employee_id", target = "employee", qualifiedByName = "mapEmployee")
     @Mapping(source = "supply_time", target = "supplyTime")
     @Mapping(source = "amount", target = "amount")
+    @Mapping(target = "id", ignore = true)
     public abstract Supply toEntity(SupplyMP dto);
 
-    @Named("mapSupplier")
-    protected Supplier mapSupplier(int supplier_id) {
-        Optional<Supplier> supplier = supplierRepository.findById(supplier_id);
-        if (supplier.isEmpty()) {
-            throw SupplierException.notFound(supplier_id);
-        }
-        return supplier.get();
-    }
-
     @Named("mapProduct")
-    protected Product mapProduct(String product_id) {
-        Product product = productRepository.findByProductId(product_id);
+    protected Product mapProduct(String productId) {
+        Product product = productRepository.findByProductId(productId);
         if (product == null) {
-            throw ProductException.notFound(product_id);
+            throw ProductException.notFound(productId);
         }
         return product;
     }
 
-    @Named("mapEmployee")
-    protected Employee mapEmployee(int employee_id) {
-        Optional<Employee> employee = employeeRepository.findById(employee_id);
-        if (employee.isEmpty()) {
-            throw EmployeeException.notFound(employee_id);
-        }
-        return employee.get();
+    @Named("mapSupplier")
+    protected Supplier mapSupplier(int supplierId) {
+        return supplierRepository.findById(supplierId)
+                .orElseThrow(() -> SupplierException.notFound(supplierId));
     }
 
-
-
+    @Named("mapEmployee")
+    protected Employee mapEmployee(int employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> EmployeeException.notFound(employeeId));
+    }
 }

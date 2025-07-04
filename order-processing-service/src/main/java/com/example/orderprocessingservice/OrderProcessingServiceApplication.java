@@ -26,6 +26,8 @@ public class OrderProcessingServiceApplication {
         8. Also, when we delete order, transaction should also delete, Same thing when we delete supply, but the thing is
         we need another database like MongoDb, and we will move moved transactions and orders combined there as a single entry.
         It will be like archive
+        9. Instead or running rocketmq-service application for topic creation make it automative
+
 
      */
 }

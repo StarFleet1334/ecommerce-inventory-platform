@@ -24,6 +24,7 @@ public class AddSupplyMessageHandler implements MessageHandler {
             LOGGER.info("Processing ADD supply message: {}", messageBody);
 
             SupplyMP supply_message = objectMapper.readValue(messageBody, SupplyMP.class);
+            supplyService.handleNewSupply(supply_message);
 
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         } catch (Exception e) {

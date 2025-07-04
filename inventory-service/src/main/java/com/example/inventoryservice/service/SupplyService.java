@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class SupplyService {
@@ -22,6 +24,7 @@ public class SupplyService {
     private String DELETE_SUPPLY_TOPIC;
 
     public void sendSupplyCreateMessage(SupplyMessage supplyMessage) {
+        supplyMessage.setSupply_time(OffsetDateTime.now());
         supplyEventPB.sentMessage(ADD_SUPPLY_TOPIC, EventType.CREATED.getMessage(), supplyMessage);
     }
 

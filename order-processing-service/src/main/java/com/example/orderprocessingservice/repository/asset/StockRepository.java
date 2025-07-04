@@ -12,7 +12,13 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
     @Query("SELECT s FROM Stock s WHERE s.product.product_id = :product_id")
     List<Stock> findAllByProductId(@Param("product_id") String product_id);
 
+    @Query("SELECT s FROM Stock s WHERE s.product.product_id = :product_id")
+    Stock findByProductId(@Param("product_id") String product_id);
+
     @Modifying
     @Query("DELETE FROM Stock s WHERE s.product.product_id = :product_id")
     void deleteAllByProductId(@Param("product_id") String product_id);
+
+    @Query("SELECT s FROM Stock s WHERE s.product.product_id = :productId AND s.wareHouse.wareHouseId = :wareHouseId")
+    Stock findByProductIdAndWareHouseId(@Param("productId") String productId, @Param("wareHouseId") int wareHouseId);
 }
