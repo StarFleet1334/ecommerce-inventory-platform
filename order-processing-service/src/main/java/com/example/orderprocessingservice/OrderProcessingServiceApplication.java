@@ -18,10 +18,12 @@ public class OrderProcessingServiceApplication {
         3. Introduce AI drivers that might pick up orders from the pool on their own
         4. Cleanup code
         5. Page of graphs about tables, like wareHouses, products, customers, employees to wareHouses, etc.,
-        6. Add functionality such that, when a customer orders something and that is not available that amount
-        for now, this order can go to a wait list and when a new order comes, it will automatically send information
-        that it is available, maybe on email
-        7. Create some connection between WareHouse and Product (Refrigeration)
+        6. Create some connection between WareHouse and Product (Refrigeration)
+        7. When a customerOrders product some amount and we cannot get that amount 1 wareHouse we should search
+        other wareHouses
+        8. If we cannot get from all wareHouses that product amount, then we just get whatever we can
+        and move that order or implement some logic to move to a wait list, and when wareHouse gets that product,
+        it automatically gets that again and goes like so.
 
 
      */
