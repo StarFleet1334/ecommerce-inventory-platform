@@ -29,10 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.OffsetDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -85,34 +83,39 @@ public class CustomerService {
     @Transactional
     public void handleCustomerNewOrder(CustomerOrderMP customerOrder) {
         LOGGER.info("Processing new customer order: {}", customerOrder);
-
         customerOrderValidator.validate(customerOrder);
 
         List<Stock> stockList = stockRepository.findAllByProductId(customerOrder.getProduct_id());
-        Stock selectedStock = null;
-        WareHouse selectedWareHouse = null;
+        int remainingAmount = customerOrder.getProduct_amount();
+        List<Stock> usedStocks = new ArrayList<>();
 
         for (Stock stock : stockList) {
-            if (stock.getQuantity() >= customerOrder.getProduct_amount()) {
-                selectedStock = stock;
-                selectedWareHouse = stock.getWareHouse();
-                break;
+            if (remainingAmount <= 0) break;
+
+            int availableQuantity = stock.getQuantity();
+            if (availableQuantity > 0) {
+                int quantityToTake = Math.min(availableQuantity, remainingAmount);
+
+                stock.setQuantity(availableQuantity - quantityToTake);
+                stock.getWareHouse().setWareHouseCapacity(
+                        stock.getWareHouse().getWareHouseCapacity() - quantityToTake
+                );
+
+                if (stock.getQuantity() <= 0) {
+                    stockRepository.delete(stock);
+                } else {
+                    stockRepository.save(stock);
+                }
+                wareHouseRepository.save(stock.getWareHouse());
+
+                usedStocks.add(stock);
+                remainingAmount -= quantityToTake;
             }
         }
 
-        if (selectedStock == null) {
-            throw StockException.insufficientStock(customerOrder.getProduct_id(),customerOrder.getProduct_amount(),0);
+        if (remainingAmount > 0) {
+            // <THIS TO BE IMPLEMENTED>
         }
-
-        selectedStock.setQuantity(selectedStock.getQuantity() - customerOrder.getProduct_amount ());
-        selectedWareHouse.setWareHouseCapacity(selectedWareHouse.getWareHouseCapacity() - customerOrder.getProduct_amount());
-
-        if (selectedStock.getQuantity() <= 0) {
-            stockRepository.delete(selectedStock);
-        }
-
-        stockRepository.save(selectedStock);
-        wareHouseRepository.save(selectedWareHouse);
 
         CustomerOrder newCustomerOrder = customerOrderMapper.toEntity(customerOrder);
 
@@ -120,11 +123,11 @@ public class CustomerService {
             customerOrderRepository.save(newCustomerOrder);
             LOGGER.info("Successfully saved new customer order: {}", customerOrder);
 
-            Set<Pair<BigDecimal, BigDecimal>> wareHouseList = new HashSet<>();
-            for (Stock stock : stockList) {
-                WareHouse wareHouse = stock.getWareHouse();
-                wareHouseList.add(Pair.of(wareHouse.getLatitude(), wareHouse.getLongitude()));
-            }
+            Set<Pair<BigDecimal, BigDecimal>> wareHouseList = usedStocks.stream()
+                    .map(Stock::getWareHouse)
+                    .map(wh -> Pair.of(wh.getLatitude(), wh.getLongitude()))
+                    .collect(Collectors.toCollection(HashSet::new));
+
 
             Optional<Customer> customer = customerRepository.findById(customerOrder.getCustomer_id());
             if (customer.isEmpty()) {

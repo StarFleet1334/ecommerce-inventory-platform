@@ -19,9 +19,7 @@ public class OrderProcessingServiceApplication {
         4. Cleanup code
         5. Page of graphs about tables, like wareHouses, products, customers, employees to wareHouses, etc.,
         6. Create some connection between WareHouse and Product (Refrigeration)
-        7. When a customerOrders product some amount and we cannot get that amount 1 wareHouse we should search
-        other wareHouses
-        8. If we cannot get from all wareHouses that product amount, then we just get whatever we can
+        7. If we cannot get from all wareHouses that product amount, then we just get whatever we can
         and move that order or implement some logic to move to a wait list, and when wareHouse gets that product,
         it automatically gets that again and goes like so.
 
