@@ -1,28 +1,14 @@
 package com.example.rocketmqservice.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TopicConfig {
-
-    private final String name;
-    private final int readQueueNum;
-    private final int writeQueueNum;
-
-    public TopicConfig(String name, int readQueueNum, int writeQueueNum) {
-        this.name = name;
-        this.readQueueNum = readQueueNum;
-        this.writeQueueNum = writeQueueNum;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getReadQueueNum() {
-        return readQueueNum;
-    }
-
-    public int getWriteQueueNum() {
-        return writeQueueNum;
-    }
-
-
+    private String name;
+    private int readQueueNum;
+    private int writeQueueNum;
 }

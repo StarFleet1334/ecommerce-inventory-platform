@@ -21,13 +21,10 @@ public class OrderProcessingServiceApplication {
         6. Add functionality such that, when a customer orders something and that is not available that amount
         for now, this order can go to a wait list and when a new order comes, it will automatically send information
         that it is available, maybe on email
-        7. when a supplier makes a supply request, it creates a supply transaction; when the transaction finishes, this creates
-        stocks with wareHouseId where the employee works
-        8. Also, when we delete order, transaction should also delete, Same thing when we delete supply, but the thing is
+        7. Also, when we delete order, transaction should also delete, Same thing when we delete supply, but the thing is
         we need another database like MongoDb, and we will move moved transactions and orders combined there as a single entry.
         It will be like archive
-        9. Instead or running rocketmq-service application for topic creation make it automative
-
+        8. Create some connection between WareHouse and Product (Refrigeration)
 
      */
 }

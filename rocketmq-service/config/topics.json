@@ -1,0 +1,77 @@
+[
+  {
+    "name": "customer_add",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "customer_delete",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "employee_add",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "employee_delete",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "product_add",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "product_delete",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "stock_add",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "stock_delete",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "supplier_add",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "supplier_delete",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "warehouse_add",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "warehouse_delete",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "customer_order",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "supply_add",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  },
+  {
+    "name": "supply_delete",
+    "readQueueNum": 4,
+    "writeQueueNum": 4
+  }
+]

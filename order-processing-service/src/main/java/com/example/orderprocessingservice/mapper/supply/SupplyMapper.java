@@ -17,6 +17,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
+
 @Mapper(componentModel = "spring")
 public abstract class SupplyMapper implements BaseMapper<SupplyMP, Supply> {
     @Autowired
@@ -48,13 +50,19 @@ public abstract class SupplyMapper implements BaseMapper<SupplyMP, Supply> {
 
     @Named("mapSupplier")
     protected Supplier mapSupplier(int supplierId) {
-        return supplierRepository.findById(supplierId)
-                .orElseThrow(() -> SupplierException.notFound(supplierId));
+        Optional<Supplier> supplier = supplierRepository.findById(supplierId);
+        if (supplier.isEmpty()) {
+            throw SupplierException.notFound(supplierId);
+        }
+        return supplier.get();
     }
 
     @Named("mapEmployee")
     protected Employee mapEmployee(int employeeId) {
-        return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> EmployeeException.notFound(employeeId));
+        Optional<Employee> employee = employeeRepository.findById(employeeId);
+        if (employee.isEmpty()) {
+            throw EmployeeException.notFound(employeeId);
+        }
+        return employee.get();
     }
 }
