@@ -4,4 +4,7 @@ import com.example.orderprocessingservice.dto.model.transaction.SupplyTransactio
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SupplyTransactionRepository extends JpaRepository<SupplyTransaction, Integer> {
+
+    SupplyTransaction findBySupply_Id(int supplyId);
+
 }

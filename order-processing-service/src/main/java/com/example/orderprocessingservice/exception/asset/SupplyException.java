@@ -10,7 +10,7 @@ public class SupplyException extends BaseException {
         super(status, code, message);
     }
 
-    public static SupplyException notFound(String stockId) {
+    public static SupplyException notFound(int stockId) {
         return new SupplyException(
                 String.format("Supply with ID %s not found", stockId),
                 HttpStatus.NOT_FOUND,

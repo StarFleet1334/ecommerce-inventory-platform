@@ -105,28 +105,6 @@ public class SupplyService {
                 throw WareHouseException.capacityExceeded(wareHouseEntity.getWareHouseId(), supply.getAmount(), wareHouseEntity.getWareHouseCapacity());
             }
 
-            LOGGER.debug("Updating warehouse capacity...");
-            wareHouseEntity.setWareHouseCapacity(wareHouseEntity.getWareHouseCapacity() + supply.getAmount());
-            wareHouseRepository.save(wareHouseEntity);
-            LOGGER.info("Updated warehouse capacity to: {}", wareHouseEntity.getWareHouseCapacity());
-
-            LOGGER.debug("Checking existing stock for product ID: {}", product.getProduct_id());
-            Stock stock = stockRepository.findByProductIdAndWareHouseId(product.getProduct_id(),wareHouseId);
-            if (stock == null) {
-                LOGGER.debug("No existing stock found, creating new stock entry");
-                Stock newStock = Stock.builder()
-                        .wareHouse(wareHouseEntity)
-                        .product(product)
-                        .quantity(supply.getAmount())
-                        .build();
-                stockRepository.save(newStock);
-                LOGGER.info("Successfully saved new stock for product ID: {}", product.getProduct_id());
-            } else {
-                stock.setQuantity(stock.getQuantity() + supply.getAmount());
-                stockRepository.save(stock);
-                LOGGER.info("Successfully updated stock for product ID: {}", product.getProduct_id());
-            }
-
             Supply newSupply = supplyMapper.toEntity(supply);
 
             LOGGER.info("New Supply details: [ID: {}, Supplier: {}, Product: {}, Employee: {}, Supply Time: {}, Amount: {}]",
