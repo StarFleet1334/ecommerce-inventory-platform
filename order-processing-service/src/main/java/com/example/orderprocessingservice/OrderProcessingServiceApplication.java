@@ -10,7 +10,6 @@ public class OrderProcessingServiceApplication {
         SpringApplication.run(OrderProcessingServiceApplication.class, args);
     }
 
-
     /*
                 TASKS:
         1. Redis Caching

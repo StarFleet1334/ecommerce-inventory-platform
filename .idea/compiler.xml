@@ -7,6 +7,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="graphs" options="-parameters" />
+      <module name="graphs.main" options="-parameters" />
+      <module name="graphs.test" options="-parameters" />
       <module name="inventory-service" options="-parameters" />
       <module name="inventory-service.main" options="-parameters" />
       <module name="inventory-service.test" options="-parameters" />
