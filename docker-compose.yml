@@ -30,8 +30,8 @@ services:
       - 10911:10911
       - 10912:10912
     volumes:
-      - ./data/rocketmq/broker-store:/home/rocketmq/store
-      - ./data/rocketmq/broker-logs:/home/rocketmq/logs
+      - ./rocketmq/data/broker/store:/home/rocketmq/store
+      - ./rocketmq/data/broker/logs:/home/rocketmq/logs
       - ./rocketmq/conf/broker.properties:/home/rocketmq/conf/broker.properties
     environment:
       NAMESRV_ADDR: rmqnamesrv:9876
