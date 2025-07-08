@@ -1,0 +1,352 @@
+2025-07-08 12:48:08 WARN main - Load default HA Service: DefaultHAService
+2025-07-08 12:48:08 INFO main - /home/rocketmq/store/commitlog mkdir OK
+2025-07-08 12:48:08 INFO main - /home/rocketmq/store/consumequeue mkdir OK
+2025-07-08 12:48:08 INFO main - /home/rocketmq/store/config mkdir OK
+2025-07-08 12:48:08 INFO main - timer checkpoint file not exists, /home/rocketmq/store/config/timercheck
+2025-07-08 12:48:08 INFO main - last shutdown normally, store path root dir: /home/rocketmq/store
+2025-07-08 12:48:08 INFO main - load commit log OK
+2025-07-08 12:48:08 INFO main - load SimpleCQ all over, OK
+2025-07-08 12:48:08 INFO main - load BatchCQ all over, OK
+2025-07-08 12:48:08 INFO main - compactionStore /home/rocketmq/store/compaction/compactionLog:/home/rocketmq/store/compaction/compactionCq load completed.
+2025-07-08 12:48:08 INFO main - loop to scan all topicConfig with fixed delay 30000ms
+2025-07-08 12:48:08 INFO main - store checkpoint file not exists, /home/rocketmq/store/checkpoint
+2025-07-08 12:48:08 INFO main - message store recover mode: normal
+2025-07-08 12:48:08 WARN main - The commitlog files are deleted, and delete the consume queue files
+2025-07-08 12:48:08 INFO main - message store recover total cost: 0 ms, recoverConsumeQueue: 0 ms, recoverCommitLog: 0 ms, recoverOffsetTable: 0 ms
+2025-07-08 12:48:08 INFO main - message store recover end, and the max phy offset = 0
+2025-07-08 12:48:08 INFO main - load over, and the max phy offset = 0
+2025-07-08 12:48:08 INFO main - Begin to recover timerLog offset:0 check:true
+2025-07-08 12:48:08 INFO main - Timer recover ok currReadTimerMs:1751345348000 currQueueOffset:0 checkQueueOffset:0 processOffset:0
+2025-07-08 12:48:09 INFO AllocateMappedFileService - AllocateMappedFileService service started
+2025-07-08 12:48:09 INFO ReputMessageService - ReputMessageService service started
+2025-07-08 12:48:09 INFO FlushConsumeQueueService - FlushConsumeQueueService service started
+2025-07-08 12:48:09 INFO main - start commitLog successfully. storeRoot: /home/rocketmq/store
+2025-07-08 12:48:09 INFO FlushRealTimeService - FlushRealTimeService service started
+2025-07-08 12:48:09 INFO main - Default ConsumeQueueStore start!
+2025-07-08 12:48:09 INFO StoreStatsService - StoreStatsService service started
+2025-07-08 12:48:09 INFO GroupTransferService - GroupTransferService service started
+2025-07-08 12:48:09 INFO HAConnectionStateNotificationService - HAConnectionStateNotificationService service started
+2025-07-08 12:48:09 INFO main - /home/rocketmq/store/abort create OK
+2025-07-08 12:48:09 INFO org.apache.rocketmq.store.util.PerfCounter$Ticks - org.apache.rocketmq.store.util.PerfCounter$Ticks get started
+2025-07-08 12:48:09 INFO TimerEnqueueGetService - TimerEnqueueGetService service start
+2025-07-08 12:48:09 INFO TimerEnqueuePutService - TimerEnqueuePutService service start
+2025-07-08 12:48:09 INFO TimerDequeueWarmService - TimerDequeueWarmService service start
+2025-07-08 12:48:09 INFO TimerDequeueGetService - TimerDequeueGetService service start
+2025-07-08 12:48:09 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 12:48:09 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 12:48:09 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 12:48:09 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 12:48:09 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 12:48:09 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 12:48:09 INFO TimerFlushService - TimerFlushService service start
+2025-07-08 12:48:09 INFO main - Timer start ok currReadTimerMs:[2025-07-01 04:49:08.0] queueOffset:[0]
+2025-07-08 12:48:20 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:48:20.324] num:21 cost:10004 tps:2.1092 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:21 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:48:20 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:48:20] currRead:[07-08 04:48:20] currWrite:[07-08 04:48:20] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:48:30 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:48:30.329] num:20 cost:10004 tps:2.0092 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:48:30 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:48:30] currRead:[07-08 04:48:30] currWrite:[07-08 04:48:30] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:48:38 INFO compactionSchedule_1 - start to scan all topicConfig
+2025-07-08 12:48:38 INFO compactionSchedule_1 - scan all topicConfig over
+2025-07-08 12:48:40 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:48:40.333] num:20 cost:10003 tps:2.0094 min:0 max:1 tp50:0 tp80:0 tp90:0 tp99:1 tp999:1 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:48:41 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:48:41] currRead:[07-08 04:48:41] currWrite:[07-08 04:48:41] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:48:50 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:48:50.336] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:48:52 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:48:52] currRead:[07-08 04:48:52] currWrite:[07-08 04:48:52] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:49:00 INFO AdminBrokerThread_1 - findPutMessageEntireTimePX 0.99=0.00ms cost 2ms
+2025-07-08 12:49:00 INFO AdminBrokerThread_1 - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 12:49:00 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:49:00.339] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:49:02 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:49:02] currRead:[07-08 04:49:02] currWrite:[07-08 04:49:02] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:49:08 INFO compactionSchedule_1 - start to scan all topicConfig
+2025-07-08 12:49:08 INFO compactionSchedule_1 - scan all topicConfig over
+2025-07-08 12:49:08 INFO StoreStatsService - [STORETPS] put_tps  get_found_tps  get_miss_tps  get_transferred_tps 
+2025-07-08 12:49:08 INFO StoreStatsService - findPutMessageEntireTimePX 0.99=0.00ms cost 0ms
+2025-07-08 12:49:08 INFO StoreStatsService - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 12:49:08 INFO StoreStatsService - [PAGECACHERT] TotalPut 0, PutMessageDistributeTime [<=0ms]:0 [0~10ms]:0 [10~50ms]:0 [50~100ms]:0 [100~200ms]:0 [200~500ms]:0 [500ms~1s]:0 [1~2s]:0 [2~3s]:0 [3~4s]:0 [4~5s]:0 [5~10s]:0 [10s~]:0 
+2025-07-08 12:49:09 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:49:09 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:49:10 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:49:10.34] num:20 cost:10001 tps:2.0098 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:49:14 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:49:14] currRead:[07-08 04:49:14] currWrite:[07-08 04:49:14] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:49:19 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:49:19 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:49:20 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:49:20.344] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:49:25 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:49:25] currRead:[07-08 04:49:25] currWrite:[07-08 04:49:25] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:49:29 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:49:29 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:49:30 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:49:30.348] num:20 cost:10004 tps:2.0092 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:49:35 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:49:35] currRead:[07-08 04:49:35] currWrite:[07-08 04:49:35] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:49:38 INFO compactionSchedule_2 - start to scan all topicConfig
+2025-07-08 12:49:38 INFO compactionSchedule_2 - scan all topicConfig over
+2025-07-08 12:49:39 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:49:39 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:49:40 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:49:40.35] num:20 cost:10001 tps:2.0098 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:49:46 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:49:46] currRead:[07-08 04:49:46] currWrite:[07-08 04:49:46] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:49:49 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:49:49 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:49:50 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:49:50.353] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:49:57 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:49:57] currRead:[07-08 04:49:57] currWrite:[07-08 04:49:57] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:49:59 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:49:59 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:50:00 INFO AdminBrokerThread_2 - findPutMessageEntireTimePX 0.99=0.00ms cost 0ms
+2025-07-08 12:50:00 INFO AdminBrokerThread_2 - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 12:50:00 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:50:00.356] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:50:07 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:50:07] currRead:[07-08 04:50:07] currWrite:[07-08 04:50:07] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:50:08 INFO compactionSchedule_1 - start to scan all topicConfig
+2025-07-08 12:50:08 INFO compactionSchedule_1 - scan all topicConfig over
+2025-07-08 12:50:08 INFO StoreStatsService - [STORETPS] put_tps 0.0 get_found_tps 0.0 get_miss_tps 38.41154512731636 get_transferred_tps 0.0
+2025-07-08 12:50:08 INFO StoreStatsService - findPutMessageEntireTimePX 0.99=0.00ms cost 0ms
+2025-07-08 12:50:08 INFO StoreStatsService - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 12:50:08 INFO StoreStatsService - [PAGECACHERT] TotalPut 0, PutMessageDistributeTime [<=0ms]:0 [0~10ms]:0 [10~50ms]:0 [50~100ms]:0 [100~200ms]:0 [200~500ms]:0 [500ms~1s]:0 [1~2s]:0 [2~3s]:0 [3~4s]:0 [4~5s]:0 [5~10s]:0 [10s~]:0 
+2025-07-08 12:50:09 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:50:09 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:50:10 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:50:10.357] num:20 cost:10000 tps:2.0100 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:50:18 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:50:18] currRead:[07-08 04:50:18] currWrite:[07-08 04:50:18] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:50:19 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:50:19 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:50:20 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:50:20.36] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:50:28 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:50:28] currRead:[07-08 04:50:28] currWrite:[07-08 04:50:28] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:50:29 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:50:29 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:50:30 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:50:30.363] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:50:38 INFO compactionSchedule_3 - start to scan all topicConfig
+2025-07-08 12:50:38 INFO compactionSchedule_3 - scan all topicConfig over
+2025-07-08 12:50:38 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:50:38] currRead:[07-08 04:50:38] currWrite:[07-08 04:50:38] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:50:39 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:50:39 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:50:40 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:50:40.365] num:20 cost:10001 tps:2.0098 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:51:19 WARN main - Load default HA Service: DefaultHAService
+2025-07-08 12:51:19 INFO main - timer checkpoint file exists, /home/rocketmq/store/config/timercheck
+2025-07-08 12:51:19 INFO main - timer checkpoint file lastReadTimeMs 1751950245000, 20250708045045000
+2025-07-08 12:51:19 INFO main - timer checkpoint file lastTimerLogFlushPos 0
+2025-07-08 12:51:19 INFO main - timer checkpoint file lastTimerQueueOffset 0
+2025-07-08 12:51:19 INFO main - timer checkpoint file masterTimerQueueOffset 0
+2025-07-08 12:51:19 INFO main - timer checkpoint file data version state version 0
+2025-07-08 12:51:19 INFO main - timer checkpoint file data version timestamp 1751950245600
+2025-07-08 12:51:19 INFO main - timer checkpoint file data version counter 129
+2025-07-08 12:51:19 INFO main - last shutdown abnormally, store path root dir: /home/rocketmq/store
+2025-07-08 12:51:19 INFO main - load commit log OK
+2025-07-08 12:51:19 INFO main - load SimpleCQ all over, OK
+2025-07-08 12:51:19 INFO main - load BatchCQ all over, OK
+2025-07-08 12:51:19 INFO main - compactionStore /home/rocketmq/store/compaction/compactionLog:/home/rocketmq/store/compaction/compactionCq load completed.
+2025-07-08 12:51:19 INFO main - loop to scan all topicConfig with fixed delay 30000ms
+2025-07-08 12:51:19 INFO main - store checkpoint file exists, /home/rocketmq/store/checkpoint
+2025-07-08 12:51:19 INFO main - store checkpoint file physicMsgTimestamp 0, 19700101000000000
+2025-07-08 12:51:19 INFO main - store checkpoint file logicsMsgTimestamp 0, 19700101000000000
+2025-07-08 12:51:19 INFO main - store checkpoint file indexMsgTimestamp 0, 19700101000000000
+2025-07-08 12:51:19 INFO main - store checkpoint file masterFlushedOffset 0
+2025-07-08 12:51:19 INFO main - store checkpoint file confirmPhyOffset 0
+2025-07-08 12:51:19 INFO main - message store recover mode: normal
+2025-07-08 12:51:19 WARN main - The commitlog files are deleted, and delete the consume queue files
+2025-07-08 12:51:19 INFO main - message store recover total cost: 0 ms, recoverConsumeQueue: 0 ms, recoverCommitLog: 0 ms, recoverOffsetTable: 0 ms
+2025-07-08 12:51:19 INFO main - message store recover end, and the max phy offset = 0
+2025-07-08 12:51:19 INFO main - load over, and the max phy offset = 0
+2025-07-08 12:51:19 INFO main - Begin to recover timerLog offset:0 check:true
+2025-07-08 12:51:19 INFO main - Timer recover ok currReadTimerMs:1751950245000 currQueueOffset:0 checkQueueOffset:0 processOffset:0
+2025-07-08 12:51:20 INFO AllocateMappedFileService - AllocateMappedFileService service started
+2025-07-08 12:51:20 INFO ReputMessageService - ReputMessageService service started
+2025-07-08 12:51:20 INFO FlushConsumeQueueService - FlushConsumeQueueService service started
+2025-07-08 12:51:20 INFO main - start commitLog successfully. storeRoot: /home/rocketmq/store
+2025-07-08 12:51:20 INFO FlushRealTimeService - FlushRealTimeService service started
+2025-07-08 12:51:20 INFO main - Default ConsumeQueueStore start!
+2025-07-08 12:51:20 INFO StoreStatsService - StoreStatsService service started
+2025-07-08 12:51:20 INFO GroupTransferService - GroupTransferService service started
+2025-07-08 12:51:20 INFO HAConnectionStateNotificationService - HAConnectionStateNotificationService service started
+2025-07-08 12:51:20 INFO main - /home/rocketmq/store/abort already exists
+2025-07-08 12:51:20 INFO org.apache.rocketmq.store.util.PerfCounter$Ticks - org.apache.rocketmq.store.util.PerfCounter$Ticks get started
+2025-07-08 12:51:20 INFO TimerEnqueuePutService - TimerEnqueuePutService service start
+2025-07-08 12:51:20 INFO TimerEnqueueGetService - TimerEnqueueGetService service start
+2025-07-08 12:51:20 INFO TimerDequeueWarmService - TimerDequeueWarmService service start
+2025-07-08 12:51:20 INFO TimerDequeueGetService - TimerDequeueGetService service start
+2025-07-08 12:51:20 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 12:51:20 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 12:51:20 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 12:51:20 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 12:51:20 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 12:51:20 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 12:51:20 INFO TimerFlushService - TimerFlushService service start
+2025-07-08 12:51:20 INFO main - Timer start ok currReadTimerMs:[2025-07-08 04:50:45.0] queueOffset:[0]
+2025-07-08 12:51:31 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:51:31.066] num:21 cost:10003 tps:2.1094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:21 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:51:31 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:51:31] currRead:[07-08 04:51:31] currWrite:[07-08 04:51:31] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:51:41 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:51:41.069] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:51:42 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:51:42] currRead:[07-08 04:51:42] currWrite:[07-08 04:51:42] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:51:49 INFO compactionSchedule_1 - start to scan all topicConfig
+2025-07-08 12:51:49 INFO compactionSchedule_1 - scan all topicConfig over
+2025-07-08 12:51:51 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:51:51.072] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:51:53 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:51:53] currRead:[07-08 04:51:53] currWrite:[07-08 04:51:53] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:52:00 INFO AdminBrokerThread_1 - findPutMessageEntireTimePX 0.99=0.00ms cost 1ms
+2025-07-08 12:52:00 INFO AdminBrokerThread_1 - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 12:52:01 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:52:01.075] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:52:03 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:52:03] currRead:[07-08 04:52:03] currWrite:[07-08 04:52:03] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:52:11 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:52:11.077] num:20 cost:10001 tps:2.0098 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:52:14 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:52:14] currRead:[07-08 04:52:14] currWrite:[07-08 04:52:14] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:52:19 INFO StoreStatsService - [STORETPS] put_tps  get_found_tps  get_miss_tps  get_transferred_tps 
+2025-07-08 12:52:19 INFO StoreStatsService - findPutMessageEntireTimePX 0.99=0.00ms cost 1ms
+2025-07-08 12:52:19 INFO StoreStatsService - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 12:52:19 INFO StoreStatsService - [PAGECACHERT] TotalPut 0, PutMessageDistributeTime [<=0ms]:0 [0~10ms]:0 [10~50ms]:0 [50~100ms]:0 [100~200ms]:0 [200~500ms]:0 [500ms~1s]:0 [1~2s]:0 [2~3s]:0 [3~4s]:0 [4~5s]:0 [5~10s]:0 [10s~]:0 
+2025-07-08 12:52:19 INFO compactionSchedule_1 - start to scan all topicConfig
+2025-07-08 12:52:19 INFO compactionSchedule_1 - scan all topicConfig over
+2025-07-08 12:52:20 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:52:20 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:52:21 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:52:21.08] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 12:52:25 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 04:52:25] currRead:[07-08 04:52:25] currWrite:[07-08 04:52:25] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 12:52:30 INFO StoreScheduledThread1 - it's time to reclaim disk space, 04
+2025-07-08 12:52:30 INFO StoreScheduledThread1 - begin to delete before 48 hours file. isTimeUp: true isUsageExceedsThreshold: false manualDeleteFileSeveralTimes: 0 cleanAtOnce: false deleteFileBatchMax: 10
+2025-07-08 12:52:31 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 04:52:31.083] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:21:38 WARN main - Load default HA Service: DefaultHAService
+2025-07-08 19:21:38 INFO main - timer checkpoint file exists, /home/rocketmq/store/config/timercheck
+2025-07-08 19:21:38 INFO main - timer checkpoint file lastReadTimeMs 1751950351000, 20250708045231000
+2025-07-08 19:21:38 INFO main - timer checkpoint file lastTimerLogFlushPos 0
+2025-07-08 19:21:38 INFO main - timer checkpoint file lastTimerQueueOffset 0
+2025-07-08 19:21:38 INFO main - timer checkpoint file masterTimerQueueOffset 0
+2025-07-08 19:21:38 INFO main - timer checkpoint file data version state version 0
+2025-07-08 19:21:38 INFO main - timer checkpoint file data version timestamp 1751950351337
+2025-07-08 19:21:38 INFO main - timer checkpoint file data version counter 190
+2025-07-08 19:21:39 INFO main - last shutdown abnormally, store path root dir: /home/rocketmq/store
+2025-07-08 19:21:39 INFO main - load commit log OK
+2025-07-08 19:21:39 INFO main - load SimpleCQ all over, OK
+2025-07-08 19:21:39 INFO main - load BatchCQ all over, OK
+2025-07-08 19:21:39 INFO main - compactionStore /home/rocketmq/store/compaction/compactionLog:/home/rocketmq/store/compaction/compactionCq load completed.
+2025-07-08 19:21:39 INFO main - loop to scan all topicConfig with fixed delay 30000ms
+2025-07-08 19:21:39 INFO main - store checkpoint file exists, /home/rocketmq/store/checkpoint
+2025-07-08 19:21:39 INFO main - store checkpoint file physicMsgTimestamp 0, 19700101000000000
+2025-07-08 19:21:39 INFO main - store checkpoint file logicsMsgTimestamp 0, 19700101000000000
+2025-07-08 19:21:39 INFO main - store checkpoint file indexMsgTimestamp 0, 19700101000000000
+2025-07-08 19:21:39 INFO main - store checkpoint file masterFlushedOffset 0
+2025-07-08 19:21:39 INFO main - store checkpoint file confirmPhyOffset 0
+2025-07-08 19:21:39 INFO main - message store recover mode: normal
+2025-07-08 19:21:39 WARN main - The commitlog files are deleted, and delete the consume queue files
+2025-07-08 19:21:39 INFO main - message store recover total cost: 0 ms, recoverConsumeQueue: 0 ms, recoverCommitLog: 0 ms, recoverOffsetTable: 0 ms
+2025-07-08 19:21:39 INFO main - message store recover end, and the max phy offset = 0
+2025-07-08 19:21:39 INFO main - load over, and the max phy offset = 0
+2025-07-08 19:21:39 INFO main - Begin to recover timerLog offset:0 check:true
+2025-07-08 19:21:39 INFO main - Timer recover ok currReadTimerMs:1751950351000 currQueueOffset:0 checkQueueOffset:0 processOffset:0
+2025-07-08 19:21:39 INFO AllocateMappedFileService - AllocateMappedFileService service started
+2025-07-08 19:21:39 INFO ReputMessageService - ReputMessageService service started
+2025-07-08 19:21:39 INFO FlushConsumeQueueService - FlushConsumeQueueService service started
+2025-07-08 19:21:39 INFO main - start commitLog successfully. storeRoot: /home/rocketmq/store
+2025-07-08 19:21:39 INFO FlushRealTimeService - FlushRealTimeService service started
+2025-07-08 19:21:39 INFO main - Default ConsumeQueueStore start!
+2025-07-08 19:21:39 INFO StoreStatsService - StoreStatsService service started
+2025-07-08 19:21:39 INFO GroupTransferService - GroupTransferService service started
+2025-07-08 19:21:39 INFO HAConnectionStateNotificationService - HAConnectionStateNotificationService service started
+2025-07-08 19:21:39 INFO main - /home/rocketmq/store/abort already exists
+2025-07-08 19:21:39 INFO org.apache.rocketmq.store.util.PerfCounter$Ticks - org.apache.rocketmq.store.util.PerfCounter$Ticks get started
+2025-07-08 19:21:39 INFO TimerEnqueueGetService - TimerEnqueueGetService service start
+2025-07-08 19:21:39 INFO TimerEnqueuePutService - TimerEnqueuePutService service start
+2025-07-08 19:21:39 INFO TimerDequeueWarmService - TimerDequeueWarmService service start
+2025-07-08 19:21:39 INFO TimerDequeueGetService - TimerDequeueGetService service start
+2025-07-08 19:21:39 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 19:21:39 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 19:21:39 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 19:21:39 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 19:21:39 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 19:21:39 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 19:21:39 INFO TimerFlushService - TimerFlushService service start
+2025-07-08 19:21:39 INFO main - Timer start ok currReadTimerMs:[2025-07-08 04:52:31.0] queueOffset:[0]
+2025-07-08 19:21:50 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:21:50.433] num:21 cost:10001 tps:2.1098 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:21 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:21:50 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:21:50] currRead:[07-08 11:21:50] currWrite:[07-08 11:21:50] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:22:00 INFO AdminBrokerThread_1 - findPutMessageEntireTimePX 0.99=0.00ms cost 8ms
+2025-07-08 19:22:00 INFO AdminBrokerThread_1 - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 19:22:00 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:22:00.439] num:20 cost:10005 tps:2.0090 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:22:01 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:22:01] currRead:[07-08 11:22:01] currWrite:[07-08 11:22:01] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:22:09 INFO compactionSchedule_1 - start to scan all topicConfig
+2025-07-08 19:22:09 INFO compactionSchedule_1 - scan all topicConfig over
+2025-07-08 19:22:10 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:22:10.443] num:20 cost:10003 tps:2.0094 min:0 max:1 tp50:0 tp80:0 tp90:0 tp99:1 tp999:1 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:22:12 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:22:12] currRead:[07-08 11:22:12] currWrite:[07-08 11:22:12] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:22:20 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:22:20.445] num:20 cost:10002 tps:2.0096 min:0 max:1 tp50:0 tp80:0 tp90:0 tp99:1 tp999:1 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:22:22 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:22:22] currRead:[07-08 11:22:22] currWrite:[07-08 11:22:22] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:22:30 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:22:30.448] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:22:33 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:22:33] currRead:[07-08 11:22:33] currWrite:[07-08 11:22:33] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:22:38 INFO StoreStatsService - [STORETPS] put_tps  get_found_tps  get_miss_tps  get_transferred_tps 
+2025-07-08 19:22:38 INFO StoreStatsService - findPutMessageEntireTimePX 0.99=0.00ms cost 0ms
+2025-07-08 19:22:38 INFO StoreStatsService - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 19:22:38 INFO StoreStatsService - [PAGECACHERT] TotalPut 0, PutMessageDistributeTime [<=0ms]:0 [0~10ms]:0 [10~50ms]:0 [50~100ms]:0 [100~200ms]:0 [200~500ms]:0 [500ms~1s]:0 [1~2s]:0 [2~3s]:0 [3~4s]:0 [4~5s]:0 [5~10s]:0 [10s~]:0 
+2025-07-08 19:22:39 INFO compactionSchedule_1 - start to scan all topicConfig
+2025-07-08 19:22:39 INFO compactionSchedule_1 - scan all topicConfig over
+2025-07-08 19:22:40 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:22:40.451] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:22:44 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:22:44] currRead:[07-08 11:22:44] currWrite:[07-08 11:22:44] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:22:50 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:22:50.454] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:22:54 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:22:54] currRead:[07-08 11:22:54] currWrite:[07-08 11:22:54] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:23:00 INFO AdminBrokerThread_2 - findPutMessageEntireTimePX 0.99=0.00ms cost 0ms
+2025-07-08 19:23:00 INFO AdminBrokerThread_2 - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 19:23:00 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:23:00.458] num:20 cost:10004 tps:2.0092 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:23:05 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:23:04] currRead:[07-08 11:23:04] currWrite:[07-08 11:23:05] readBehind:1 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:23:09 INFO compactionSchedule_2 - start to scan all topicConfig
+2025-07-08 19:23:09 INFO compactionSchedule_2 - scan all topicConfig over
+2025-07-08 19:23:10 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:23:10.461] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:23:16 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:23:16] currRead:[07-08 11:23:16] currWrite:[07-08 11:23:16] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:23:20 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:23:20.462] num:20 cost:10000 tps:2.0100 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:23:27 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:23:27] currRead:[07-08 11:23:27] currWrite:[07-08 11:23:27] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:23:30 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:23:30.466] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:23:38 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:23:38] currRead:[07-08 11:23:38] currWrite:[07-08 11:23:38] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:23:38 INFO StoreStatsService - [STORETPS] put_tps 0.0 get_found_tps 0.0 get_miss_tps 38.49550885729998 get_transferred_tps 0.0
+2025-07-08 19:23:38 INFO StoreStatsService - findPutMessageEntireTimePX 0.99=0.00ms cost 0ms
+2025-07-08 19:23:38 INFO StoreStatsService - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 19:23:38 INFO StoreStatsService - [PAGECACHERT] TotalPut 0, PutMessageDistributeTime [<=0ms]:0 [0~10ms]:0 [10~50ms]:0 [50~100ms]:0 [100~200ms]:0 [200~500ms]:0 [500ms~1s]:0 [1~2s]:0 [2~3s]:0 [3~4s]:0 [4~5s]:0 [5~10s]:0 [10s~]:0 
+2025-07-08 19:23:39 INFO compactionSchedule_1 - start to scan all topicConfig
+2025-07-08 19:23:39 INFO compactionSchedule_1 - scan all topicConfig over
+2025-07-08 19:23:40 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:23:40.47] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:23:49 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:23:48] currRead:[07-08 11:23:48] currWrite:[07-08 11:23:49] readBehind:1 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:23:50 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:23:50.472] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:23:59 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:23:59] currRead:[07-08 11:23:59] currWrite:[07-08 11:23:59] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:24:00 INFO AdminBrokerThread_3 - findPutMessageEntireTimePX 0.99=0.00ms cost 0ms
+2025-07-08 19:24:00 INFO AdminBrokerThread_3 - findPutMessageEntireTimePX 0.999=0.00ms cost 0ms
+2025-07-08 19:24:00 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:24:00.475] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:24:09 INFO compactionSchedule_3 - start to scan all topicConfig
+2025-07-08 19:24:09 INFO compactionSchedule_3 - scan all topicConfig over
+2025-07-08 19:24:10 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:24:10.479] num:20 cost:10003 tps:2.0094 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:24:10 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:24:10] currRead:[07-08 11:24:10] currWrite:[07-08 11:24:10] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:24:20 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:24:20.48] num:20 cost:10001 tps:2.0098 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:24:20 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:24:20] currRead:[07-08 11:24:20] currWrite:[07-08 11:24:20] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:24:56 WARN main - Load default HA Service: DefaultHAService
+2025-07-08 19:24:57 INFO main - timer checkpoint file exists, /home/rocketmq/store/config/timercheck
+2025-07-08 19:24:57 INFO main - timer checkpoint file lastReadTimeMs 1751973867000, 20250708112427000
+2025-07-08 19:24:57 INFO main - timer checkpoint file lastTimerLogFlushPos 0
+2025-07-08 19:24:57 INFO main - timer checkpoint file lastTimerQueueOffset 0
+2025-07-08 19:24:57 INFO main - timer checkpoint file masterTimerQueueOffset 0
+2025-07-08 19:24:57 INFO main - timer checkpoint file data version state version 0
+2025-07-08 19:24:57 INFO main - timer checkpoint file data version timestamp 1751973867200
+2025-07-08 19:24:57 INFO main - timer checkpoint file data version counter 331
+2025-07-08 19:24:57 INFO main - last shutdown abnormally, store path root dir: /home/rocketmq/store
+2025-07-08 19:24:57 INFO main - load commit log OK
+2025-07-08 19:24:57 INFO main - load SimpleCQ all over, OK
+2025-07-08 19:24:57 INFO main - load BatchCQ all over, OK
+2025-07-08 19:24:57 INFO main - compactionStore /home/rocketmq/store/compaction/compactionLog:/home/rocketmq/store/compaction/compactionCq load completed.
+2025-07-08 19:24:57 INFO main - loop to scan all topicConfig with fixed delay 30000ms
+2025-07-08 19:24:57 INFO main - store checkpoint file exists, /home/rocketmq/store/checkpoint
+2025-07-08 19:24:57 INFO main - store checkpoint file physicMsgTimestamp 0, 19700101000000000
+2025-07-08 19:24:57 INFO main - store checkpoint file logicsMsgTimestamp 0, 19700101000000000
+2025-07-08 19:24:57 INFO main - store checkpoint file indexMsgTimestamp 0, 19700101000000000
+2025-07-08 19:24:57 INFO main - store checkpoint file masterFlushedOffset 0
+2025-07-08 19:24:57 INFO main - store checkpoint file confirmPhyOffset 0
+2025-07-08 19:24:57 INFO main - message store recover mode: normal
+2025-07-08 19:24:57 WARN main - The commitlog files are deleted, and delete the consume queue files
+2025-07-08 19:24:57 INFO main - message store recover total cost: 0 ms, recoverConsumeQueue: 0 ms, recoverCommitLog: 0 ms, recoverOffsetTable: 0 ms
+2025-07-08 19:24:57 INFO main - message store recover end, and the max phy offset = 0
+2025-07-08 19:24:57 INFO main - load over, and the max phy offset = 0
+2025-07-08 19:24:57 INFO main - Begin to recover timerLog offset:0 check:true
+2025-07-08 19:24:57 INFO main - Timer recover ok currReadTimerMs:1751973867000 currQueueOffset:0 checkQueueOffset:0 processOffset:0
+2025-07-08 19:24:58 INFO AllocateMappedFileService - AllocateMappedFileService service started
+2025-07-08 19:24:58 INFO ReputMessageService - ReputMessageService service started
+2025-07-08 19:24:58 INFO FlushConsumeQueueService - FlushConsumeQueueService service started
+2025-07-08 19:24:58 INFO main - start commitLog successfully. storeRoot: /home/rocketmq/store
+2025-07-08 19:24:58 INFO FlushRealTimeService - FlushRealTimeService service started
+2025-07-08 19:24:58 INFO main - Default ConsumeQueueStore start!
+2025-07-08 19:24:58 INFO StoreStatsService - StoreStatsService service started
+2025-07-08 19:24:58 INFO GroupTransferService - GroupTransferService service started
+2025-07-08 19:24:58 INFO HAConnectionStateNotificationService - HAConnectionStateNotificationService service started
+2025-07-08 19:24:58 INFO main - /home/rocketmq/store/abort already exists
+2025-07-08 19:24:58 INFO org.apache.rocketmq.store.util.PerfCounter$Ticks - org.apache.rocketmq.store.util.PerfCounter$Ticks get started
+2025-07-08 19:24:58 INFO TimerEnqueueGetService - TimerEnqueueGetService service start
+2025-07-08 19:24:58 INFO TimerEnqueuePutService - TimerEnqueuePutService service start
+2025-07-08 19:24:58 INFO TimerDequeueWarmService - TimerDequeueWarmService service start
+2025-07-08 19:24:58 INFO TimerDequeueGetService - TimerDequeueGetService service start
+2025-07-08 19:24:58 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 19:24:58 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 19:24:58 INFO TimerDequeueGetMessageService - TimerDequeueGetMessageService service start
+2025-07-08 19:24:58 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 19:24:58 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 19:24:58 INFO TimerDequeuePutMessageService - TimerDequeuePutMessageService service start
+2025-07-08 19:24:58 INFO TimerFlushService - TimerFlushService service start
+2025-07-08 19:24:58 INFO main - Timer start ok currReadTimerMs:[2025-07-08 11:24:27.0] queueOffset:[0]
+2025-07-08 19:25:08 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:25:08] currRead:[07-08 11:25:08] currWrite:[07-08 11:25:08] readBehind:0 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
+2025-07-08 19:25:08 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:25:08.977] num:21 cost:10004 tps:2.1092 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:21 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:25:18 INFO FlushRealTimeService - PERF_COUNTER_FLUSH_DATA_TIME_MS[2025-07-08 11:25:18.983] num:20 cost:10002 tps:2.0096 min:0 max:99999999 tp50:0 tp80:0 tp90:0 tp99:0 tp999:0 0_1:20 2_5:0 6_10:0 11_50:0 51_100:0 101_500:0 501_999:0 1000_:0
+2025-07-08 19:25:20 INFO TimerFlushService - [ASYNC_MASTER]Timer progress-check commitRead:[07-08 11:25:19] currRead:[07-08 11:25:19] currWrite:[07-08 11:25:20] readBehind:1 currReadOffset:0 offsetBehind:0 behindMaster:0 enqPutQueue:0 deqGetQueue:0 deqPutQueue:0 allCongestNum:0 enqExpiredStoreTime:01-01 00:00:00
