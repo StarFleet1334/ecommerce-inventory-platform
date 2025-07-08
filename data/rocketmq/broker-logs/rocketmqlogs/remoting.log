@@ -1,0 +1,132 @@
+2025-07-08 12:48:08 INFO main - Server is running in TLS permissive mode
+2025-07-08 12:48:08 INFO main - Tls config file doesn't exist, skip it
+2025-07-08 12:48:08 INFO main - Log the final used tls related configuration
+2025-07-08 12:48:08 INFO main - tls.test.mode.enable = true
+2025-07-08 12:48:08 INFO main - Using OpenSSL provider
+2025-07-08 12:48:09 INFO main - SSLContext created for server
+2025-07-08 12:48:09 INFO main - Server is running in TLS permissive mode
+2025-07-08 12:48:09 INFO main - Tls config file doesn't exist, skip it
+2025-07-08 12:48:09 INFO main - Log the final used tls related configuration
+2025-07-08 12:48:09 INFO main - tls.test.mode.enable = true
+2025-07-08 12:48:09 INFO main - Using OpenSSL provider
+2025-07-08 12:48:09 INFO main - SSLContext created for server
+2025-07-08 12:48:09 INFO main - name server address updated. NEW : [rmqnamesrv:9876] , OLD: null
+2025-07-08 12:48:09 INFO NettyClientScan_thread_1 - createChannel: begin to connect remote host[rmqnamesrv:9876] asynchronously
+2025-07-08 12:48:09 INFO NettyClientWorkerThread_1 - NETTY CLIENT PIPELINE: CONNECT  172.19.0.4 => 172.19.0.3:9876
+2025-07-08 12:48:09 INFO NettyClientWorkerThread_1 - NETTY CLIENT PIPELINE: ACTIVE, 172.19.0.3:9876, channelId=2ee8b4c8
+2025-07-08 12:48:09 INFO main - RemotingServer started, listening 0.0.0.0:10911
+2025-07-08 12:48:09 INFO main - RemotingServer started, listening 0.0.0.0:10909
+2025-07-08 12:48:12 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.5:35740
+2025-07-08 12:48:12 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.5:35740]
+2025-07-08 12:48:20 INFO BrokerControllerScheduledThread1 - new name server is chosen. OLD: null , NEW: rmqnamesrv:9876. namesrvIndex = 16
+2025-07-08 12:49:00 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.5:38882
+2025-07-08 12:49:00 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.5:38882]
+2025-07-08 12:49:46 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.6:38840
+2025-07-08 12:49:46 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.6:38840]
+2025-07-08 12:49:46 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.6:38848
+2025-07-08 12:49:46 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.6:38848]
+2025-07-08 12:50:43 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.6:38840]
+2025-07-08 12:50:43 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.6:38840]
+2025-07-08 12:50:43 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.6:38848]
+2025-07-08 12:50:43 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.6:38848]
+2025-07-08 12:50:44 ERROR NettyServerNIOSelector_2 - Failed to write response[request code: 11, response code: 24, opaque: 217] to channel[id: 0x920f7fe8, L:/172.19.0.4:10911 ! R:/172.19.0.6:38840]
+io.netty.channel.StacklessClosedChannelException: null
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.write(Object, ChannelPromise)(Unknown Source)
+2025-07-08 12:51:19 INFO main - Server is running in TLS permissive mode
+2025-07-08 12:51:19 INFO main - Tls config file doesn't exist, skip it
+2025-07-08 12:51:19 INFO main - Log the final used tls related configuration
+2025-07-08 12:51:19 INFO main - tls.test.mode.enable = true
+2025-07-08 12:51:19 INFO main - Using OpenSSL provider
+2025-07-08 12:51:20 INFO main - SSLContext created for server
+2025-07-08 12:51:20 INFO main - Server is running in TLS permissive mode
+2025-07-08 12:51:20 INFO main - Tls config file doesn't exist, skip it
+2025-07-08 12:51:20 INFO main - Log the final used tls related configuration
+2025-07-08 12:51:20 INFO main - tls.test.mode.enable = true
+2025-07-08 12:51:20 INFO main - Using OpenSSL provider
+2025-07-08 12:51:20 INFO main - SSLContext created for server
+2025-07-08 12:51:20 INFO main - name server address updated. NEW : [rmqnamesrv:9876] , OLD: null
+2025-07-08 12:51:20 INFO main - RemotingServer started, listening 0.0.0.0:10911
+2025-07-08 12:51:20 INFO main - RemotingServer started, listening 0.0.0.0:10909
+2025-07-08 12:51:20 INFO NettyClientScan_thread_1 - createChannel: begin to connect remote host[rmqnamesrv:9876] asynchronously
+2025-07-08 12:51:20 INFO NettyClientWorkerThread_1 - NETTY CLIENT PIPELINE: CONNECT  172.19.0.5 => 172.19.0.3:9876
+2025-07-08 12:51:20 INFO NettyClientWorkerThread_1 - NETTY CLIENT PIPELINE: ACTIVE, 172.19.0.3:9876, channelId=b4a070f6
+2025-07-08 12:51:30 INFO BrokerControllerScheduledThread1 - new name server is chosen. OLD: null , NEW: rmqnamesrv:9876. namesrvIndex = 731
+2025-07-08 12:51:51 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.4:47532
+2025-07-08 12:51:51 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.4:47532]
+2025-07-08 12:52:00 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.4:39692
+2025-07-08 12:52:00 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.4:39692]
+2025-07-08 12:52:09 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.7:45644
+2025-07-08 12:52:09 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.7:45644]
+2025-07-08 12:52:10 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.7:50418
+2025-07-08 12:52:10 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.7:50418]
+2025-07-08 12:52:20 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.7:45644]
+2025-07-08 12:52:20 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.7:50418]
+2025-07-08 12:52:20 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.7:45644]
+2025-07-08 12:52:20 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.7:50418]
+2025-07-08 12:52:25 ERROR NettyServerNIOSelector_2 - Failed to write response[request code: 11, response code: 24, opaque: 80] to channel[id: 0xee2c7e5d, L:/172.19.0.5:10911 ! R:/172.19.0.7:45644]
+io.netty.channel.StacklessClosedChannelException: null
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.write(Object, ChannelPromise)(Unknown Source)
+2025-07-08 12:52:28 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.4:47532]
+2025-07-08 12:52:28 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.4:39692]
+2025-07-08 12:52:28 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.4:47532]
+2025-07-08 12:52:28 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.4:39692]
+2025-07-08 19:21:39 INFO main - Server is running in TLS permissive mode
+2025-07-08 19:21:39 INFO main - Tls config file doesn't exist, skip it
+2025-07-08 19:21:39 INFO main - Log the final used tls related configuration
+2025-07-08 19:21:39 INFO main - tls.test.mode.enable = true
+2025-07-08 19:21:39 INFO main - Using OpenSSL provider
+2025-07-08 19:21:39 INFO main - SSLContext created for server
+2025-07-08 19:21:39 INFO main - Server is running in TLS permissive mode
+2025-07-08 19:21:39 INFO main - Tls config file doesn't exist, skip it
+2025-07-08 19:21:39 INFO main - Log the final used tls related configuration
+2025-07-08 19:21:39 INFO main - tls.test.mode.enable = true
+2025-07-08 19:21:39 INFO main - Using OpenSSL provider
+2025-07-08 19:21:39 INFO main - SSLContext created for server
+2025-07-08 19:21:39 INFO main - name server address updated. NEW : [rmqnamesrv:9876] , OLD: null
+2025-07-08 19:21:39 INFO main - RemotingServer started, listening 0.0.0.0:10911
+2025-07-08 19:21:39 INFO main - RemotingServer started, listening 0.0.0.0:10909
+2025-07-08 19:21:40 INFO NettyClientScan_thread_1 - createChannel: begin to connect remote host[rmqnamesrv:9876] asynchronously
+2025-07-08 19:21:40 INFO NettyClientWorkerThread_1 - NETTY CLIENT PIPELINE: CONNECT  172.19.0.5 => 172.19.0.3:9876
+2025-07-08 19:21:40 INFO NettyClientWorkerThread_1 - NETTY CLIENT PIPELINE: ACTIVE, 172.19.0.3:9876, channelId=aea2c3e0
+2025-07-08 19:21:50 INFO BrokerControllerScheduledThread1 - new name server is chosen. OLD: null , NEW: rmqnamesrv:9876. namesrvIndex = 127
+2025-07-08 19:22:00 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.4:43030
+2025-07-08 19:22:00 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.4:43030]
+2025-07-08 19:22:10 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.7:57020
+2025-07-08 19:22:10 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.7:57020]
+2025-07-08 19:22:13 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.4:38560
+2025-07-08 19:22:13 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.4:38560]
+2025-07-08 19:22:42 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.4:60038
+2025-07-08 19:22:42 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.4:60038]
+2025-07-08 19:23:00 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelRegistered 172.19.0.4:53916
+2025-07-08 19:23:00 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelActive, the channel[172.19.0.4:53916]
+2025-07-08 19:24:00 WARN NettyServerCodecThread_1 - NETTY SERVER PIPELINE: IDLE exception [172.19.0.4:43030]
+2025-07-08 19:24:00 INFO NettyServerNIOSelector_1 - closeChannel: close the connection to remote address[172.19.0.4:43030] result: true
+2025-07-08 19:24:00 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.4:43030]
+2025-07-08 19:24:00 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.4:43030]
+2025-07-08 19:24:15 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.7:57020]
+2025-07-08 19:24:15 INFO NettyServerCodecThread_1 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.7:57020]
+2025-07-08 19:24:25 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.4:60038]
+2025-07-08 19:24:25 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.4:38560]
+2025-07-08 19:24:25 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelInactive, the channel[172.19.0.4:53916]
+2025-07-08 19:24:25 INFO NettyServerCodecThread_3 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.4:60038]
+2025-07-08 19:24:25 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.4:38560]
+2025-07-08 19:24:25 INFO NettyServerCodecThread_2 - NETTY SERVER PIPELINE: channelUnregistered, the channel[172.19.0.4:53916]
+2025-07-08 19:24:57 INFO main - Server is running in TLS permissive mode
+2025-07-08 19:24:57 INFO main - Tls config file doesn't exist, skip it
+2025-07-08 19:24:57 INFO main - Log the final used tls related configuration
+2025-07-08 19:24:57 INFO main - tls.test.mode.enable = true
+2025-07-08 19:24:57 INFO main - Using OpenSSL provider
+2025-07-08 19:24:58 INFO main - SSLContext created for server
+2025-07-08 19:24:58 INFO main - Server is running in TLS permissive mode
+2025-07-08 19:24:58 INFO main - Tls config file doesn't exist, skip it
+2025-07-08 19:24:58 INFO main - Log the final used tls related configuration
+2025-07-08 19:24:58 INFO main - tls.test.mode.enable = true
+2025-07-08 19:24:58 INFO main - Using OpenSSL provider
+2025-07-08 19:24:58 INFO main - SSLContext created for server
+2025-07-08 19:24:58 INFO main - name server address updated. NEW : [rmqnamesrv:9876] , OLD: null
+2025-07-08 19:24:58 INFO main - RemotingServer started, listening 0.0.0.0:10911
+2025-07-08 19:24:58 INFO main - RemotingServer started, listening 0.0.0.0:10909
+2025-07-08 19:24:58 INFO NettyClientScan_thread_1 - createChannel: begin to connect remote host[rmqnamesrv:9876] asynchronously
+2025-07-08 19:24:58 INFO NettyClientWorkerThread_1 - NETTY CLIENT PIPELINE: CONNECT  172.19.0.5 => 172.19.0.3:9876
+2025-07-08 19:24:58 INFO NettyClientWorkerThread_1 - NETTY CLIENT PIPELINE: ACTIVE, 172.19.0.3:9876, channelId=e24f514c
+2025-07-08 19:25:08 INFO BrokerControllerScheduledThread1 - new name server is chosen. OLD: null , NEW: rmqnamesrv:9876. namesrvIndex = 560
