@@ -9,17 +9,17 @@ import org.springframework.context.annotation.PropertySource
 
 @Configuration
 @PropertySource("classpath:application.properties")
-open class RocketMQConfig {
+class RocketMQConfig {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @Value("\${rocketmq.name-server}")
     private lateinit var nameServer: String
 
-    @Value("\${rocketmq.consumer.group}")
+    @Value("\${rocketmq.graph.consumer.group}")
     private lateinit var consumerGroup: String
 
     @Bean
-    open fun defaultMQPushConsumer(): DefaultMQPushConsumer {
+    fun defaultMQPushConsumer(): DefaultMQPushConsumer {
         logger.info("Creating RocketMQ consumer with group: $consumerGroup and nameServer: $nameServer")
         return DefaultMQPushConsumer(consumerGroup).apply {
             namesrvAddr = nameServer
