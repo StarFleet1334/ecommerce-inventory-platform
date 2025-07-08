@@ -4,6 +4,8 @@ import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently
 import org.apache.rocketmq.common.message.MessageExt
+import org.example.constants.TopicNames
+import org.example.handler.base.MessageHandlerFactory
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
@@ -11,37 +13,39 @@ import javax.annotation.PreDestroy
 
 @Service
 class GraphsMessageConsumer(
-    private val consumer: DefaultMQPushConsumer
+    private val consumer: DefaultMQPushConsumer,
+    private val handlerFactory: MessageHandlerFactory
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
+
 
     @PostConstruct
     fun init() {
         try {
             logger.info("Initializing RocketMQ consumer with group: ${consumer.consumerGroup}")
             val topics = listOf(
-                "customer_add",
-                "customer_delete",
-                "employee_add",
-                "employee_delete",
-                "product_add",
-                "product_delete",
-                "stock_add",
-                "stock_delete",
-                "supplier_add",
-                "supplier_delete",
-                "warehouse_add",
-                "warehouse_delete",
-                "customer_order",
-                "supply_add",
-                "supply_delete"
+                TopicNames.CUSTOMER_ADD,
+                TopicNames.CUSTOMER_DELETE,
+                TopicNames.EMPLOYEE_ADD,
+                TopicNames.EMPLOYEE_DELETE,
+                TopicNames.PRODUCT_ADD,
+                TopicNames.PRODUCT_DELETE,
+                TopicNames.STOCK_ADD,
+                TopicNames.STOCK_DELETE,
+                TopicNames.SUPPLIER_ADD,
+                TopicNames.SUPPLIER_DELETE,
+                TopicNames.WAREHOUSE_ADD,
+                TopicNames.WAREHOUSE_DELETE,
+                TopicNames.CUSTOMER_ORDER,
+                TopicNames.SUPPLY_ADD,
+                TopicNames.SUPPLY_DELETE
             )
 
             topics.forEach { topic ->
                 consumer.subscribe(topic, "*")
             }
 
-            consumer.registerMessageListener(MessageListenerConcurrently { msgs, context ->
+            consumer.registerMessageListener(MessageListenerConcurrently { msgs, _ ->
                 msgs.forEach { msg ->
                     try {
                         processMessage(msg)
@@ -70,83 +74,14 @@ class GraphsMessageConsumer(
         logger.info("Received message from topic: $topic")
         logger.debug("Message content: $content")
 
-        when (topic) {
-            "customer_add" -> handleCustomerAdd(content)
-            "customer_delete" -> handleCustomerDelete(content)
-            "employee_add" -> handleEmployeeAdd(content)
-            "employee_delete" -> handleEmployeeDelete(content)
-            "product_add" -> handleProductAdd(content)
-            "product_delete" -> handleProductDelete(content)
-            "stock_add" -> handleStockAdd(content)
-            "stock_delete" -> handleStockDelete(content)
-            "supplier_add" -> handleSupplierAdd(content)
-            "supplier_delete" -> handleSupplierDelete(content)
-            "warehouse_add" -> handleWarehouseAdd(content)
-            "warehouse_delete" -> handleWarehouseDelete(content)
-            "customer_order" -> handleCustomerOrder(content)
-            "supply_add" -> handleSupplyAdd(content)
-            "supply_delete" -> handleSupplyDelete(content)
+        try {
+            val handler = handlerFactory.getHandler(topic)
+            handler.handle(content)
+        } catch (e: Exception) {
+            logger.error("Error processing message for topic $topic: ${e.message}", e)
         }
-    }
-
-    private fun handleCustomerAdd(content: String) {
-    }
-
-    private fun handleCustomerDelete(content: String) {
-    }
-
-    private fun handleEmployeeAdd(content: String) {
 
     }
-
-    private fun handleEmployeeDelete(content: String) {
-
-    }
-
-    private fun handleProductAdd(content: String) {
-
-    }
-
-    private fun handleProductDelete(content: String) {
-
-    }
-
-    private fun handleStockAdd(content: String) {
-
-    }
-
-    private fun handleStockDelete(content: String) {
-
-    }
-
-    private fun handleSupplierAdd(content: String) {
-
-    }
-
-    private fun handleSupplierDelete(content: String) {
-
-    }
-
-    private fun handleWarehouseAdd(content: String) {
-
-    }
-
-    private fun handleWarehouseDelete(content: String) {
-
-    }
-
-    private fun handleCustomerOrder(content: String) {
-
-    }
-
-    private fun handleSupplyAdd(content: String) {
-
-    }
-
-    private fun handleSupplyDelete(content: String) {
-
-    }
-
 
     @PreDestroy
     fun destroy() {

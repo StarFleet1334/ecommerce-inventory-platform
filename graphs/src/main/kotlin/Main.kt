@@ -8,11 +8,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 @SpringBootApplication
-open class Application
+class Application
 
 fun main() {
-    val springContext = AnnotationConfigApplicationContext().apply {
-        scan("org.example")
+    AnnotationConfigApplicationContext().apply {
+        scan("org.example",
+            "org.example.config",
+            "org.example.handler"
+        )
         refresh()
     }
 

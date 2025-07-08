@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.20"
+    kotlin("plugin.spring") version "1.9.20"
     id("org.springframework.boot") version "2.7.18"
     id("io.spring.dependency-management") version "1.1.4"
     application
@@ -42,6 +43,9 @@ dependencies {
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
 }
 
 application {
