@@ -7,7 +7,7 @@ services:
     ports:
       - ${ROCKETMQ_NAMESRV_PORT:-9876}:9876
     volumes:
-      - ./data/rocketmq/namesrv-logs:/home/rocketmq/logs
+      - ./rocketmq/data/namesrv-logs:/home/rocketmq/logs
     command: sh mqnamesrv
     networks:
       rocketmq-net:
