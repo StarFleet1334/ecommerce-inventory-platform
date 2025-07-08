@@ -10,7 +10,15 @@ services:
       - ./data/rocketmq/namesrv-logs:/home/rocketmq/logs
     command: sh mqnamesrv
     networks:
-      - rocketmq-net
+      rocketmq-net:
+        aliases:
+          - rmqnamesrv
+    healthcheck:
+      test: ["CMD", "sh", "-c", "nc -z localhost 9876"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["all", "dev", "prod"]
 
   broker:
     image: apache/rocketmq:5.3.3
@@ -29,7 +37,15 @@ services:
       NAMESRV_ADDR: rmqnamesrv:9876
     command: sh mqbroker -c /home/rocketmq/conf/broker.properties
     networks:
-      - rocketmq-net
+      rocketmq-net:
+        aliases:
+          - rmqbroker
+    healthcheck:
+      test: ["CMD", "sh", "-c", "nc -z localhost 10911"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["all", "dev", "prod"]
 
   dashboard:
     image: apacherocketmq/rocketmq-dashboard:latest
@@ -41,7 +57,15 @@ services:
     environment:
       JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876"
     networks:
-      - rocketmq-net
+      rocketmq-net:
+        aliases:
+          - rmqdashboard
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["all", "dev"]
 
   inventory-service:
     build:
@@ -58,7 +82,15 @@ services:
       - namesrv
       - broker
     networks:
-      - rocketmq-net
+      rocketmq-net:
+        aliases:
+          - inventory-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["all", "dev", "prod"]
 
   order-processing-service:
     build:
@@ -75,7 +107,15 @@ services:
       - namesrv
       - broker
     networks:
-      - rocketmq-net
+      rocketmq-net:
+        aliases:
+          - order-processing-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["all", "dev", "prod"]
 
   graphs-service:
     build:
@@ -92,7 +132,15 @@ services:
       - namesrv
       - broker
     networks:
-      - rocketmq-net
+      rocketmq-net:
+        aliases:
+          - graphs-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["all", "dev", "prod"]
 
   backend:
     build:
@@ -104,7 +152,15 @@ services:
     env_file:
       - .env
     networks:
-      - rocketmq-net
+      rocketmq-net:
+        aliases:
+          - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["all", "dev", "prod"]
 
 networks:
   rocketmq-net:
