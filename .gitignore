@@ -2,3 +2,4 @@ rocketmq/data/
 rocketmq/logs/
 rocketmq/store/
 order-processing-service/.env
+.env

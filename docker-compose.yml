@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  namesrv:
+    image: apache/rocketmq:5.3.3
+    container_name: rmqnamesrv
+    ports:
+      - ${ROCKETMQ_NAMESRV_PORT:-9876}:9876
+    volumes:
+      - ./data/rocketmq/namesrv-logs:/home/rocketmq/logs
+    command: sh mqnamesrv
+    networks:
+      - rocketmq-net
+
+  broker:
+    image: apache/rocketmq:5.3.3
+    container_name: rmqbroker
+    depends_on:
+      - namesrv
+    ports:
+      - 10909:10909
+      - 10911:10911
+      - 10912:10912
+    volumes:
+      - ./data/rocketmq/broker-store:/home/rocketmq/store
+      - ./data/rocketmq/broker-logs:/home/rocketmq/logs
+      - ./rocketmq/conf/broker.properties:/home/rocketmq/conf/broker.properties
+    environment:
+      NAMESRV_ADDR: rmqnamesrv:9876
+    command: sh mqbroker -c /home/rocketmq/conf/broker.properties
+    networks:
+      - rocketmq-net
+
+  dashboard:
+    image: apacherocketmq/rocketmq-dashboard:latest
+    container_name: rmqdashboard
+    depends_on:
+      - namesrv
+    ports:
+      - ${ROCKETMQ_DASHBOARD_PORT:-8080}:8080
+    environment:
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876"
+    networks:
+      - rocketmq-net
+
+  inventory-service:
+    build:
+      context: ./inventory-service
+      dockerfile: Dockerfile
+    container_name: inventory-service
+    ports:
+      - "${INVENTORY_SERVICE_PORT:-8081}:8081"
+    env_file:
+      - .env
+    environment:
+      - SPRING_APPLICATION_NAME=inventory-service
+    depends_on:
+      - namesrv
+      - broker
+    networks:
+      - rocketmq-net
+
+  order-processing-service:
+    build:
+      context: ./order-processing-service
+      dockerfile: Dockerfile
+    container_name: order-processing-service
+    ports:
+      - "${ORDER_PROCESSING_SERVICE_PORT:-8083}:8083"
+    env_file:
+      - .env
+    environment:
+      - SPRING_APPLICATION_NAME=order-processing-service
+    depends_on:
+      - namesrv
+      - broker
+    networks:
+      - rocketmq-net
+
+  graphs-service:
+    build:
+      context: ./graphs
+      dockerfile: Dockerfile
+    container_name: graphs-service
+    ports:
+      - "${GRAPHS_SERVICE_PORT:-8090}:8090"
+    env_file:
+      - .env
+    environment:
+      - SPRING_APPLICATION_NAME=graphs-service
+    depends_on:
+      - namesrv
+      - broker
+    networks:
+      - rocketmq-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "${BACKEND_PORT:-5000}:5000"
+    env_file:
+      - .env
+    networks:
+      - rocketmq-net
+
+networks:
+  rocketmq-net:
+    driver: bridge
