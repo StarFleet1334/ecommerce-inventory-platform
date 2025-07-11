@@ -24,10 +24,15 @@ public class ProductController implements ProductControllerInterface {
     }
 
     @Override
-    public ResponseEntity<String> postProduct(ProductMessage productMessage) {
+    public ResponseEntity<String> postProduct(ProductMessage productMessage, boolean initialLoad) {
         LOGGER.info("Received request to create product: {}", productMessage);
-        productService.sendProductCreateMessage(productMessage);
-        LOGGER.info("Product created successfully");
+        if (initialLoad) {
+            productService.sendProductInitialCreateMessage(productMessage);
+            LOGGER.info("Initial product creation message successfully sent to the queue");
+        } else {
+            productService.sendProductCreateMessage(productMessage);
+            LOGGER.info("Product creation message successfully sent to the queue");
+        }
         return ResponseEntity.ok("Product creation message successfully sent to the queue");
     }
 }

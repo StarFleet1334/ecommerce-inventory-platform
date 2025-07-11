@@ -24,10 +24,16 @@ public class StockController implements StockControllerInterface {
     }
 
     @Override
-    public ResponseEntity<String> postStock(StockMessage stockMessage) {
+    public ResponseEntity<String> postStock(StockMessage stockMessage, boolean initialLoad) {
         LOGGER.info("Received request to create stock: {}", stockMessage);
-        stockService.sendStockCreateMessage(stockMessage);
         LOGGER.info("Stock created successfully");
+        if (initialLoad) {
+            stockService.sendStockInitialCreateMessage(stockMessage);
+            LOGGER.info("Initial stock creation message successfully sent to the queue");
+        } else {
+            stockService.sendStockCreateMessage(stockMessage);
+            LOGGER.info("Stock creation message successfully sent to the queue");
+        }
         return ResponseEntity.ok("Stock creation message successfully sent to the queue");
     }
 }

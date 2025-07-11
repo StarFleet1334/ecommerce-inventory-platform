@@ -26,5 +26,6 @@ public interface StockControllerInterface {
             @ApiResponse(responseCode = "201", description = "Stock successfully added."),
             @ApiResponse(responseCode = "400", description = "Invalid or missing fields")
     })
-    ResponseEntity<String> postStock(@RequestBody StockMessage stockMessage);
+    ResponseEntity<String> postStock(@RequestBody StockMessage stockMessage,
+                                     @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
 }

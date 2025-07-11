@@ -27,7 +27,11 @@ public interface CustomerControllerInterface {
             @ApiResponse(responseCode = "201", description = "Customer successfully added."),
             @ApiResponse(responseCode = "400", description = "Invalid or missing fields")
     })
-    ResponseEntity<String> postCustomer(@RequestBody CustomerMessage customerMessage);
+    ResponseEntity<String> postCustomer(
+            @RequestBody CustomerMessage customerMessage,
+            @RequestParam(required = false, defaultValue = "false") boolean initialLoad
+    );
+
 
     @PostMapping("/order")
     @Operation(summary = "Add Order",description = "Add Customer Order")

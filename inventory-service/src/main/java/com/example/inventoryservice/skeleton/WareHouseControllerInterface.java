@@ -26,5 +26,6 @@ public interface WareHouseControllerInterface {
             @ApiResponse(responseCode = "201", description = "Warehouse successfully added."),
             @ApiResponse(responseCode = "400", description = "Invalid or missing fields")
     })
-    ResponseEntity<String> postWareHouse(@RequestBody WareHouseMessage wareHouseMessage);
+    ResponseEntity<String> postWareHouse(@RequestBody WareHouseMessage wareHouseMessage,
+                                         @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
 }

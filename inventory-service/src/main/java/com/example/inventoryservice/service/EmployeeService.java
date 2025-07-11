@@ -25,6 +25,10 @@ public class EmployeeService {
         employeeEventPB.sentMessage(ADD_EMPLOYEE_TOPIC, EventType.CREATED.getMessage(), employee);
     }
 
+    public void sendEmployeeInitialCreateMessage(EmployeeMessage employee) {
+        employeeEventPB.sentMessage(ADD_EMPLOYEE_TOPIC, "INIT", employee);
+    }
+
     public void sendEmployeeDeleteMessage(String employeeId) {
         employeeEventRM.sentMessage(DELETE_EMPLOYEE_TOPIC, EventType.DELETED.getMessage(), employeeId);
     }

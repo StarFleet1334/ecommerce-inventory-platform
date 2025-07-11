@@ -39,6 +39,8 @@ public abstract class AbstractDataLoader<T, M> {
         }
 
         saveToRepository(entities);
+
+
         postProcessEntities(entities);
     }
 
@@ -56,11 +58,14 @@ public abstract class AbstractDataLoader<T, M> {
     }
 
     protected void sendMessageToEndpoint(M message, T entity) {
+        String urlWithParam = endpoint + "?initialLoad=true";
+
         ResponseEntity<String> response = restTemplate.postForEntity(
-                endpoint,
+                urlWithParam,
                 message,
                 String.class
         );
+
         if (!response.getStatusCode().is2xxSuccessful()) {
             throw new RuntimeException("Failed to create entity: " + getEntityIdentifier(entity));
         }

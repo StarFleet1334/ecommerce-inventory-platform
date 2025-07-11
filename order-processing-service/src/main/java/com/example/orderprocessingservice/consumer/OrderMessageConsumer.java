@@ -121,11 +121,10 @@ public class OrderMessageConsumer {
     @Value("${rocketmq.supply_delete_topic}")
     private String supplyDeleteTopic;
 
-
     @PostConstruct
     public void init() throws Exception {
         for (String topic : getAllTopics()) {
-            consumer.subscribe(topic, "*");
+            consumer.subscribe(topic, "CREATED || UPDATED");
             LOGGER.info("Subscribed to topic: {}", topic);
         }
 
@@ -144,7 +143,6 @@ public class OrderMessageConsumer {
             }
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         });
-
         consumer.start();
     }
 
