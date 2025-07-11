@@ -25,6 +25,10 @@ public class WareHouseService {
         wareHouseEventPB.sentMessage(ADD_WAREHOUSE_TOPIC, EventType.CREATED.getMessage(), wareHouse);
     }
 
+    public void sendWareHouseInitialCreateMessage(WareHouseMessage wareHouse) {
+        wareHouseEventPB.sentMessage(ADD_WAREHOUSE_TOPIC, "INIT", wareHouse);
+    }
+
     public void sendWareHouseDeleteMessage(String wareHouseId) {
         wareHouseEventRM.sentMessage(DELETE_WAREHOUSE_TOPIC, EventType.DELETED.getMessage(), wareHouseId);
     }

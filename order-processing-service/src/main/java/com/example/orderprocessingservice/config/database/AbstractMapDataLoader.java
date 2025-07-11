@@ -24,12 +24,13 @@ public abstract class AbstractMapDataLoader<T, M> extends AbstractDataLoader<T, 
         List<T> entities = processEntries(entries);
 
         if (!entities.isEmpty()) {
-            saveToRepository(entities);
 
             for (T entity : entities) {
                 M message = convertToMessage(entity);
                 sendMessageToEndpoint(message, entity);
             }
+
+            saveToRepository(entities);
 
             postProcessEntities(entities);
         }

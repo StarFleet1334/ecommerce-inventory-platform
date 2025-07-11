@@ -30,4 +30,14 @@ public class DatabaseCleanupService {
         entityManager.createNativeQuery("TRUNCATE supplier RESTART IDENTITY CASCADE")
                 .executeUpdate();
     }
+
+    public void truncateEmployeeTables() {
+        entityManager.createNativeQuery("TRUNCATE employee RESTART IDENTITY CASCADE")
+                .executeUpdate();
+    }
+
+    public void truncateStockTables() {
+        entityManager.createNativeQuery("TRUNCATE stock RESTART IDENTITY CASCADE")
+                .executeUpdate();
+    }
 }

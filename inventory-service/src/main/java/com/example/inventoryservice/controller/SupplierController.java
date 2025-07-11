@@ -24,10 +24,15 @@ public class SupplierController implements SupplierControllerInterface {
     }
 
     @Override
-    public ResponseEntity<String> postSupplier(SupplierMessage supplierMessage) {
+    public ResponseEntity<String> postSupplier(SupplierMessage supplierMessage,boolean initialLoad) {
         LOGGER.info("Received request to create supplier: {}", supplierMessage);
-        supplierService.sendSupplierCreateMessage(supplierMessage);
-        LOGGER.info("Supplier created successfully");
+        if (initialLoad) {
+            supplierService.sendSupplierInitialCreateMessage(supplierMessage);
+            LOGGER.info("Initial supplier creation message successfully sent to the queue");
+        } else {
+            supplierService.sendSupplierCreateMessage(supplierMessage);
+            LOGGER.info("Supplier creation message successfully sent to the queue");
+        }
         return ResponseEntity.ok("Supplier creation message successfully sent to the queue");
     }
 }

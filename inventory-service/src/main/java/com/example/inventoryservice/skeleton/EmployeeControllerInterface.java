@@ -26,5 +26,6 @@ public interface EmployeeControllerInterface {
             @ApiResponse(responseCode = "201", description = "Employee successfully added."),
             @ApiResponse(responseCode = "400", description = "Invalid or missing fields")
     })
-    ResponseEntity<String> postEmployee(@RequestBody EmployeeMessage employeeMessage);
+    ResponseEntity<String> postEmployee(@RequestBody EmployeeMessage employeeMessage,
+                                        @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
 }

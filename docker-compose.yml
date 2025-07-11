@@ -41,10 +41,11 @@ services:
         aliases:
           - rmqbroker
     healthcheck:
-      test: ["CMD", "sh", "-c", "nc -z localhost 10911"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: [ "CMD", "sh", "-c", "nc -z localhost 10911 && nc -z localhost 10909" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
     profiles: ["all", "dev", "prod"]
 
   dashboard:
@@ -151,6 +152,9 @@ services:
       - "${BACKEND_PORT:-5000}:5000"
     env_file:
       - .env
+    depends_on:
+      - namesrv
+      - broker
     networks:
       rocketmq-net:
         aliases:
@@ -161,6 +165,39 @@ services:
       timeout: 5s
       retries: 5
     profiles: ["all", "dev", "prod"]
+
+  rocketmq-service:
+    build:
+      context: ./rocketmq-service
+      dockerfile: Dockerfile
+    container_name: rocketmq-service
+    ports:
+      - "${ROCKETMQ_SERVICE_PORT:-8085}:8085"
+    env_file:
+      - .env
+    environment:
+      - SPRING_APPLICATION_NAME=rocketmq-service
+      - ROCKETMQ_NAME_SERVER=rmqnamesrv:9876
+      - ROCKETMQ_BROKER_ADDRESS=rmqbroker:10911
+      - APP_CONFIG_PATH=/app/config
+    volumes:
+      - ./rocketmq-service/config:/app/config
+    depends_on:
+      - namesrv
+      - broker
+    restart: unless-stopped
+    networks:
+      rocketmq-net:
+        aliases:
+          - rocketmq-service
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8085/actuator/health" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 30s
+    profiles: [ "all", "dev", "prod" ]
+
 
 networks:
   rocketmq-net:

@@ -26,5 +26,6 @@ public interface SupplierControllerInterface {
             @ApiResponse(responseCode = "201", description = "Supplier successfully added."),
             @ApiResponse(responseCode = "400", description = "Invalid or missing fields")
     })
-    ResponseEntity<String> postSupplier(@RequestBody SupplierMessage supplierMessage);
+    ResponseEntity<String> postSupplier(@RequestBody SupplierMessage supplierMessage,
+                                        @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
 }
