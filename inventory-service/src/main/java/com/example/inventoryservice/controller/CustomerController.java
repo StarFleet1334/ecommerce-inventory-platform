@@ -25,10 +25,15 @@ public class CustomerController implements CustomerControllerInterface {
     }
 
     @Override
-    public ResponseEntity<String> postCustomer(CustomerMessage customerMessage) {
+    public ResponseEntity<String> postCustomer(CustomerMessage customerMessage, boolean initialLoad) {
         LOGGER.info("Received request to create customer: {}", customerMessage);
-        customerService.sendCustomerCreateMessage(customerMessage);
-        LOGGER.info("Customer created successfully");
+        if (initialLoad) {
+            customerService.sendCustomerInitialCreateMessage(customerMessage);
+            LOGGER.info("Initial customer creation message successfully sent to the queue");
+        } else {
+            customerService.sendCustomerCreateMessage(customerMessage);
+            LOGGER.info("Customer creation message successfully sent to the queue");
+        }
         return ResponseEntity.ok("Customer creation message successfully sent to the queue");
     }
 

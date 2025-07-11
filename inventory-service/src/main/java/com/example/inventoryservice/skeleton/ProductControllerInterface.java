@@ -26,5 +26,6 @@ public interface ProductControllerInterface {
             @ApiResponse(responseCode = "201", description = "Product successfully added."),
             @ApiResponse(responseCode = "400", description = "Invalid or missing fields")
     })
-    ResponseEntity<String> postProduct(@RequestBody ProductMessage productMessage);
+    ResponseEntity<String> postProduct(@RequestBody ProductMessage productMessage,
+                                       @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
 }

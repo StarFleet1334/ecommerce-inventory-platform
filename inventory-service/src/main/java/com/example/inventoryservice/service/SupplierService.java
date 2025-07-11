@@ -25,6 +25,10 @@ public class SupplierService {
         supplierEventPB.sentMessage(ADD_SUPPLIER_TOPIC, EventType.CREATED.getMessage(), supplier);
     }
 
+    public void sendSupplierInitialCreateMessage(SupplierMessage supplier) {
+        supplierEventPB.sentMessage(ADD_SUPPLIER_TOPIC, "INIT", supplier);
+    }
+
     public void sendSupplierDeleteMessage(String supplierId) {
         supplierEventRM.sentMessage(DELETE_SUPPLIER_TOPIC, EventType.DELETED.getMessage(), supplierId);
     }

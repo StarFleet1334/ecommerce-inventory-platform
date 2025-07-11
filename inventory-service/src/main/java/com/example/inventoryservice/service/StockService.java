@@ -25,6 +25,10 @@ public class StockService {
         stockEventPB.sentMessage(ADD_STOCK_TOPIC, EventType.CREATED.getMessage(), stock);
     }
 
+    public void sendStockInitialCreateMessage(StockMessage stock) {
+        stockEventPB.sentMessage(ADD_STOCK_TOPIC, "INIT", stock);
+    }
+
     public void sendStockDeleteMessage(String stockId) {
         stockEventRM.sentMessage(DELETE_STOCK_TOPIC, EventType.DELETED.getMessage(), stockId);
     }

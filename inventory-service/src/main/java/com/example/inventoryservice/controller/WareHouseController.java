@@ -24,10 +24,15 @@ public class WareHouseController implements WareHouseControllerInterface {
     }
 
     @Override
-    public ResponseEntity<String> postWareHouse(WareHouseMessage wareHouseMessage) {
+    public ResponseEntity<String> postWareHouse(WareHouseMessage wareHouseMessage, boolean initialLoad) {
         LOGGER.info("Received request to create warehouse: {}", wareHouseMessage);
-        wareHouseService.sendWareHouseCreateMessage(wareHouseMessage);
-        LOGGER.info("WareHouse created successfully");
+        if (initialLoad) {
+            wareHouseService.sendWareHouseInitialCreateMessage(wareHouseMessage);
+            LOGGER.info("Initial warehouse creation message successfully sent to the queue");
+        } else {
+            wareHouseService.sendWareHouseCreateMessage(wareHouseMessage);
+            LOGGER.info("WareHouse creation message successfully sent to the queue");
+        }
         return ResponseEntity.ok("WareHouse creation message successfully sent to the queue");
     }
 }

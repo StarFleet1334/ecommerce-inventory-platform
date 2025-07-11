@@ -33,6 +33,10 @@ public class CustomerService {
         customerEventPB.sentMessage(ADD_CUSTOMER_TOPIC, EventType.CREATED.getMessage(), customer);
     }
 
+    public void sendCustomerInitialCreateMessage(CustomerMessage customer) {
+        customerEventPB.sentMessage(ADD_CUSTOMER_TOPIC, "INIT", customer);
+    }
+
     public void sendCustomerDeleteMessage(String customerId) {
         customerEventRM.sentMessage(DELETE_CUSTOMER_TOPIC, EventType.DELETED.getMessage(), customerId);
     }

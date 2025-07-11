@@ -1,6 +1,7 @@
 package com.example.orderprocessingservice.config.messaging;
 
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ public class RocketMQConfig {
         consumer.setNamesrvAddr(nameServer);
         consumer.setVipChannelEnabled(false);
         consumer.setMaxReconsumeTimes(3);
+        consumer.setConsumeTimeout(15000);
         return consumer;
     }
 }

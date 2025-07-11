@@ -25,6 +25,10 @@ public class ProductService {
         productEventPB.sentMessage(ADD_PRODUCT_TOPIC, EventType.CREATED.getMessage(), product);
     }
 
+    public void sendProductInitialCreateMessage(ProductMessage product) {
+        productEventPB.sentMessage(ADD_PRODUCT_TOPIC, "INIT", product);
+    }
+
     public void sendProductDeleteMessage(String productId) {
         productEventRM.sentMessage(DELETE_PRODUCT_TOPIC, EventType.DELETED.getMessage(), productId);
     }

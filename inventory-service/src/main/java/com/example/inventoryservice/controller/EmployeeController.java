@@ -24,10 +24,15 @@ public class EmployeeController implements EmployeeControllerInterface {
     }
 
     @Override
-    public ResponseEntity<String> postEmployee(EmployeeMessage employeeMessage) {
+    public ResponseEntity<String> postEmployee(EmployeeMessage employeeMessage, boolean initialLoad) {
         LOGGER.info("Received request to create employee: {}", employeeMessage);
-        employeeService.sendEmployeeCreateMessage(employeeMessage);
-        LOGGER.info("Employee created successfully");
+        if (initialLoad) {
+            employeeService.sendEmployeeInitialCreateMessage(employeeMessage);
+            LOGGER.info("Initial employee creation message successfully sent to the queue");
+        } else {
+            employeeService.sendEmployeeCreateMessage(employeeMessage);
+            LOGGER.info("Employee creation message successfully sent to the queue");
+        }
         return ResponseEntity.ok("Employee creation message successfully sent to the queue");
     }
 }
