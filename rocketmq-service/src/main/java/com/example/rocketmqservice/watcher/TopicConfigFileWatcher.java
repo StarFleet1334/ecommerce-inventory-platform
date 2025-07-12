@@ -1,6 +1,5 @@
 package com.example.rocketmqservice.watcher;
 
-
 import com.example.rocketmqservice.initializer.RocketMQInitializer;
 import com.example.rocketmqservice.service.TopicConfigService;
 import org.slf4j.Logger;
@@ -9,77 +8,118 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.*;
+import java.nio.file.attribute.FileTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Component
-public class TopicConfigFileWatcher {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TopicConfigFileWatcher.class);
+public class TopicConfigFileWatcher implements Closeable {
 
-    private final RocketMQInitializer rocketMQInitializer;
+    private static final Logger log = LoggerFactory.getLogger(TopicConfigFileWatcher.class);
+
+    private final RocketMQInitializer initializer;
     private final TopicConfigService topicConfigService;
-    private final ExecutorService executorService;
-    private WatchService watchService;
-    private volatile boolean running = true;
 
-    public TopicConfigFileWatcher(RocketMQInitializer rocketMQInitializer,
+    private WatchService watchService;
+    private final ExecutorService        watchPool = Executors.newSingleThreadExecutor();
+    private final ScheduledExecutorService poller  = Executors.newSingleThreadScheduledExecutor();
+
+    private volatile boolean running = true;
+    private volatile FileTime lastModified;
+
+    public TopicConfigFileWatcher(RocketMQInitializer initializer,
                                   TopicConfigService topicConfigService) {
-        this.rocketMQInitializer = rocketMQInitializer;
+        this.initializer       = initializer;
         this.topicConfigService = topicConfigService;
-        this.executorService = Executors.newSingleThreadExecutor();
     }
+
+    // ─────────────────────────────────── lifecycle ────────────────────────────────────
 
     @PostConstruct
-    public void startWatching() {
-        try {
-            Path configPath = topicConfigService.getConfigPath();
-            Path configDir = configPath.getParent();
+    public void startWatching() throws IOException {
+        Path cfg    = topicConfigService.getConfigPath();
+        Path cfgDir = cfg.getParent();
 
-            watchService = FileSystems.getDefault().newWatchService();
-            configDir.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+        // 1) Inotify – only works when events are propagated
+        watchService = FileSystems.getDefault().newWatchService();
+        cfgDir.register(
+                watchService,
+                StandardWatchEventKinds.ENTRY_CREATE,
+                StandardWatchEventKinds.ENTRY_MODIFY,
+                StandardWatchEventKinds.ENTRY_DELETE);
 
-            executorService.submit(this::watchConfigFile);
-            LOGGER.info("Started file watcher for {}", configPath);
+        watchPool.submit(() -> watchLoop(cfg.getFileName()));
+        log.info("Watching {} for changes (inotify + polling)", cfg.toAbsolutePath());
 
-        } catch (IOException e) {
-            LOGGER.error("Error starting file watcher: {}", e.getMessage());
-        }
+        // 2) Poll‑fallback – catches changes when inotify doesn’t fire (Docker Desktop)
+        lastModified = Files.getLastModifiedTime(cfg);
+        poller.scheduleAtFixedRate(this::pollFile, 5, 5, TimeUnit.SECONDS);
     }
 
-    private void watchConfigFile() {
-        Path configPath = topicConfigService.getConfigPath();
+    // ─────────────────────────────────── inotify branch ───────────────────────────────
+
+    private void watchLoop(Path fileName) {
         while (running) {
             try {
-                WatchKey key = watchService.take();
-                for (WatchEvent<?> event : key.pollEvents()) {
-                    if (event.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
-                        Path changed = (Path) event.context();
-                        if (changed.toString().equals(configPath.getFileName().toString())) {
-                            LOGGER.info("Detected changes in topic configuration file");
-                            rocketMQInitializer.refreshTopics();
-                        }
+                WatchKey key = watchService.take(); // block
+                for (WatchEvent<?> ev : key.pollEvents()) {
+                    Path changed = (Path) ev.context();
+                    if (!changed.equals(fileName)) continue;
+
+                    if (ev.kind() != StandardWatchEventKinds.ENTRY_DELETE) {
+                        triggerReload("inotify:" + ev.kind().name());
                     }
                 }
-                key.reset();
+                if (!key.reset()) break; // directory became inaccessible
             } catch (InterruptedException e) {
-                LOGGER.error("File watching interrupted: {}", e.getMessage());
                 Thread.currentThread().interrupt();
                 break;
+            } catch (ClosedWatchServiceException cwse) {
+                break; // normal shutdown
+            } catch (Exception ex) {
+                log.error("Watcher loop failed", ex);
             }
         }
     }
 
+    // ─────────────────────────────────── polling branch ───────────────────────────────
+
+    private void pollFile() {
+        try {
+            Path cfg = topicConfigService.getConfigPath();
+            FileTime lm = Files.getLastModifiedTime(cfg);
+            if (lm.compareTo(lastModified) > 0) {
+                lastModified = lm;
+                triggerReload("polling");
+            }
+        } catch (Exception ex) {
+            log.warn("Polling failed: {}", ex.toString());
+        }
+    }
+
+    // ─────────────────────────────────── utilities ────────────────────────────────────
+
+    private void triggerReload(String source) {
+        try {
+            log.info("topics.json changed ({}), reloading …", source);
+            initializer.refreshTopics();
+        } catch (Exception ex) {
+            log.error("Reload failed", ex);
+        }
+    }
 
     @PreDestroy
-    public void stopWatching() {
+    @Override
+    public void close() throws IOException {
         running = false;
-        executorService.shutdown();
-        try {
-            watchService.close();
-        } catch (IOException e) {
-            LOGGER.error("Error closing watch service: {}", e.getMessage());
-        }
+        if (watchService != null) watchService.close();
+        watchPool.shutdownNow();
+        poller.shutdownNow();
+        log.info("Stopped file watcher");
     }
 }
