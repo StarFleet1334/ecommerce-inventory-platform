@@ -1,7 +1,6 @@
 package com.example.orderprocessingservice.config.database;
 
 import com.example.orderprocessingservice.config.database.impl.*;
-import com.example.orderprocessingservice.consumer.OrderMessageConsumer;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

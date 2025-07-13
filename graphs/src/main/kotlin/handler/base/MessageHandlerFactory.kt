@@ -16,8 +16,18 @@ class MessageHandlerFactory(
     }
 
     fun getHandler(topic: String): MessageHandler {
-        logger.info("Looking for handler for topic: $topic")
-        logger.info("Available handlers: {}, topics: {}", handlers.keys,handlers.values)
-        return handlers[topic] ?: throw IllegalArgumentException("No handler found for topic: $topic")
+        logger.debug("Available handlers: ${
+            handlers.entries.joinToString("\n") {
+                "${it.key} -> ${it.value.javaClass.simpleName}"
+            }
+        }")
+        val handler = handlers[topic]
+        if (handler == null) {
+            logger.error("No handler found for topic: $topic")
+            throw IllegalArgumentException("No handler found for topic: $topic")
+        }
+        logger.info("Found handler ${handler.javaClass.simpleName} for topic: $topic")
+        return handler
     }
+
 }
