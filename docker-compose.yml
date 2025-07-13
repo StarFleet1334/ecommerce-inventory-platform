@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   namesrv:
     image: apache/rocketmq:5.3.3
@@ -24,7 +22,8 @@ services:
     image: apache/rocketmq:5.3.3
     container_name: rmqbroker
     depends_on:
-      - namesrv
+      namesrv:
+        condition: service_healthy
     ports:
       - 10909:10909
       - 10911:10911
@@ -52,7 +51,10 @@ services:
     image: apacherocketmq/rocketmq-dashboard:latest
     container_name: rmqdashboard
     depends_on:
-      - namesrv
+      namesrv:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
     ports:
       - ${ROCKETMQ_DASHBOARD_PORT:-8080}:8080
     environment:
@@ -80,8 +82,10 @@ services:
     environment:
       - SPRING_APPLICATION_NAME=inventory-service
     depends_on:
-      - namesrv
-      - broker
+      namesrv:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
     networks:
       rocketmq-net:
         aliases:
@@ -105,8 +109,10 @@ services:
     environment:
       - SPRING_APPLICATION_NAME=order-processing-service
     depends_on:
-      - namesrv
-      - broker
+      namesrv:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
     networks:
       rocketmq-net:
         aliases:
@@ -130,8 +136,10 @@ services:
     environment:
       - SPRING_APPLICATION_NAME=graphs-service
     depends_on:
-      - namesrv
-      - broker
+      namesrv:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
     networks:
       rocketmq-net:
         aliases:
@@ -153,8 +161,10 @@ services:
     env_file:
       - .env
     depends_on:
-      - namesrv
-      - broker
+      namesrv:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
     networks:
       rocketmq-net:
         aliases:
@@ -183,8 +193,10 @@ services:
     volumes:
       - ./rocketmq-service/config:/app/config
     depends_on:
-      - namesrv
-      - broker
+      namesrv:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
     restart: unless-stopped
     networks:
       rocketmq-net:
