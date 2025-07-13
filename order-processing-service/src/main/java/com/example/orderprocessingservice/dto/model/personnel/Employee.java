@@ -43,7 +43,7 @@ public class Employee {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "ware_house_id", nullable = false)
+    @JoinColumn(name = "ware_house_id")
     private WareHouse wareHouse;
 
     @Transient

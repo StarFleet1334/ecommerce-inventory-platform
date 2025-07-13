@@ -7,16 +7,24 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.7.18/899128018a7962b3e4be665910bae65dff08d1b0/spring-boot-configuration-processor-2.7.18.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.36/5a30490a6e14977d97d9c73c924c1f1b5311ea95/lombok-1.18.36.jar" />
         </processorPath>
         <module name="graphs.main" />
+      </profile>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.36/5a30490a6e14977d97d9c73c924c1f1b5311ea95/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="graphs.test" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="graphs" options="-parameters" />
-      <module name="graphs.main" options="-parameters" />
-      <module name="graphs.test" options="-parameters" />
+      <module name="graphs" options="-parameters -Xlint:-processing -proc:none" />
+      <module name="graphs.main" options="-parameters -Xlint:-processing -proc:none" />
+      <module name="graphs.test" options="-parameters -Xlint:-processing -proc:none" />
       <module name="inventory-service" options="-parameters" />
       <module name="inventory-service.main" options="-parameters" />
       <module name="inventory-service.test" options="-parameters" />
