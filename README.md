@@ -25,6 +25,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 ```
 .
 ├── backend/                  # Python Flask backend
+├── frontend/                 # React 19 + Vite frontend application
 ├── graphs/                   # Analytics/graphs service (Kotlin/Ktor)
 ├── inventory-service/        # Inventory microservice (Java/Spring Boot)
 ├── order-processing-service/ # Order processing microservice (Java/Spring Boot)
@@ -45,6 +46,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 ## Services Overview
 
 - **backend**: Python Flask API for route calculations and other backend logic.
+- **frontend**: React 19 + Vite frontend application with modern UI and API integration.
 - **graphs-service**: Kotlin/Ktor (with Spring context) for analytics and dashboarding.
 - **inventory-service**: Java Spring Boot service for inventory management.
 - **order-processing-service**: Java Spring Boot service for order and supply management.
