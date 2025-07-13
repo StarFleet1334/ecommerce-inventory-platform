@@ -21,8 +21,8 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class OrderMessageConsumer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrderMessageConsumer.class);
+public class MessagesConsumer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessagesConsumer.class);
     private final DefaultMQPushConsumer consumer;
     private final ObjectMapper objectMapper;
     private final MessageHandlerFactory messageHandlerFactory;
@@ -124,7 +124,7 @@ public class OrderMessageConsumer {
     @PostConstruct
     public void init() throws Exception {
         for (String topic : getAllTopics()) {
-            consumer.subscribe(topic, "CREATED || UPDATED");
+            consumer.subscribe(topic, "CREATED || UPDATED || DELETED");
             LOGGER.info("Subscribed to topic: {}", topic);
         }
 

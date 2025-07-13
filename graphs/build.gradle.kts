@@ -3,6 +3,9 @@ plugins {
     kotlin("plugin.spring") version "1.9.20"
     id("org.springframework.boot") version "2.7.18"
     id("io.spring.dependency-management") version "1.1.4"
+    kotlin("kapt") version "1.9.20"
+    kotlin("plugin.lombok") version "2.2.0"
+    id("io.freefair.lombok") version "8.13.1"
     application
 }
 
