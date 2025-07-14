@@ -22,7 +22,5 @@ public class OrderProcessingServiceApplication {
         6. We should send to "graphs" customer, employee, product, supplier, warehouse tables for now.
         first when we load to database tables with data, we should send that as init data and then on each call
 
-        7. Also, when we delete WareHouse by id, all affiliated stocks must also be deleted
-
      */
 }
