@@ -21,4 +21,8 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
 
     @Query("SELECT s FROM Stock s WHERE s.product.product_id = :productId AND s.wareHouse.wareHouseId = :wareHouseId")
     Stock findByProductIdAndWareHouseId(@Param("productId") String productId, @Param("wareHouseId") int wareHouseId);
+
+    @Modifying
+    @Query("DELETE FROM Stock s WHERE s.wareHouse.wareHouseId = :wareHouseId")
+    void deleteAllByWareHouseId(@Param("wareHouseId") int wareHouseId);
 }
