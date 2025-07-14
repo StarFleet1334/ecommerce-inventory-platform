@@ -1,9 +1,12 @@
 package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.eventDto.WareHouseMP;
+import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.exception.personnel.WareHouseException;
 import com.example.orderprocessingservice.mapper.warehouse.WarehouseMapper;
+import com.example.orderprocessingservice.repository.asset.StockRepository;
+import com.example.orderprocessingservice.repository.personnel.EmployeeRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
 import com.example.orderprocessingservice.validator.WareHouseValidator;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class WareHouseService {
@@ -19,6 +24,8 @@ public class WareHouseService {
     private final WareHouseRepository wareHouseRepository;
     private final WareHouseValidator wareHouseValidator;
     private final WarehouseMapper warehouseMapper;
+    private final StockRepository stockRepository;
+    private final EmployeeRepository employeeRepository;
 
     public void handleNewWareHouse(WareHouseMP wareHouse) {
         LOGGER.info("Processing new warehouse: {}", wareHouse);
@@ -44,8 +51,15 @@ public class WareHouseService {
             if (!wareHouseRepository.existsById(wareHouseId)) {
                 throw WareHouseException.notFound(wareHouseId);
             }
+            employeeRepository.updateEmployeeWarehouseToNull(wareHouseId);
+            LOGGER.info("Successfully updated all employees warehouse to null for wareHouse with ID: {}", id);
+
+            stockRepository.deleteAllByWareHouseId(wareHouseId);
+            LOGGER.info("Successfully deleted all stocks for wareHouse with ID: {}", id);
+
             wareHouseRepository.deleteById(wareHouseId);
             LOGGER.info("Successfully deleted wareHouse with ID: {}", id);
+
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid wareHouse ID format: " + id);
         }
