@@ -6,6 +6,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 
 ## Table of Contents
 - [Project Structure](#project-structure)
+- [Assets](#assets)
 - [Services Overview](#services-overview)
 - [Prerequisites](#prerequisites)
 - [Setup & Configuration](#setup--configuration)
@@ -40,6 +41,20 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 ├── .env_example              # Example env file
 └── README.md                 # This documentation
 ```
+
+---
+
+## Assets
+- **public.customer_order**: https://ibb.co/cXvpX5Wz
+- **public.customer**: https://ibb.co/zhW19F3X
+- **public.customer_transaction**: https://ibb.co/prZ1ZtxQ
+- **public.employee**: https://ibb.co/TMhc3g1s
+- **public.product**: https://ibb.co/7dY1zTS2
+- **public.stock**: https://ibb.co/SDrQP2X4
+- **public.supplier**: https://ibb.co/8gJfC0DT
+- **public.supply**: https://ibb.co/Xx2Qvjz3
+- **public.supply_transaction**: https://ibb.co/MDmLDW1C
+- **public.ware_house**: https://ibb.co/gFb9f7cJ
 
 ---
 
