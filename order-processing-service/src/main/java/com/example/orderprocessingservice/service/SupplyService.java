@@ -2,7 +2,6 @@ package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.eventDto.SupplyMP;
 import com.example.orderprocessingservice.dto.model.asset.Product;
-import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.asset.Supply;
 import com.example.orderprocessingservice.dto.model.order.RouteCalculationResponse;
 import com.example.orderprocessingservice.dto.model.personnel.Employee;
@@ -14,7 +13,6 @@ import com.example.orderprocessingservice.exception.customer.CustomerException;
 import com.example.orderprocessingservice.exception.personnel.EmployeeException;
 import com.example.orderprocessingservice.exception.personnel.WareHouseException;
 import com.example.orderprocessingservice.exception.supplier.SupplierException;
-import com.example.orderprocessingservice.mapper.supplier.SupplierMapper;
 import com.example.orderprocessingservice.mapper.supply.SupplyMapper;
 import com.example.orderprocessingservice.repository.asset.ProductRepository;
 import com.example.orderprocessingservice.repository.asset.StockRepository;
@@ -30,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -46,7 +43,6 @@ public class SupplyService {
     private final SupplierRepository supplierRepository;
     private final SupplyMapper supplyMapper;
     private final WareHouseRepository wareHouseRepository;
-    private final StockRepository stockRepository;
     private final RouteCalculationService routeCalculationService;
     private final SupplyTransactionRepository supplyTransactionRepository;
 
