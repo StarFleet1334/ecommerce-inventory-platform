@@ -7,7 +7,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 ## Table of Contents
 - [Project Structure](#project-structure)
 - [Assets](#assets)
-- [Swagger](#startup-scripts)
+- [Swagger](#Swagger)
 - [Services Overview](#services-overview)
 - [Prerequisites](#prerequisites)
 - [Setup & Configuration](#setup--configuration)
