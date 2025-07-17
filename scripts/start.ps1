@@ -121,17 +121,24 @@ if (Wait-ForService -ServiceName "Order Processing Service" -HealthUrl "http://l
     Write-Host "$Yellow⚠️  Order processing service health check failed, but service might be running$Reset"
 }
 
-# Wait for frontend
-if (Wait-ForService -ServiceName "Frontend" -HealthUrl "http://localhost:3000") {
-    Write-Host "$Green✅ Frontend is ready!$Reset"
+# Wait for frontend services
+if (Wait-ForService -ServiceName "Frontend (Production)" -HealthUrl "http://localhost:3000") {
+    Write-Host "$Green✅ Frontend (Production) is ready!$Reset"
 } else {
-    Write-Host "$Yellow⚠️  Frontend health check failed, but service might be running$Reset"
+    Write-Host "$Yellow⚠️  Frontend (Production) health check failed, but service might be running$Reset"
+}
+
+if (Wait-ForService -ServiceName "Frontend (Development)" -HealthUrl "http://localhost:5173") {
+    Write-Host "$Green✅ Frontend (Development) is ready!$Reset"
+} else {
+    Write-Host "$Yellow⚠️  Frontend (Development) health check failed, but service might be running$Reset"
 }
 
 # Show final status
 Write-Host "$Green🎉 All services started!$Reset"
 Write-Host "$Green📊 Service URLs:$Reset"
-Write-Host "  Frontend: $Greenhttp://localhost:3000$Reset"
+Write-Host "  Frontend (Production): $Greenhttp://localhost:3000$Reset"
+Write-Host "  Frontend (Development): $Greenhttp://localhost:5173$Reset"
 Write-Host "  Inventory Service: $Greenhttp://localhost:8081$Reset"
 Write-Host "  Inventory Swagger: $Greenhttp://localhost:8081/swagger-ui/index.html$Reset"
 Write-Host "  Order Processing: $Greenhttp://localhost:8083$Reset"
