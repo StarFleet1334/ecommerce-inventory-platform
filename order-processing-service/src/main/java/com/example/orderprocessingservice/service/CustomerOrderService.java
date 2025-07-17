@@ -38,7 +38,20 @@ public class CustomerOrderService {
         customerTransactionRepository.save(customerTransaction);
         LOGGER.info("Successfully finished speedUp of customer order with ID {}", orderId);
 
-        customerInventoryRepository.save(constructrCustomerInventory(customerOrder.get()));
+        CustomerOrder order = customerOrder.get();
+        Integer customerId = order.getCustomer().getCustomer_id();
+        String productId = order.getProduct().getProduct_id();
+        if (customerInventoryRepository.existsByCustomerIdAndProductId(customerId, productId)) {
+            CustomerInventory existingInventory = customerInventoryRepository
+                    .findByCustomerIdAndProductId(customerId, productId)
+                    .orElseThrow();
+
+            existingInventory.setQuantity(existingInventory.getQuantity() + order.getProductAmount());
+            existingInventory.setLastUpdated(OffsetDateTime.now());
+            customerInventoryRepository.save(existingInventory);
+        } else {
+            customerInventoryRepository.save(constructrCustomerInventory(order));
+        }
         LOGGER.info("Successfully saved new customer inventory for order with ID: {}", orderId);
 
     }
