@@ -1,7 +1,6 @@
 package com.example.inventoryservice.entity.messages;
 
 import lombok.Data;
-
 import java.math.BigDecimal;
 
 @Data

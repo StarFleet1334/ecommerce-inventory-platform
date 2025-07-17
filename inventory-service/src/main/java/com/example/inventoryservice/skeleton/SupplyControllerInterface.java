@@ -27,4 +27,5 @@ public interface SupplyControllerInterface {
             @ApiResponse(responseCode = "404", description = "No Supply with given ID exists")
     })
     ResponseEntity<String> deleteSupplyById(@PathVariable String id);
+
 }

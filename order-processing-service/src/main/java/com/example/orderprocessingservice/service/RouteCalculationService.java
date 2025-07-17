@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Collections;
@@ -59,7 +58,6 @@ public class RouteCalculationService {
             LOGGER.error("Error calling route calculation service: {} - {}", e.getClass().getName(), e.getMessage(), e);
             throw new RuntimeException("Failed to calculate route", e);
         }
-
     }
 
 }

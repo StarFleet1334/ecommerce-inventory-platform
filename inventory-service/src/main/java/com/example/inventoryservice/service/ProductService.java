@@ -32,4 +32,5 @@ public class ProductService {
     public void sendProductDeleteMessage(String productId) {
         productEventRM.sentMessage(DELETE_PRODUCT_TOPIC, EventType.DELETED.getMessage(), productId);
     }
+
 }

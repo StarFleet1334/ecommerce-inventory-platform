@@ -32,4 +32,5 @@ public class EmployeeService {
     public void sendEmployeeDeleteMessage(String employeeId) {
         employeeEventRM.sentMessage(DELETE_EMPLOYEE_TOPIC, EventType.DELETED.getMessage(), employeeId);
     }
+
 }

@@ -1,6 +1,5 @@
 package com.example.orderprocessingservice.dto.model.transaction;
 
-
 import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -8,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.OffsetDateTime;
 
 @Entity
@@ -33,4 +31,5 @@ public class CustomerTransaction {
     @Column(name = "is_finished")
     @JsonProperty("is_finished")
     private boolean finished;
+
 }

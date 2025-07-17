@@ -3,7 +3,6 @@ package com.example.orderprocessingservice.config.database;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;

@@ -2,7 +2,6 @@ package com.example.orderprocessingservice.exception.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +9,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 public class ErrorResponse {
+
     private String code;
     private String message;
     private LocalDateTime timestamp;
@@ -21,5 +21,6 @@ public class ErrorResponse {
         this.timestamp = timestamp;
         this.details = new HashMap<>();
     }
+
 }
 

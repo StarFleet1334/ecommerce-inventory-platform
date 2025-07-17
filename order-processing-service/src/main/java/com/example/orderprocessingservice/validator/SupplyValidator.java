@@ -1,6 +1,5 @@
 package com.example.orderprocessingservice.validator;
 
-
 import com.example.orderprocessingservice.dto.eventDto.SupplyMP;
 import com.example.orderprocessingservice.repository.supplier.SupplierRepository;
 import com.example.orderprocessingservice.utils.constants.SupplyConstants;

@@ -9,7 +9,6 @@ import com.example.inventoryservice.utils.EventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.time.OffsetDateTime;
 
 @Service
@@ -45,4 +44,5 @@ public class CustomerService {
         customerOrderMessage.setOrder_time(OffsetDateTime.now());
         customerOrderEventPB.sentMessage(ORDER_TOPIC, EventType.CREATED.getMessage(), customerOrderMessage);
     }
+
 }

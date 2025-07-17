@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeService.class);
     private final EmployeeRepository employeeRepository;
     private final EmployeeValidator employeeValidator;
@@ -51,6 +52,5 @@ public class EmployeeService {
             throw new IllegalArgumentException("Invalid employee ID format: " + id);
         }
     }
-
 
 }

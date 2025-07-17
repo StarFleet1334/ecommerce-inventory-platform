@@ -13,15 +13,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.*;
-
 
 @Component
 public abstract class StockLoader extends AbstractMapDataLoader<Stock, StockMessage> {
     private final WareHouseRepository wareHouseRepository;
     private final ProductRepository productRepository;
-    private Map<Integer, Integer> warehouseTotals;
+    private final Map<Integer, Integer> warehouseTotals;
 
     @Autowired
     public StockLoader(ObjectMapper objectMapper,
