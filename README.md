@@ -7,6 +7,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 ## Table of Contents
 - [Project Structure](#project-structure)
 - [Assets](#assets)
+- [Swagger](#startup-scripts)
 - [Services Overview](#services-overview)
 - [Prerequisites](#prerequisites)
 - [Setup & Configuration](#setup--configuration)
@@ -18,6 +19,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 - [Healthchecks](#healthchecks)
 - [Common Commands](#common-commands)
 - [Troubleshooting](#troubleshooting)
+- 
 
 ---
 
@@ -58,6 +60,13 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 - **public.customer_inventory**: https://ibb.co/5WMh9C1G
 - **public.inventory_backlog**: https://ibb.co/7tScZKcS
 - **public.inventory_backlog_history**: https://ibb.co/tPXdMCJ7
+
+---
+
+## Swagger
+
+- **inventory-service endpoint**: http://localhost:8081/swagger-ui/index.html
+- **order-processing-service endpoint**: http://localhost:8083/swagger-ui/index.html
 
 ---
 
