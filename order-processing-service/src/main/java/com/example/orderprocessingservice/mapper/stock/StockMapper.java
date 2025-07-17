@@ -12,16 +12,19 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Optional;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {ProductRepository.class, WareHouseRepository.class})
 public abstract class StockMapper implements BaseMapper<StockMP, Stock> {
 
+    private final ProductRepository productRepository;
+    private final WareHouseRepository wareHouseRepository;
+
     @Autowired
-    protected ProductRepository productRepository;
-    @Autowired
-    protected WareHouseRepository wareHouseRepository;
+    public StockMapper(ProductRepository productRepository, WareHouseRepository wareHouseRepository) {
+        this.productRepository = productRepository;
+        this.wareHouseRepository = wareHouseRepository;
+    }
 
     @Override
     @Mapping(source = "ware_house_id", target = "wareHouse", qualifiedByName = "mapWareHouse")
@@ -48,4 +51,5 @@ public abstract class StockMapper implements BaseMapper<StockMP, Stock> {
         }
         return product;
     }
+
 }

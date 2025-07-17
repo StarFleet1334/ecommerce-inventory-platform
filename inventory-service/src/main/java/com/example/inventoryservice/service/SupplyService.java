@@ -7,7 +7,6 @@ import com.example.inventoryservice.utils.EventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.time.OffsetDateTime;
 
 @Service
@@ -31,5 +30,6 @@ public class SupplyService {
     public void sendSupplyDeleteMessage(String supplyId) {
         customerEventRM.sentMessage(DELETE_SUPPLY_TOPIC, EventType.DELETED.getMessage(), supplyId);
     }
+
 }
 

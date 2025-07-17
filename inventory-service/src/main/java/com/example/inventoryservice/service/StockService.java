@@ -32,4 +32,5 @@ public class StockService {
     public void sendStockDeleteMessage(String stockId) {
         stockEventRM.sentMessage(DELETE_STOCK_TOPIC, EventType.DELETED.getMessage(), stockId);
     }
+
 }

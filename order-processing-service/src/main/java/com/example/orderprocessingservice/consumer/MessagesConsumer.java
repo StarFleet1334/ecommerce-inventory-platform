@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +27,7 @@ public class MessagesConsumer {
     private final MessageHandlerFactory messageHandlerFactory;
 
     /****
-     *
+     * <p>
      * Customer topic
      *
      */
@@ -39,7 +38,7 @@ public class MessagesConsumer {
     private String customerDeleteTopic;
 
     /****
-     *
+     * <p>
      * Employee topic
      *
      */
@@ -50,7 +49,7 @@ public class MessagesConsumer {
     private String employeeDeleteTopic;
 
     /****
-     *
+     * <p>
      * Product topic
      *
      */
@@ -61,7 +60,7 @@ public class MessagesConsumer {
     private String productDeleteTopic;
 
     /****
-     *
+     * <p>
      * Stock topic
      *
      */
@@ -73,7 +72,7 @@ public class MessagesConsumer {
     private String stockDeleteTopic;
 
     /****
-     *
+     * <p>
      * Supplier topic
      *
      */
@@ -86,7 +85,7 @@ public class MessagesConsumer {
 
 
     /****
-     *
+     * <p>
      * WareHouse topic
      *
      */
@@ -98,7 +97,7 @@ public class MessagesConsumer {
     private String warehouseDeleteTopic;
 
     /****
-     *
+     * <p>
      *
      * Customer Order
      *
@@ -108,7 +107,7 @@ public class MessagesConsumer {
     private String customerOrderTopic;
 
     /****
-     *
+     * <p>
      *
      * Supply
      *

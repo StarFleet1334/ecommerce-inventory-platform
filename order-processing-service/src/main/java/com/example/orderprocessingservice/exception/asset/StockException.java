@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 
 public class StockException extends BaseException {
     public static final String STOCK_NOT_FOUND = "STOCK_001";
-    public static final String STOCK_INSUFFICIENT = "STOCK_002";
     public static final String STOCK_CAPACITY_EXCEEDED = "STOCK_003";
 
     private StockException(String message, HttpStatus status, String code) {
@@ -17,15 +16,6 @@ public class StockException extends BaseException {
                 String.format("Stock with ID %s not found", stockId),
                 HttpStatus.NOT_FOUND,
                 STOCK_NOT_FOUND
-        );
-    }
-
-    public static StockException insufficientStock(String productId, int requested, int available) {
-        return new StockException(
-                String.format("Insufficient stock for product %s. Requested: %d, Available: %d",
-                        productId, requested, available),
-                HttpStatus.BAD_REQUEST,
-                STOCK_INSUFFICIENT
         );
     }
 

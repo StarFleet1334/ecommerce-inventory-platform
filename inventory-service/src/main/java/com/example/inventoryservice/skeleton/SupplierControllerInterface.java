@@ -28,4 +28,5 @@ public interface SupplierControllerInterface {
     })
     ResponseEntity<String> postSupplier(@RequestBody SupplierMessage supplierMessage,
                                         @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
+
 }

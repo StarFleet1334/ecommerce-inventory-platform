@@ -4,7 +4,6 @@ import com.example.orderprocessingservice.dto.model.asset.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import java.math.BigInteger;
 
 public interface ProductRepository extends JpaRepository<Product, BigInteger> {

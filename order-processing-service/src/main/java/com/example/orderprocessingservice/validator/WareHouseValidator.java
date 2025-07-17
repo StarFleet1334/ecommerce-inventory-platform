@@ -7,7 +7,6 @@ import com.example.orderprocessingservice.validator.base.BaseEntityValidator;
 import com.example.orderprocessingservice.validator.base.ValidateRule;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class WareHouseValidator extends BaseEntityValidator<WareHouseMP> {
     private final WareHouseRepository wareHouseRepository;
