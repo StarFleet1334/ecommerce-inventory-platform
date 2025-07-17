@@ -1,105 +1,388 @@
 import React, { useState } from 'react';
+import inventoryApi from './services/inventoryApi';
+import EntityTabs from './components/EntityTabs';
+import EntityForm from './components/EntityForm';
+import EntityList from './components/EntityList';
+import Notification from './components/Notification';
+import DebugInfo from './components/DebugInfo';
 
-interface Product {
-  product_name: string;
-  sku: string;
-  product_id: string;
-  product_price: number;
-  product_description: string;
+interface NotificationState {
+  show: boolean;
+  message: string;
+  type: 'success' | 'error' | 'info';
 }
 
-const initialProducts: Product[] = [
-  {
-    product_name: 'Sample Product',
-    sku: 'SKU123',
-    product_id: '1',
-    product_price: 19.99,
-    product_description: 'A sample product.'
-  }
+// Sample data for demonstration
+const sampleData = {
+  products: [
+    {
+      product_name: 'Sample Product',
+      sku: 'SKU123',
+      product_id: '1',
+      product_price: 19.99,
+      product_description: 'A sample product for demonstration purposes.'
+    }
+  ],
+  customers: [
+    {
+      customer_id: 'CUST001',
+      customer_name: 'John Doe',
+      email: 'john@example.com',
+      phone: '+1234567890',
+      address: '123 Main St, City, State'
+    }
+  ],
+  employees: [
+    {
+      employee_id: 'EMP001',
+      employee_name: 'Jane Smith',
+      email: 'jane@company.com',
+      phone: '+1234567891',
+      position: 'Manager',
+      department: 'Sales'
+    }
+  ],
+  suppliers: [
+    {
+      supplier_id: 'SUP001',
+      supplier_name: 'ABC Supplies',
+      email: 'contact@abcsupplies.com',
+      phone: '+1234567892',
+      address: '456 Business Ave, City, State'
+    }
+  ],
+  warehouses: [
+    {
+      warehouse_id: 'WH001',
+      warehouse_name: 'Main Warehouse',
+      location: '789 Industrial Blvd',
+      capacity: 10000
+    }
+  ],
+  stocks: [
+    {
+      stock_id: 'STK001',
+      product_id: '1',
+      quantity: 100,
+      warehouse_id: 'WH001',
+      last_updated: new Date().toISOString()
+    }
+  ],
+  supplies: [
+    {
+      supply_id: 'SUP001',
+      supplier_id: 'SUP001',
+      product_id: '1',
+      quantity: 50,
+      supply_date: new Date().toISOString()
+    }
+  ]
+};
+
+const tabs = [
+  { id: 'products', label: 'Products', icon: '📦' },
+  { id: 'customers', label: 'Customers', icon: '👥' },
+  { id: 'employees', label: 'Employees', icon: '👨‍💼' },
+  { id: 'suppliers', label: 'Suppliers', icon: '🏢' },
+  { id: 'warehouses', label: 'Warehouses', icon: '🏭' },
+  { id: 'stocks', label: 'Stock', icon: '📊' },
+  { id: 'supplies', label: 'Supplies', icon: '🚚' }
 ];
 
-const InventoryDashboard: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>(initialProducts);
-  const [form, setForm] = useState<Product>({
-    product_name: '',
-    sku: '',
-    product_id: '',
-    product_price: 0,
-    product_description: ''
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const entityConfigs: Record<string, {
+  fields: Array<{
+    name: string;
+    label: string;
+    type: 'text' | 'number' | 'email' | 'textarea';
+    required?: boolean;
+    placeholder?: string;
+  }>;
+  displayFields: Array<{
+    key: string;
+    label: string;
+    type?: 'text' | 'number' | 'currency' | 'date';
+  }>;
+  idField: string;
+  api: {
+    create: (data: any, initialLoad?: boolean) => Promise<any>;
+    delete: (id: string) => Promise<any>;
+  };
+}> = {
+  products: {
+    fields: [
+      { name: 'product_name', label: 'Product Name', type: 'text', required: true },
+      { name: 'sku', label: 'SKU', type: 'text', required: true },
+      { name: 'product_id', label: 'Product ID', type: 'text', required: true },
+      { name: 'product_price', label: 'Price', type: 'number', required: true },
+      { name: 'product_description', label: 'Description', type: 'textarea', required: true }
+    ],
+    displayFields: [
+      { key: 'product_name', label: 'Name' },
+      { key: 'sku', label: 'SKU' },
+      { key: 'product_price', label: 'Price', type: 'currency' },
+      { key: 'product_description', label: 'Description' }
+    ],
+    idField: 'product_id',
+    api: {
+      create: inventoryApi.createProduct,
+      delete: inventoryApi.deleteProduct
+    }
+  },
+  customers: {
+    fields: [
+      { name: 'customer_id', label: 'Customer ID', type: 'text', required: true },
+      { name: 'customer_name', label: 'Name', type: 'text', required: true },
+      { name: 'email', label: 'Email', type: 'email', required: true },
+      { name: 'phone', label: 'Phone', type: 'text', required: true },
+      { name: 'address', label: 'Address', type: 'textarea', required: true }
+    ],
+    displayFields: [
+      { key: 'customer_name', label: 'Name' },
+      { key: 'email', label: 'Email' },
+      { key: 'phone', label: 'Phone' },
+      { key: 'address', label: 'Address' }
+    ],
+    idField: 'customer_id',
+    api: {
+      create: inventoryApi.createCustomer,
+      delete: inventoryApi.deleteCustomer
+    }
+  },
+  employees: {
+    fields: [
+      { name: 'employee_id', label: 'Employee ID', type: 'text', required: true },
+      { name: 'employee_name', label: 'Name', type: 'text', required: true },
+      { name: 'email', label: 'Email', type: 'email', required: true },
+      { name: 'phone', label: 'Phone', type: 'text', required: true },
+      { name: 'position', label: 'Position', type: 'text', required: true },
+      { name: 'department', label: 'Department', type: 'text', required: true }
+    ],
+    displayFields: [
+      { key: 'employee_name', label: 'Name' },
+      { key: 'email', label: 'Email' },
+      { key: 'position', label: 'Position' },
+      { key: 'department', label: 'Department' }
+    ],
+    idField: 'employee_id',
+    api: {
+      create: inventoryApi.createEmployee,
+      delete: inventoryApi.deleteEmployee
+    }
+  },
+  suppliers: {
+    fields: [
+      { name: 'supplier_id', label: 'Supplier ID', type: 'text', required: true },
+      { name: 'supplier_name', label: 'Name', type: 'text', required: true },
+      { name: 'email', label: 'Email', type: 'email', required: true },
+      { name: 'phone', label: 'Phone', type: 'text', required: true },
+      { name: 'address', label: 'Address', type: 'textarea', required: true }
+    ],
+    displayFields: [
+      { key: 'supplier_name', label: 'Name' },
+      { key: 'email', label: 'Email' },
+      { key: 'phone', label: 'Phone' },
+      { key: 'address', label: 'Address' }
+    ],
+    idField: 'supplier_id',
+    api: {
+      create: inventoryApi.createSupplier,
+      delete: inventoryApi.deleteSupplier
+    }
+  },
+  warehouses: {
+    fields: [
+      { name: 'warehouse_id', label: 'Warehouse ID', type: 'text', required: true },
+      { name: 'warehouse_name', label: 'Name', type: 'text', required: true },
+      { name: 'location', label: 'Location', type: 'text', required: true },
+      { name: 'capacity', label: 'Capacity', type: 'number', required: true }
+    ],
+    displayFields: [
+      { key: 'warehouse_name', label: 'Name' },
+      { key: 'location', label: 'Location' },
+      { key: 'capacity', label: 'Capacity', type: 'number' }
+    ],
+    idField: 'warehouse_id',
+    api: {
+      create: inventoryApi.createWarehouse,
+      delete: inventoryApi.deleteWarehouse
+    }
+  },
+  stocks: {
+    fields: [
+      { name: 'stock_id', label: 'Stock ID', type: 'text', required: true },
+      { name: 'product_id', label: 'Product ID', type: 'text', required: true },
+      { name: 'quantity', label: 'Quantity', type: 'number', required: true },
+      { name: 'warehouse_id', label: 'Warehouse ID', type: 'text', required: true }
+    ],
+    displayFields: [
+      { key: 'stock_id', label: 'Stock ID' },
+      { key: 'product_id', label: 'Product ID' },
+      { key: 'quantity', label: 'Quantity', type: 'number' },
+      { key: 'warehouse_id', label: 'Warehouse ID' }
+    ],
+    idField: 'stock_id',
+    api: {
+      create: inventoryApi.createStock,
+      delete: inventoryApi.deleteStock
+    }
+  },
+  supplies: {
+    fields: [
+      { name: 'supply_id', label: 'Supply ID', type: 'text', required: true },
+      { name: 'supplier_id', label: 'Supplier ID', type: 'text', required: true },
+      { name: 'product_id', label: 'Product ID', type: 'text', required: true },
+      { name: 'quantity', label: 'Quantity', type: 'number', required: true }
+    ],
+    displayFields: [
+      { key: 'supply_id', label: 'Supply ID' },
+      { key: 'supplier_id', label: 'Supplier ID' },
+      { key: 'product_id', label: 'Product ID' },
+      { key: 'quantity', label: 'Quantity', type: 'number' }
+    ],
+    idField: 'supply_id',
+    api: {
+      create: inventoryApi.createSupply,
+      delete: inventoryApi.deleteSupply
+    }
+  }
+};
 
-  // Handle form input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setForm(prev => ({
-      ...prev,
-      [name]: name === 'product_price' ? parseFloat(value) : value
-    }));
+const InventoryDashboard: React.FC = () => {
+  const [activeTab, setActiveTab] = useState('products');
+  const [entities, setEntities] = useState(sampleData);
+  const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState<NotificationState>({
+    show: false,
+    message: '',
+    type: 'info'
+  });
+
+  const showNotification = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
+    setNotification({ show: true, message, type });
   };
 
-  // Handle product creation
-  const handleAddProduct = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const hideNotification = () => {
+    setNotification(prev => ({ ...prev, show: false }));
+  };
+
+  const handleCreate = async (data: Record<string, any>) => {
     setLoading(true);
-    setError(null);
     try {
-      const response = await fetch('/api/inventory/api/v1/product?initialLoad=false', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
-      });
-      if (!response.ok) throw new Error('Failed to add product');
-      setProducts(prev => [...prev, form]);
-      setForm({ product_name: '', sku: '', product_id: '', product_price: 0, product_description: '' });
-    } catch (err: any) {
-      setError(err.message);
+      const config = entityConfigs[activeTab as keyof typeof entityConfigs];
+      await config.api.create(data, false);
+      
+      // Add to local state
+      setEntities(prev => ({
+        ...prev,
+        [activeTab]: [...prev[activeTab as keyof typeof prev], data]
+      }));
+      
+      showNotification(`${activeTab.slice(0, -1)} created successfully!`, 'success');
+    } catch (error) {
+      console.error(`Failed to create ${activeTab.slice(0, -1)}:`, error);
+      showNotification(`Failed to create ${activeTab.slice(0, -1)}. Please try again.`, 'error');
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle product deletion
   const handleDelete = async (id: string) => {
     setLoading(true);
-    setError(null);
     try {
-      const response = await fetch(`/api/inventory/api/v1/product/${id}`, {
-        method: 'DELETE'
-      });
-      if (!response.ok) throw new Error('Failed to delete product');
-      setProducts(prev => prev.filter(p => p.product_id !== id));
-    } catch (err: any) {
-      setError(err.message);
+      const config = entityConfigs[activeTab as keyof typeof entityConfigs];
+      await config.api.delete(id);
+      
+      // Remove from local state
+      setEntities(prev => ({
+        ...prev,
+        [activeTab]: prev[activeTab as keyof typeof prev].filter((item: any) => item[config.idField] !== id)
+      }));
+      
+      showNotification(`${activeTab.slice(0, -1)} deleted successfully!`, 'success');
+    } catch (error) {
+      console.error(`Failed to delete ${activeTab.slice(0, -1)}:`, error);
+      showNotification(`Failed to delete ${activeTab.slice(0, -1)}. Please try again.`, 'error');
     } finally {
       setLoading(false);
     }
   };
 
+  const currentConfig = entityConfigs[activeTab as keyof typeof entityConfigs];
+  const currentEntities = entities[activeTab as keyof typeof entities] || [];
+
   return (
-    <div style={{ maxWidth: 600, margin: '2rem auto', padding: '2rem', background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #eee' }}>
-      <h2>Inventory Dashboard</h2>
-      <form onSubmit={handleAddProduct} style={{ marginBottom: '2rem' }}>
-        <input name="product_name" placeholder="Product Name" value={form.product_name} onChange={handleChange} required style={{ width: '100%', marginBottom: 8 }} />
-        <input name="sku" placeholder="SKU" value={form.sku} onChange={handleChange} required style={{ width: '100%', marginBottom: 8 }} />
-        <input name="product_id" placeholder="Product ID" value={form.product_id} onChange={handleChange} required style={{ width: '100%', marginBottom: 8 }} />
-        <input name="product_price" type="number" step="0.01" placeholder="Price" value={form.product_price} onChange={handleChange} required style={{ width: '100%', marginBottom: 8 }} />
-        <textarea name="product_description" placeholder="Description" value={form.product_description} onChange={handleChange} required style={{ width: '100%', marginBottom: 8 }} />
-        <button type="submit" disabled={loading} style={{ width: '100%' }}>Add Product</button>
-      </form>
-      {error && <div style={{ color: 'red', marginBottom: 8 }}>{error}</div>}
-      <h3>Products</h3>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {products.map(product => (
-          <li key={product.product_id} style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
-            <strong>{product.product_name}</strong> (SKU: {product.sku})<br />
-            Price: ${product.product_price} <br />
-            {product.product_description}<br />
-            <button onClick={() => handleDelete(product.product_id)} disabled={loading} style={{ marginTop: 4 }}>Delete</button>
-          </li>
-        ))}
-      </ul>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Inventory Management System</h1>
+          <p className="mt-2 text-gray-600">
+            Manage your complete inventory ecosystem with real-time updates
+          </p>
+        </div>
+
+        {/* Tabs */}
+        <div className="mb-8">
+          <EntityTabs
+            tabs={tabs}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Form */}
+          <EntityForm
+            fields={currentConfig.fields}
+            onSubmit={handleCreate}
+            loading={loading}
+            title={`Add New ${activeTab.slice(0, -1)}`}
+            submitLabel={`Add ${activeTab.slice(0, -1)}`}
+          />
+
+          {/* List */}
+          <EntityList
+            items={currentEntities}
+            onDelete={handleDelete}
+            loading={loading}
+            title={`${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`}
+            idField={currentConfig.idField}
+            displayFields={currentConfig.displayFields}
+            emptyMessage={`No ${activeTab} found. Add your first ${activeTab.slice(0, -1)} above.`}
+          />
+        </div>
+
+        {/* API Status */}
+        <div className="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">API Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div>
+              <span className="font-medium text-gray-700">Base URL:</span>
+              <span className="ml-2 text-gray-600">http://localhost:8081</span>
+            </div>
+            <div>
+              <span className="font-medium text-gray-700">API Version:</span>
+              <span className="ml-2 text-gray-600">v1</span>
+            </div>
+            <div>
+              <span className="font-medium text-gray-700">Status:</span>
+              <span className="ml-2 text-green-600">Connected</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Notification */}
+      {notification.show && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={hideNotification}
+        />
+      )}
+
+      {/* Debug Info */}
+      <DebugInfo />
     </div>
   );
 };

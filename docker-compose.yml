@@ -222,6 +222,33 @@ services:
       retries: 5
     profiles: ["all", "dev", "prod"]
 
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: frontend-dev
+    ports:
+      - "${FRONTEND_DEV_PORT:-5173}:5173"
+    env_file:
+      - .env
+    environment:
+      - VITE_DEBUG=true
+    depends_on:
+      - inventory-service
+      - order-processing-service
+      - graphs-service
+      - backend
+    networks:
+      rocketmq-net:
+        aliases:
+          - frontend-dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5173/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["dev"]
+
 
 networks:
   rocketmq-net:
