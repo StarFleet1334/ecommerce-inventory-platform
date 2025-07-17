@@ -1,8 +1,10 @@
 package com.example.orderprocessingservice.service;
 
+import com.example.orderprocessingservice.dto.model.customer.CustomerInventory;
 import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
 import com.example.orderprocessingservice.dto.model.transaction.CustomerTransaction;
 import com.example.orderprocessingservice.exception.customer.CustomerOrderException;
+import com.example.orderprocessingservice.repository.customer.CustomerInventoryRepository;
 import com.example.orderprocessingservice.repository.order.OrderRepository;
 import com.example.orderprocessingservice.repository.transaction.CustomerTransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.Optional;
 
 @Service
@@ -18,6 +21,7 @@ public class CustomerOrderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerOrderService.class);
     private final OrderRepository orderRepository;
     private final CustomerTransactionRepository customerTransactionRepository;
+    private final CustomerInventoryRepository customerInventoryRepository;
 
     public void speedUpCustomerOrder(int orderId) {
         LOGGER.info("Speeding up customer order with ID: {}", orderId);
@@ -33,5 +37,18 @@ public class CustomerOrderService {
         customerTransaction.setFinished(true);
         customerTransactionRepository.save(customerTransaction);
         LOGGER.info("Successfully finished speedUp of customer order with ID {}", orderId);
+
+        customerInventoryRepository.save(constructrCustomerInventory(customerOrder.get()));
+        LOGGER.info("Successfully saved new customer inventory for order with ID: {}", orderId);
+
+    }
+
+    private CustomerInventory constructrCustomerInventory(CustomerOrder customerOrder) {
+        CustomerInventory customerInventory = new CustomerInventory();
+        customerInventory.setCustomerId(customerOrder.getCustomer().getCustomer_id());
+        customerInventory.setProductId(customerOrder.getProduct().getProduct_id());
+        customerInventory.setQuantity(customerOrder.getProductAmount());
+        customerInventory.setLastUpdated(OffsetDateTime.now());
+        return customerInventory;
     }
 }
