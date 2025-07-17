@@ -101,17 +101,24 @@ else
     echo -e "${YELLOW}⚠️  Order processing service health check failed, but service might be running${NC}"
 fi
 
-# Wait for frontend
-if wait_for_service "Frontend" "http://localhost:3000"; then
-    echo -e "${GREEN}✅ Frontend is ready!${NC}"
+# Wait for frontend services
+if wait_for_service "Frontend (Production)" "http://localhost:3000"; then
+    echo -e "${GREEN}✅ Frontend (Production) is ready!${NC}"
 else
-    echo -e "${YELLOW}⚠️  Frontend health check failed, but service might be running${NC}"
+    echo -e "${YELLOW}⚠️  Frontend (Production) health check failed, but service might be running${NC}"
+fi
+
+if wait_for_service "Frontend (Development)" "http://localhost:5173"; then
+    echo -e "${GREEN}✅ Frontend (Development) is ready!${NC}"
+else
+    echo -e "${YELLOW}⚠️  Frontend (Development) health check failed, but service might be running${NC}"
 fi
 
 # Show final status
 echo -e "${GREEN}🎉 All services started!${NC}"
 echo -e "${GREEN}📊 Service URLs:${NC}"
-echo -e "  Frontend: ${GREEN}http://localhost:3000${NC}"
+echo -e "  Frontend (Production): ${GREEN}http://localhost:3000${NC}"
+echo -e "  Frontend (Development): ${GREEN}http://localhost:5173${NC}"
 echo -e "  Inventory Service: ${GREEN}http://localhost:8081${NC}"
 echo -e "  Inventory Swagger: ${GREEN}http://localhost:8081/swagger-ui/index.html${NC}"
 echo -e "  Order Processing: ${GREEN}http://localhost:8083${NC}"
