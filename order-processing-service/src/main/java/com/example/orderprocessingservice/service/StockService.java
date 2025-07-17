@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Optional;
 
 @Service
@@ -52,8 +51,6 @@ public class StockService {
             LOGGER.error("Failed to process stock operation: {}", e.getMessage());
             throw new RuntimeException("Failed to process stock operation", e);
         }
-
-
     }
 
     @Transactional

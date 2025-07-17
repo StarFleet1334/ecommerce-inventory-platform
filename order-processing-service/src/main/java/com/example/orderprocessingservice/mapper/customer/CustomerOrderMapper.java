@@ -13,17 +13,19 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Optional;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {ProductRepository.class, CustomerRepository.class})
 public abstract class CustomerOrderMapper implements BaseMapper<CustomerOrderMP, CustomerOrder> {
 
-    @Autowired
-    protected ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    protected CustomerRepository customerRepository;
+    public CustomerOrderMapper(ProductRepository productRepository, CustomerRepository customerRepository) {
+        this.productRepository = productRepository;
+        this.customerRepository = customerRepository;
+    }
 
     @Override
     @Mapping(source = "product_id",target = "product",qualifiedByName = "mapProduct")
@@ -50,4 +52,5 @@ public abstract class CustomerOrderMapper implements BaseMapper<CustomerOrderMP,
         }
         return customer.get();
     }
+
 }

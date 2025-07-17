@@ -28,4 +28,5 @@ public interface WareHouseControllerInterface {
     })
     ResponseEntity<String> postWareHouse(@RequestBody WareHouseMessage wareHouseMessage,
                                          @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
+
 }

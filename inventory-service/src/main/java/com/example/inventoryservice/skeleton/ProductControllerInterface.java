@@ -28,4 +28,5 @@ public interface ProductControllerInterface {
     })
     ResponseEntity<String> postProduct(@RequestBody ProductMessage productMessage,
                                        @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
+
 }

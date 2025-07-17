@@ -1,6 +1,5 @@
 package com.example.orderprocessingservice.dto.model.personnel;
 
-
 import com.example.orderprocessingservice.utils.constants.EmployeeConstants;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -53,7 +52,5 @@ public class Employee {
     private void setWareHouseId(Integer id) {
         this.wareHouseId = id;
     }
-
-
 
 }

@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 
 @Entity
@@ -57,4 +56,5 @@ public class Supplier {
     @DecimalMin(value = SupplierConstants.LONGITUDE_MIN_DECIMAL)
     @DecimalMax(value = SupplierConstants.LONGITUDE_MAX_DECIMAL)
     private BigDecimal longitude;
+
 }

@@ -12,7 +12,6 @@ import com.example.orderprocessingservice.handler.supplier.AddSupplierMessageHan
 import com.example.orderprocessingservice.handler.supplier.DeleteSupplierMessageHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;

@@ -15,7 +15,6 @@ import com.example.orderprocessingservice.exception.personnel.WareHouseException
 import com.example.orderprocessingservice.exception.supplier.SupplierException;
 import com.example.orderprocessingservice.mapper.supply.SupplyMapper;
 import com.example.orderprocessingservice.repository.asset.ProductRepository;
-import com.example.orderprocessingservice.repository.asset.StockRepository;
 import com.example.orderprocessingservice.repository.asset.SupplyRepository;
 import com.example.orderprocessingservice.repository.personnel.EmployeeRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
@@ -27,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.Optional;

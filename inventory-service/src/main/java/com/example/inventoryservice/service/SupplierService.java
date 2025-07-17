@@ -32,4 +32,5 @@ public class SupplierService {
     public void sendSupplierDeleteMessage(String supplierId) {
         supplierEventRM.sentMessage(DELETE_SUPPLIER_TOPIC, EventType.DELETED.getMessage(), supplierId);
     }
+
 }

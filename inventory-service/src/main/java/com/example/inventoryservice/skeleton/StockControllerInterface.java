@@ -28,4 +28,5 @@ public interface StockControllerInterface {
     })
     ResponseEntity<String> postStock(@RequestBody StockMessage stockMessage,
                                      @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
+
 }
