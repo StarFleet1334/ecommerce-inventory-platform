@@ -1,24 +1,35 @@
 # Colors for output
-$Red = "`e[31m"
-$Green = "`e[32m"
-$Yellow = "`e[33m"
-$Reset = "`e[0m"
+$Red = "$([char]0x1b)[31m"
+$Green = "$([char]0x1b)[32m"
+$Yellow = "$([char]0x1b)[33m"
+$Reset = "$([char]0x1b)[0m"
 
-Write-Host "$Green🚀 Starting E-commerce Inventory Platform...$Reset"
+$Rocket = [char]::ConvertFromUtf32(0x1F680)      # 🚀
+$Check = [char]::ConvertFromUtf32(0x2705)        # ✅
+$Cross = [char]::ConvertFromUtf32(0x274C)        # ❌
+$Warn = [char]::ConvertFromUtf32(0x26A0)         # ⚠️
+$Folder = [char]::ConvertFromUtf32(0x1F4C1)      # 📁
+$Hourglass = [char]::ConvertFromUtf32(0x23F3)    # ⏳
+$Party = [char]::ConvertFromUtf32(0x1F389)       # 🎉
+$Chart = [char]::ConvertFromUtf32(0x1F4CA)       # 📊
+$Pencil = [char]::ConvertFromUtf32(0x1F4DD)      # 📝
+$Stop = [char]::ConvertFromUtf32(0x1F6D1)        # 🛑
+
+Write-Host "$Green$Rocket Starting E-commerce Inventory Platform...$Reset"
 
 # Function to check if a port is open
 function Test-Port {
     param(
-        [string]$Host,
+        [string]$TargetHost,
         [int]$Port,
         [int]$MaxAttempts
     )
-    
+
     $attempt = 1
     while ($attempt -le $MaxAttempts) {
         try {
             $tcpClient = New-Object System.Net.Sockets.TcpClient
-            $tcpClient.ConnectAsync($Host, $Port).Wait(2000) | Out-Null
+            $tcpClient.ConnectAsync($TargetHost, $Port).Wait(2000) | Out-Null
             if ($tcpClient.Connected) {
                 $tcpClient.Close()
                 return $true
@@ -27,7 +38,7 @@ function Test-Port {
         } catch {
             # Connection failed, continue
         }
-        Write-Host "$YellowWaiting for $Host`:$Port... (attempt $attempt/$MaxAttempts)$Reset"
+        Write-Host "$Yellow Waiting for $TargetHost`:$Port... (attempt $attempt/$MaxAttempts)$Reset"
         Start-Sleep -Seconds 2
         $attempt++
     }
@@ -41,29 +52,29 @@ function Wait-ForService {
         [string]$HealthUrl,
         [int]$MaxAttempts = 30
     )
-    
-    Write-Host "$YellowWaiting for $ServiceName to be healthy...$Reset"
+
+    Write-Host "$Yellow Waiting for $ServiceName to be healthy...$Reset"
     $attempt = 1
     while ($attempt -le $MaxAttempts) {
         try {
             $response = Invoke-WebRequest -Uri $HealthUrl -UseBasicParsing -TimeoutSec 5
             if ($response.StatusCode -eq 200) {
-                Write-Host "$Green✅ $ServiceName is healthy!$Reset"
+                Write-Host "$Green$Check $ServiceName is healthy!$Reset"
                 return $true
             }
         } catch {
             # Service not ready yet
         }
-        Write-Host "$YellowWaiting for $ServiceName... (attempt $attempt/$MaxAttempts)$Reset"
+        Write-Host "$Yellow Waiting for $ServiceName... (attempt $attempt/$MaxAttempts)$Reset"
         Start-Sleep -Seconds 3
         $attempt++
     }
-    Write-Host "$Red❌ $ServiceName failed to become healthy$Reset"
+    Write-Host "$Red$Cross $ServiceName failed to become healthy$Reset"
     return $false
 }
 
 # Create necessary directories with proper permissions
-Write-Host "$Yellow📁 Creating log directories...$Reset"
+Write-Host "$Yellow$Folder Creating log directories...$Reset"
 if (-not (Test-Path "rocketmq/data/namesrv-logs/rocketmqlogs")) {
     New-Item -ItemType Directory -Path "rocketmq/data/namesrv-logs/rocketmqlogs" -Force | Out-Null
 }
@@ -75,76 +86,104 @@ if (-not (Test-Path "rocketmq/data/broker/store")) {
 }
 
 # Start RocketMQ services first
-Write-Host "$Yellow🚀 Starting RocketMQ services...$Reset"
+Write-Host "$Yellow$Rocket Starting RocketMQ services...$Reset"
 docker compose --profile dev up -d namesrv
 
 # Wait for namesrv to be ready (not necessarily healthy)
-Write-Host "$Yellow⏳ Waiting for RocketMQ namesrv to be ready...$Reset"
-if (Test-Port -Host "localhost" -Port 9876 -MaxAttempts 30) {
-    Write-Host "$Green✅ RocketMQ namesrv is ready!$Reset"
+Write-Host "$Yellow$Hourglass Waiting for RocketMQ namesrv to be ready...$Reset"
+if (Test-Port -TargetHost "localhost" -Port 9876 -MaxAttempts 30) {
+    Write-Host "$Green$Check RocketMQ namesrv is ready!$Reset"
 } else {
-    Write-Host "$Red❌ RocketMQ namesrv failed to start$Reset"
+    Write-Host "$Red$Cross RocketMQ namesrv failed to start$Reset"
     exit 1
 }
 
 # Start broker
-Write-Host "$Yellow🚀 Starting RocketMQ broker...$Reset"
+Write-Host "$Yellow$Rocket Starting RocketMQ broker...$Reset"
 docker compose --profile dev up -d broker
 
 # Wait for broker to be ready
-Write-Host "$Yellow⏳ Waiting for RocketMQ broker to be ready...$Reset"
-if (Test-Port -Host "localhost" -Port 10911 -MaxAttempts 30) {
-    Write-Host "$Green✅ RocketMQ broker is ready!$Reset"
+Write-Host "$Yellow$Hourglass Waiting for RocketMQ broker to be ready...$Reset"
+if (Test-Port -TargetHost "localhost" -Port 10911 -MaxAttempts 30) {
+    Write-Host "$Green$Check RocketMQ broker is ready!$Reset"
 } else {
-    Write-Host "$Red❌ RocketMQ broker failed to start$Reset"
+    Write-Host "$Red$Cross RocketMQ broker failed to start$Reset"
     exit 1
 }
 
 # Start all other services
-Write-Host "$Yellow🚀 Starting all other services...$Reset"
-docker compose --profile dev up -d
+Write-Host "$Yellow$Rocket Starting all other services...$Reset"
+docker compose --profile dev up -d --build
 
-# Wait for services to be ready
-Write-Host "$Yellow⏳ Waiting for services to be ready...$Reset"
+# Wait for services to be ready - just check that ports are open
+Write-Host "$Yellow$Hourglass Waiting for services to be ready...$Reset"
 
-# Wait for inventory service
-if (Wait-ForService -ServiceName "Inventory Service" -HealthUrl "http://localhost:8081/swagger-ui/index.html") {
-    Write-Host "$Green✅ Inventory service is ready!$Reset"
+# Wait for inventory service port
+if (Test-Port -TargetHost "localhost" -Port 8081 -MaxAttempts 30) {
+    Write-Host "$Green$Check Inventory service port is open!$Reset"
+
+    # Optional: Try health check with shorter timeout
+    if (Wait-ForService -ServiceName "Inventory Service" -HealthUrl "http://localhost:8081/swagger-ui/index.html" -MaxAttempts 5) {
+        Write-Host "$Green$Check Inventory service is fully ready!$Reset"
+    } else {
+        Write-Host "$Yellow$Warn Inventory service is starting but the UI might not be ready yet$Reset"
+    }
 } else {
-    Write-Host "$Yellow⚠️  Inventory service health check failed, but service might be running$Reset"
+    Write-Host "$Red$Cross Inventory service port failed to open$Reset"
 }
 
-# Wait for order processing service
-if (Wait-ForService -ServiceName "Order Processing Service" -HealthUrl "http://localhost:8083/swagger-ui/index.html") {
-    Write-Host "$Green✅ Order processing service is ready!$Reset"
+# Wait for order processing service port
+if (Test-Port -TargetHost "localhost" -Port 8083 -MaxAttempts 30) {
+    Write-Host "$Green$Check Order processing service port is open!$Reset"
+
+    # Optional: Try health check with shorter timeout
+    if (Wait-ForService -ServiceName "Order Processing Service" -HealthUrl "http://localhost:8083/swagger-ui/index.html" -MaxAttempts 5) {
+        Write-Host "$Green$Check Order processing service is fully ready!$Reset"
+    } else {
+        Write-Host "$Yellow$Warn Order processing service is starting but the UI might not be ready yet$Reset"
+    }
 } else {
-    Write-Host "$Yellow⚠️  Order processing service health check failed, but service might be running$Reset"
+    Write-Host "$Red$Cross Order processing service port failed to open$Reset"
 }
 
-# Wait for frontend services
-if (Wait-ForService -ServiceName "Frontend (Production)" -HealthUrl "http://localhost:3000") {
-    Write-Host "$Green✅ Frontend (Production) is ready!$Reset"
+# Wait for frontend services similarly
+if (Test-Port -TargetHost "localhost" -Port 3000 -MaxAttempts 30) {
+    Write-Host "$Green$Check Frontend (Production) port is open!$Reset"
+
+    # Optional: Try health check with shorter timeout
+    if (Wait-ForService -ServiceName "Frontend (Production)" -HealthUrl "http://localhost:3000" -MaxAttempts 5) {
+        Write-Host "$Green$Check Frontend (Production) is fully ready!$Reset"
+    } else {
+        Write-Host "$Yellow$Warn Frontend (Production) is starting but might not be fully ready yet$Reset"
+    }
 } else {
-    Write-Host "$Yellow⚠️  Frontend (Production) health check failed, but service might be running$Reset"
+    Write-Host "$Red$Cross Frontend (Production) port failed to open$Reset"
 }
 
-if (Wait-ForService -ServiceName "Frontend (Development)" -HealthUrl "http://localhost:5173") {
-    Write-Host "$Green✅ Frontend (Development) is ready!$Reset"
+if (Test-Port -TargetHost "localhost" -Port 5173 -MaxAttempts 30) {
+    Write-Host "$Green$Check Frontend (Development) port is open!$Reset"
+
+    # Optional: Try health check with shorter timeout
+    if (Wait-ForService -ServiceName "Frontend (Development)" -HealthUrl "http://localhost:5173" -MaxAttempts 5) {
+        Write-Host "$Green$Check Frontend (Development) is fully ready!$Reset"
+    } else {
+        Write-Host "$Yellow$Warn Frontend (Development) is starting but might not be fully ready yet$Reset"
+    }
 } else {
-    Write-Host "$Yellow⚠️  Frontend (Development) health check failed, but service might be running$Reset"
+    Write-Host "$Red$Cross Frontend (Development) port failed to open$Reset"
 }
 
 # Show final status
-Write-Host "$Green🎉 All services started!$Reset"
-Write-Host "$Green📊 Service URLs:$Reset"
-Write-Host "  Frontend (Production): $Greenhttp://localhost:3000$Reset"
-Write-Host "  Frontend (Development): $Greenhttp://localhost:5173$Reset"
-Write-Host "  Inventory Service: $Greenhttp://localhost:8081$Reset"
-Write-Host "  Inventory Swagger: $Greenhttp://localhost:8081/swagger-ui/index.html$Reset"
-Write-Host "  Order Processing: $Greenhttp://localhost:8083$Reset"
-Write-Host "  Graphs Service: $Greenhttp://localhost:8090$Reset"
-Write-Host "  Backend: $Greenhttp://localhost:5000$Reset"
-Write-Host "  RocketMQ Dashboard: $Greenhttp://localhost:8080$Reset"
+Write-Host "$Green$Party All services started!$Reset"
+Write-Host "$Green$Chart Service URLs:$Reset"
+Write-Host "  Frontend (Production): ${Green}http://localhost:3000${Reset}"
+Write-Host "  Frontend (Development): ${Green}http://localhost:5173${Reset}"
+Write-Host "  Inventory Service: ${Green}http://localhost:8081${Reset}"
+Write-Host "  Inventory Swagger: ${Green}http://localhost:8081/swagger-ui/index.html${Reset}"
+Write-Host "  Order Processing: ${Green}http://localhost:8083${Reset}"
+Write-Host "  Graphs Service: ${Green}http://localhost:8090${Reset}"
+Write-Host "  Backend: ${Green}http://localhost:5000${Reset}"
+Write-Host "  RocketMQ Dashboard: ${Green}http://localhost:8080${Reset}"
 
-Write-Host "$Yellow📝 To view logs: docker compose logs -f$Reset"
-Write-Host "$Yellow🛑 To stop: docker compose down$Reset"
+Write-Host "$Yellow$Pencil To view logs: docker compose logs -f$Reset"
+Write-Host "$Yellow$Stop To stop: docker compose down$Reset"

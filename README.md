@@ -55,6 +55,9 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 - **public.supply**: https://ibb.co/Xx2Qvjz3
 - **public.supply_transaction**: https://ibb.co/MDmLDW1C
 - **public.ware_house**: https://ibb.co/gFb9f7cJ
+- **public.customer_inventory**: https://ibb.co/5WMh9C1G
+- **public.inventory_backlog**: https://ibb.co/7tScZKcS
+- **public.inventory_backlog_history**: https://ibb.co/tPXdMCJ7
 
 ---
 
