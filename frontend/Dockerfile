@@ -12,6 +12,10 @@ RUN npm ci --only=production=false
 # Copy source code
 COPY . .
 
+# Set production environment
+ENV NODE_ENV=production
+ENV VITE_API_BASE_URL=/api/inventory
+
 # Build the application
 RUN npm run build
 

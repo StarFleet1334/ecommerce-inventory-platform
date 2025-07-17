@@ -1,4 +1,5 @@
-FROM node:18-alpine
+# Development stage
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -6,10 +7,15 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm ci --only=production=false
 
 # Copy source code
 COPY . .
+
+# Set development environment with debug enabled
+ENV NODE_ENV=development
+ENV VITE_API_BASE_URL=/api/inventory
+ENV VITE_DEBUG=true
 
 # Expose port
 EXPOSE 5173
@@ -19,4 +25,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:5173/ || exit 1
 
 # Start development server
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173"] 
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"] 
