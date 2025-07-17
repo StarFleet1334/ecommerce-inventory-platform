@@ -108,6 +108,4 @@ public class ValidateRule<T> {
         return this;
     }
 
-
-
 }

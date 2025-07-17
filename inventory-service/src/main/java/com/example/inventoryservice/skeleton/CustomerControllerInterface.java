@@ -40,4 +40,5 @@ public interface CustomerControllerInterface {
             @ApiResponse(responseCode = "400", description = "Invalid or missing fields")
     })
     ResponseEntity<String> postCustomerOrder(@RequestBody CustomerOrderMessage customerOrderMessage);
+
 }

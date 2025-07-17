@@ -28,4 +28,5 @@ public interface EmployeeControllerInterface {
     })
     ResponseEntity<String> postEmployee(@RequestBody EmployeeMessage employeeMessage,
                                         @RequestParam(required = false, defaultValue = "false") boolean initialLoad);
+
 }

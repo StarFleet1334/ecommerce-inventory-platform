@@ -1,6 +1,5 @@
 package com.example.orderprocessingservice.dto.model.customer;
 
-
 import com.example.orderprocessingservice.utils.constants.CustomerConstants;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -12,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 
 @Entity
@@ -58,6 +56,5 @@ public class Customer {
     @DecimalMin(value = CustomerConstants.LONGITUDE_MIN_DECIMAL)
     @DecimalMax(value = CustomerConstants.LONGITUDE_MAX_DECIMAL)
     private BigDecimal longitude;
-
 
 }

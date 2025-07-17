@@ -16,19 +16,21 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Optional;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = {ProductRepository.class, SupplierRepository.class, EmployeeRepository.class})
 public abstract class SupplyMapper implements BaseMapper<SupplyMP, Supply> {
-    @Autowired
-    protected ProductRepository productRepository;
+
+    private final ProductRepository productRepository;
+    private final SupplierRepository supplierRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Autowired
-    protected SupplierRepository supplierRepository;
-
-    @Autowired
-    protected EmployeeRepository employeeRepository;
+    public SupplyMapper(ProductRepository productRepository, SupplierRepository supplierRepository, EmployeeRepository employeeRepository) {
+        this.productRepository = productRepository;
+        this.supplierRepository = supplierRepository;
+        this.employeeRepository = employeeRepository;
+    }
 
     @Override
     @Mapping(source = "product_id", target = "product", qualifiedByName = "mapProduct")
@@ -65,4 +67,5 @@ public abstract class SupplyMapper implements BaseMapper<SupplyMP, Supply> {
         }
         return employee.get();
     }
+
 }

@@ -1,7 +1,6 @@
 package com.example.orderprocessingservice.dto.messages;
 
 import lombok.Data;
-
 import java.math.BigDecimal;
 
 @Data

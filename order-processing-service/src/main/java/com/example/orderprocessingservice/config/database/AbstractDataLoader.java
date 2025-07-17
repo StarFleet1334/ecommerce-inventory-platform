@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.InputStream;
 import java.util.List;
 
@@ -47,10 +46,10 @@ public abstract class AbstractDataLoader<T, M> {
     protected abstract TypeReference<List<T>> getTypeReference();
     protected abstract M convertToMessage(T entity);
 
-    protected void preProcessEntities(List<T> entities) throws Exception {
+    protected void preProcessEntities(List<T> entities) {
     }
 
-    protected void postProcessEntities(List<T> entities) throws Exception {
+    protected void postProcessEntities(List<T> entities) {
     }
 
     protected void saveToRepository(List<T> entities) {

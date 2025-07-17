@@ -10,14 +10,17 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Optional;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = {WareHouseRepository.class})
 public abstract class EmployeeMapper implements BaseMapper<EmployeeMP, Employee> {
 
+    private final WareHouseRepository wareHouseRepository;
+
     @Autowired
-    protected WareHouseRepository wareHouseRepository;
+    public EmployeeMapper(WareHouseRepository wareHouseRepository) {
+        this.wareHouseRepository = wareHouseRepository;
+    }
 
     @Override
     @Mapping(source = "first_name", target = "firstName")
@@ -37,5 +40,6 @@ public abstract class EmployeeMapper implements BaseMapper<EmployeeMP, Employee>
         }
         return wareHouse.get();
     }
+
 }
 
