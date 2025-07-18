@@ -15,12 +15,8 @@ import java.util.Optional;
 @Mapper(componentModel = "spring",uses = {WareHouseRepository.class})
 public abstract class EmployeeMapper implements BaseMapper<EmployeeMP, Employee> {
 
-    private final WareHouseRepository wareHouseRepository;
-
     @Autowired
-    public EmployeeMapper(WareHouseRepository wareHouseRepository) {
-        this.wareHouseRepository = wareHouseRepository;
-    }
+    protected WareHouseRepository wareHouseRepository;
 
     @Override
     @Mapping(source = "first_name", target = "firstName")
