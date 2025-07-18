@@ -18,14 +18,10 @@ import java.util.Optional;
 @Mapper(componentModel = "spring", uses = {ProductRepository.class, CustomerRepository.class})
 public abstract class CustomerOrderMapper implements BaseMapper<CustomerOrderMP, CustomerOrder> {
 
-    private final ProductRepository productRepository;
-    private final CustomerRepository customerRepository;
-
     @Autowired
-    public CustomerOrderMapper(ProductRepository productRepository, CustomerRepository customerRepository) {
-        this.productRepository = productRepository;
-        this.customerRepository = customerRepository;
-    }
+    protected ProductRepository productRepository;
+    @Autowired
+    protected CustomerRepository customerRepository;
 
     @Override
     @Mapping(source = "product_id",target = "product",qualifiedByName = "mapProduct")

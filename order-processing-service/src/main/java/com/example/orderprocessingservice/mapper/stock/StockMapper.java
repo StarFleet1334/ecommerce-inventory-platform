@@ -17,14 +17,11 @@ import java.util.Optional;
 @Mapper(componentModel = "spring", uses = {ProductRepository.class, WareHouseRepository.class})
 public abstract class StockMapper implements BaseMapper<StockMP, Stock> {
 
-    private final ProductRepository productRepository;
-    private final WareHouseRepository wareHouseRepository;
-
     @Autowired
-    public StockMapper(ProductRepository productRepository, WareHouseRepository wareHouseRepository) {
-        this.productRepository = productRepository;
-        this.wareHouseRepository = wareHouseRepository;
-    }
+    protected ProductRepository productRepository;
+    @Autowired
+    protected WareHouseRepository wareHouseRepository;
+
 
     @Override
     @Mapping(source = "ware_house_id", target = "wareHouse", qualifiedByName = "mapWareHouse")
