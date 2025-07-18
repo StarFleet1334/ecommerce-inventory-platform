@@ -168,7 +168,6 @@ public class CustomerService {
         }
     }
 
-
     public Customer getCustomerById(int id) {
         LOGGER.info("Fetching customer with ID: {}", id);
         Optional<Customer> customer = customerRepository.findById(id);
