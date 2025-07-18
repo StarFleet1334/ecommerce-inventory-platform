@@ -6,6 +6,7 @@ import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.customer.Customer;
 import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
 import com.example.orderprocessingservice.dto.model.order.RouteCalculationResponse;
+import com.example.orderprocessingservice.dto.model.personnel.Employee;
 import com.example.orderprocessingservice.dto.model.transaction.CustomerTransaction;
 import com.example.orderprocessingservice.exception.customer.CustomerException;
 import com.example.orderprocessingservice.mapper.customer.CustomerMapper;
@@ -166,6 +167,25 @@ public class CustomerService {
             LOGGER.error("Failed to save customer order: {}", e.getMessage());
             throw new RuntimeException("Failed to save customer order", e);
         }
+    }
+
+
+    public Customer getCustomerById(int id) {
+        LOGGER.info("Fetching customer with ID: {}", id);
+        Optional<Customer> customer = customerRepository.findById(id);
+        if (customer.isEmpty()) {
+            LOGGER.error("Customer not found with ID: {}", id);
+            throw CustomerException.notFound(id);
+        }
+        LOGGER.debug("Customer found successfully");
+        return customer.get();
+    }
+
+    public List<Customer> getAllCustomers() {
+        LOGGER.info("Fetching all customers");
+        List<Customer> customers = customerRepository.findAll();
+        LOGGER.debug("Customers found successfully");
+        return customers;
     }
 
 }

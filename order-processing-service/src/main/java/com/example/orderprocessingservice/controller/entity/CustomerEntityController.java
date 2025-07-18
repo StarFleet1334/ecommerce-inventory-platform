@@ -18,11 +18,26 @@ public class CustomerEntityController implements CustomerEntityControllerInterfa
 
     @Override
     public ResponseEntity<Customer> getCustomerById(String id) {
-        return null;
+        try {
+            int customerId = Integer.parseInt(id);
+            Customer customer = customerService.getCustomerById(customerId);
+            return ResponseEntity.ok(customer);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid customer ID format: " + id);
+        } catch (Exception e) {
+            LOGGER.error("Failed to retrieve customer with ID: {}", id, e);
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @Override
     public ResponseEntity<List<Customer>> getAllCustomers() {
-        return null;
+        try {
+            List<Customer> customers = customerService.getAllCustomers();
+            return ResponseEntity.ok(customers);
+        } catch (Exception e) {
+            LOGGER.error("Failed to retrieve all customers", e);
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }
