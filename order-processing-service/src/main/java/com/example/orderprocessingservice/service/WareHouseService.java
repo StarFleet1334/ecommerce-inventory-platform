@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -60,6 +62,24 @@ public class WareHouseService {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid wareHouse ID format: " + id);
         }
+    }
+
+    public WareHouse getWareHouseById(String id) {
+        LOGGER.info("Fetching warehouse with ID: {}", id);
+        Optional<WareHouse> wareHouse = wareHouseRepository.findById(Integer.parseInt(id));
+        if (wareHouse.isEmpty()) {
+            LOGGER.error("WareHouse not found with ID: {}", id);
+            throw WareHouseException.notFound(Integer.parseInt(id));
+        }
+        LOGGER.debug("WareHouse found successfully");
+        return wareHouse.get();
+    }
+
+    public List<WareHouse> getAllWareHouse() {
+        LOGGER.info("Fetching all warehouse");
+        List<WareHouse> wareHouses = wareHouseRepository.findAll();
+        LOGGER.debug("WareHouses found successfully");
+        return wareHouses;
     }
 
 }
