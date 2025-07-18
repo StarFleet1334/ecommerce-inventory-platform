@@ -18,11 +18,28 @@ public class ProductEntityController implements ProductEntityControllerInterface
 
     @Override
     public ResponseEntity<Product> getProductById(String id) {
-        return null;
+        try {
+            LOGGER.info("Received request to retrieve product with ID: {}", id);
+            Product product = productService.getProductById(id);
+            LOGGER.info("Successfully retrieved product with ID: {}", id);
+            return ResponseEntity.ok(product);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid product ID format: " + id);
+        } catch (Exception e) {
+            LOGGER.error("Failed to retrieve product with ID: {}", id, e);
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @Override
     public ResponseEntity<List<Product>> getAllProduct() {
-        return null;
+        try {
+            List<Product> products = productService.getAllProducts();
+            LOGGER.info("Successfully retrieved all products");
+            return ResponseEntity.ok(products);
+        } catch (Exception e) {
+            LOGGER.error("Failed to retrieve all products", e);
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }
