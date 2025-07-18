@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class SupplierService {
@@ -49,6 +52,24 @@ public class SupplierService {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid supplier ID format: " + id);
         }
+    }
+
+    public Supplier getSupplierById(int id) {
+        LOGGER.info("Fetching supplier with ID: {}", id);
+        Optional<Supplier> supplier = supplierRepository.findById(id);
+        if (supplier.isEmpty()) {
+            LOGGER.error("Supplier not found with ID: {}", id);
+            throw SupplierException.notFound(id);
+        }
+        LOGGER.debug("Supplier found successfully");
+        return supplier.get();
+    }
+
+    public List<Supplier> getAllSupplier() {
+        LOGGER.info("Fetching all suppliers");
+        List<Supplier> suppliers = supplierRepository.findAll();
+        LOGGER.debug("Suppliers found successfully");
+        return suppliers;
     }
 
 }

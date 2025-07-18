@@ -6,7 +6,6 @@ import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.customer.Customer;
 import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
 import com.example.orderprocessingservice.dto.model.order.RouteCalculationResponse;
-import com.example.orderprocessingservice.dto.model.personnel.Employee;
 import com.example.orderprocessingservice.dto.model.transaction.CustomerTransaction;
 import com.example.orderprocessingservice.exception.customer.CustomerException;
 import com.example.orderprocessingservice.mapper.customer.CustomerMapper;
