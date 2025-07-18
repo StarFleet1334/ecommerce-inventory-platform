@@ -70,7 +70,10 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployee() {
-        return employeeRepository.findAllEmployees();
+        LOGGER.info("Processing retrieval of all employees");
+        List<Employee> employees = employeeRepository.findAllEmployees();
+        LOGGER.info("Successfully retrieved all employees");
+        return employees;
     }
 
 }
