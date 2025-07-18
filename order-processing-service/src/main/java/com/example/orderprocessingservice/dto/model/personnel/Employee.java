@@ -1,6 +1,8 @@
 package com.example.orderprocessingservice.dto.model.personnel;
 
 import com.example.orderprocessingservice.utils.constants.EmployeeConstants;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -43,9 +45,11 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "ware_house_id")
+    @JsonBackReference
     private WareHouse wareHouse;
 
     @Transient
+    @JsonIgnore
     private Integer wareHouseId;
 
     @JsonProperty("ware_house_id")
@@ -53,4 +57,9 @@ public class Employee {
         this.wareHouseId = id;
     }
 
+    @JsonProperty("ware_house_id")
+    public Integer getWareHouseIdForJson() {
+        return wareHouse != null ? wareHouse.getWareHouseId() : null;
+    }
 }
+

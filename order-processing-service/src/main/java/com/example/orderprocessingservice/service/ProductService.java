@@ -61,4 +61,22 @@ public class ProductService {
         LOGGER.info("Successfully deleted product with ID {} and its related stocks", id);
     }
 
+    public Product getProductById(String id) {
+        LOGGER.info("Fetching product with ID: {}", id);
+        Product product = productRepository.findByProductId(id);
+        if (product == null) {
+            LOGGER.error("Product not found with ID: {}", id);
+            throw ProductException.notFound(id);
+        }
+        LOGGER.debug("Product found successfully");
+        return product;
+    }
+
+    public List<Product> getAllProducts() {
+        LOGGER.info("Fetching all products");
+        List<Product> products = productRepository.findAll();
+        LOGGER.debug("Products found successfully");
+        return products;
+    }
+
 }

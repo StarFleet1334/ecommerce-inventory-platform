@@ -168,4 +168,22 @@ public class CustomerService {
         }
     }
 
+    public Customer getCustomerById(int id) {
+        LOGGER.info("Fetching customer with ID: {}", id);
+        Optional<Customer> customer = customerRepository.findById(id);
+        if (customer.isEmpty()) {
+            LOGGER.error("Customer not found with ID: {}", id);
+            throw CustomerException.notFound(id);
+        }
+        LOGGER.debug("Customer found successfully");
+        return customer.get();
+    }
+
+    public List<Customer> getAllCustomers() {
+        LOGGER.info("Fetching all customers");
+        List<Customer> customers = customerRepository.findAll();
+        LOGGER.debug("Customers found successfully");
+        return customers;
+    }
+
 }

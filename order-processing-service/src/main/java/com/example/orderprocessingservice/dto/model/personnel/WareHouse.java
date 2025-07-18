@@ -1,6 +1,7 @@
 package com.example.orderprocessingservice.dto.model.personnel;
 
 import com.example.orderprocessingservice.utils.constants.WareHouseConstants;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
@@ -61,6 +62,7 @@ public class WareHouse {
     private BigDecimal longitude;
 
     @OneToMany(mappedBy = "wareHouse")
+    @JsonManagedReference
     private List<Employee> employeeList;
 
 }

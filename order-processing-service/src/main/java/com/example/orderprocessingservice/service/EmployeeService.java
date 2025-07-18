@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +53,27 @@ public class EmployeeService {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid employee ID format: " + id);
         }
+    }
+
+    public Employee getEmployeeById(int id) {
+        LOGGER.info("Processing retrieval of employee with ID: {}", id);
+        try {
+            Optional<Employee> employee = employeeRepository.findByEmployeeId(id);
+            if (employee.isEmpty()) {
+                LOGGER.warn("Employee with ID {} not found", id);
+                throw EmployeeException.notFound(id);
+            }
+            return employee.get();
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid employee ID format: " + id);
+        }
+    }
+
+    public List<Employee> getAllEmployee() {
+        LOGGER.info("Processing retrieval of all employees");
+        List<Employee> employees = employeeRepository.findAllEmployees();
+        LOGGER.info("Successfully retrieved all employees");
+        return employees;
     }
 
 }
