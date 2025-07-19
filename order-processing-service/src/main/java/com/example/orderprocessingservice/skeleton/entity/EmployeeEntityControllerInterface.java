@@ -23,7 +23,7 @@ public interface EmployeeEntityControllerInterface {
             @ApiResponse(responseCode = "404", description = "No employee with given ID exists"),
             @ApiResponse(responseCode = "400", description = "Invalid employee ID")
     })
-    ResponseEntity<Employee> getEmployeeById(@PathVariable("id") String id);
+    ResponseEntity<?> getEmployeeById(@PathVariable("id") String id);
 
     @GetMapping
     @Operation(summary = "Retrieve all employee", description = "Retrieves all employee entities")

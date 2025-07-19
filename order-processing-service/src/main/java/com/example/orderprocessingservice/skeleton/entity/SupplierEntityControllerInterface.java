@@ -22,7 +22,7 @@ public interface SupplierEntityControllerInterface {
             @ApiResponse(responseCode = "404", description = "No supplier with given ID exists"),
             @ApiResponse(responseCode = "400", description = "Invalid supplier ID")
     })
-    ResponseEntity<Supplier> getSupplierById(@PathVariable("id") String id);
+    ResponseEntity<?> getSupplierById(@PathVariable("id") String id);
 
     @GetMapping
     @Operation(summary = "Retrieve all supplier", description = "Retrieves all supplier entities")

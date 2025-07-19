@@ -73,17 +73,33 @@ function Wait-ForService {
     return $false
 }
 
-# Create necessary directories with proper permissions
-Write-Host "$Yellow$Folder Creating log directories...$Reset"
-if (-not (Test-Path "rocketmq/data/namesrv-logs/rocketmqlogs")) {
-    New-Item -ItemType Directory -Path "rocketmq/data/namesrv-logs/rocketmqlogs" -Force | Out-Null
+$projectRoot = Split-Path -Parent $PSScriptRoot
+
+$pathsToClean = @(
+    "$projectRoot/rocketmq/data/broker/logs/rocketmqlogs",
+    "$projectRoot/rocketmq/data/broker/store",
+    "$projectRoot/rocketmq/data/namesrv/logs/rocketmqlogs",
+    "$projectRoot/rocketmq/data/namesrv-logs/rocketmqlogs"
+)
+
+foreach ($path in $pathsToClean) {
+    if (Test-Path $path) {
+        Write-Host "$Yellow Removing files in $path …$Reset"
+        try {
+            Get-ChildItem -LiteralPath $path -Recurse -Force |
+                Remove-Item -Recurse -Force -ErrorAction Stop
+            Write-Host "$Green$Check Cleared $path$Reset"
+        }
+        catch {
+            Write-Host "$Cross Failed to clean ${path}:`n$($_.Exception.Message)$Reset"
+        }
+    }
+    else {
+        Write-Host "$Warn Path not found (skipped): $path$Reset"
+    }
 }
-if (-not (Test-Path "rocketmq/data/broker/logs/rocketmqlogs")) {
-    New-Item -ItemType Directory -Path "rocketmq/data/broker/logs/rocketmqlogs" -Force | Out-Null
-}
-if (-not (Test-Path "rocketmq/data/broker/store")) {
-    New-Item -ItemType Directory -Path "rocketmq/data/broker/store" -Force | Out-Null
-}
+
+Write-Host "$Green$Party RocketMQ folders cleaned!$Reset"
 
 # Start RocketMQ services first
 Write-Host "$Yellow$Rocket Starting RocketMQ services...$Reset"
