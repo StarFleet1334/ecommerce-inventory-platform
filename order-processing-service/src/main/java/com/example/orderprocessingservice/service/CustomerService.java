@@ -4,6 +4,7 @@ import com.example.orderprocessingservice.dto.eventDto.CustomerMP;
 import com.example.orderprocessingservice.dto.eventDto.CustomerOrderMP;
 import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.customer.Customer;
+import com.example.orderprocessingservice.dto.model.customer.CustomerInventory;
 import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
 import com.example.orderprocessingservice.dto.model.order.RouteCalculationResponse;
 import com.example.orderprocessingservice.dto.model.transaction.CustomerTransaction;
@@ -11,6 +12,7 @@ import com.example.orderprocessingservice.exception.customer.CustomerException;
 import com.example.orderprocessingservice.mapper.customer.CustomerMapper;
 import com.example.orderprocessingservice.mapper.customer.CustomerOrderMapper;
 import com.example.orderprocessingservice.repository.asset.StockRepository;
+import com.example.orderprocessingservice.repository.customer.CustomerInventoryRepository;
 import com.example.orderprocessingservice.repository.customer.CustomerOrderRepository;
 import com.example.orderprocessingservice.repository.customer.CustomerRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
@@ -44,6 +46,7 @@ public class CustomerService {
     private final WareHouseRepository wareHouseRepository;
     private final StockRepository stockRepository;
     private final RouteCalculationService routeCalculationService;
+    private final CustomerInventoryRepository customerInventoryRepository;
 
     @Transactional
     public void handleNewCustomer(CustomerMP customer) {
@@ -70,6 +73,27 @@ public class CustomerService {
             if (!customerRepository.existsById(customerId)) {
                 throw CustomerException.notFound(customerId);
             }
+            // 1st step
+            List<CustomerOrder> customerOrder = customerOrderRepository.findByCustomerId(customerId);
+            LOGGER.info("Customer order for customer with ID {} is {}", customerId, customerOrder);
+
+            for (CustomerOrder order : customerOrder) {
+                CustomerTransaction transaction = customerTransactionRepository.findByCustomerOrder_OrderId(order.getOrderId());
+                customerTransactionRepository.delete(transaction);
+            }
+
+            // 2nd step
+            LOGGER.info("Successfully deleted customer transactions for customer with ID {}", customerId);
+            customerOrderRepository.deleteAll(customerOrder);
+            LOGGER.info("Successfully deleted customer orders for customer with ID {}", customerId);
+
+            // 3rd step
+            List<CustomerInventory> customerInventories = customerInventoryRepository.findAllByCustomerId(customerId);
+            if (!customerInventories.isEmpty()) {
+                customerInventoryRepository.deleteAll(customerInventories);
+            }
+
+            // 4th step
             customerRepository.deleteById(customerId);
             LOGGER.info("Successfully deleted customer with ID: {}", id);
         } catch (NumberFormatException e) {
