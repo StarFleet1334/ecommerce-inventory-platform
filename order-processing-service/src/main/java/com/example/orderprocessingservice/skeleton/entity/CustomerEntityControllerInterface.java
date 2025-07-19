@@ -22,7 +22,7 @@ public interface CustomerEntityControllerInterface {
             @ApiResponse(responseCode = "404", description = "No customer with given ID exists"),
             @ApiResponse(responseCode = "400", description = "Invalid customer ID")
     })
-    ResponseEntity<Customer> getCustomerById(@PathVariable("id") String id);
+    ResponseEntity<?> getCustomerById(@PathVariable("id") String id);
 
     @GetMapping
     @Operation(summary = "Retrieve all customers", description = "Retrieves all customer entities")

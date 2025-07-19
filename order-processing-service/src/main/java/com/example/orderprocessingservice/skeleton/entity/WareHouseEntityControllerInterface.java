@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
 
 @Tag(name = "WareHouse Entity Controller", description = "Operations related to warehouse entity")
@@ -23,7 +22,7 @@ public interface WareHouseEntityControllerInterface {
             @ApiResponse(responseCode = "404", description = "No warehouse with given ID exists"),
             @ApiResponse(responseCode = "400", description = "Invalid warehouse ID")
     })
-    ResponseEntity<WareHouse> getWareHouseById(@PathVariable("id") String id);
+    ResponseEntity<?> getWareHouseById(@PathVariable("id") String id);
 
     @GetMapping
     @Operation(summary = "Retrieve all warehouse", description = "Retrieves all warehouse entities")
