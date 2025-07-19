@@ -28,7 +28,7 @@ services:
       - 10911:10911
       - 10912:10912
     volumes:
-      - ./rocketmq/data/broker/store:/home/rocketmq/store
+      - rocketmq-store:/data/rocketmq/store
       - ./rocketmq/data/broker/logs:/home/rocketmq/logs
       - ./rocketmq/conf/broker.properties:/home/rocketmq/conf/broker.properties
     environment:
@@ -249,6 +249,8 @@ services:
       retries: 5
     profiles: ["dev"]
 
+volumes:
+  rocketmq-store:
 
 networks:
   rocketmq-net:
