@@ -8,6 +8,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 - [Project Structure](#project-structure)
 - [Assets](#assets)
 - [Swagger](#Swagger)
+- [Endpoints](#Endpoints)
 - [Services Overview](#services-overview)
 - [Prerequisites](#prerequisites)
 - [Setup & Configuration](#setup--configuration)
@@ -19,8 +20,6 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 - [Healthchecks](#healthchecks)
 - [Common Commands](#common-commands)
 - [Troubleshooting](#troubleshooting)
-- 
-
 ---
 
 ## Project Structure
@@ -67,6 +66,354 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 
 - **inventory-service endpoint**: http://localhost:8081/swagger-ui/index.html
 - **order-processing-service endpoint**: http://localhost:8083/swagger-ui/index.html
+
+---
+
+## Endpoints
+
+### Inventory‑Service ( https://localhost:8081 )
+
+<details>
+<summary>Click to view Endpoints</summary>
+
+<details>
+<summary>🎯 Expand Endpoint regarding Supply</summary>
+
+| Method | Path | Body | Notes                |
+|:------:|------|------|----------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/supply` | [`SupplyMessage`](#customerordermessage) | Creates a new supply |
+
+<details>
+<summary>▶️ <strong>Request Body (<code>SupplyMessage</code>)</strong></summary>
+
+| Field        | Type             | Required | Description                  |
+|--------------|------------------|:-------:|------------------------------|
+| `supplier_id` | `Integer`        | ✅ | References Supplier          |
+| `product_id`  | `String`         | ✅ | Refereces Product            |
+| `employee_id`      | `Integer`        | ✅ | References Employee          |
+| `supply_time`      | `OffsetDateTime` | ✅ | Time this supply was created |
+| `amount`      | `Integer`        | ✅ | Amount of Supply             |
+
+</details>
+
+
+| Method | Path | PathVariable                  | Notes                          |
+|:------:|------|-------------------------------|--------------------------------|
+| ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/supply` | [`id`](#customerordermessage) | Deletes a supply with given id |
+
+</details>
+
+
+<details>
+<summary>🎯 Expand Endpoint regarding WareHouse</summary>
+
+
+
+| Method | Path                | Body                                    | Notes                   |
+|:------:|---------------------|-----------------------------------------|-------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/warehouse` | [`WareHouseMessage`](#warehousemessage) | Creates a new warehouse |
+
+<details>
+<summary>▶️ <strong>Request Body (<code>WareHouseMessage</code>)</strong></summary>
+
+| Field        | Type         | Required | Description                                                 |
+|--------------|--------------|:--------:|-------------------------------------------------------------|
+| `ware_house_name` | `String`     |    ✅     | WareHouse Name                                              |
+| `refrigerated`  | `Boolean`    |    ✅     | If WareHouse can contain items that needs to be in a fridge |
+| `min_stock_level`      | `Integer`    |    ✅     | Minimal Stock level                                         |
+| `max_stock_level`      | `Integer`    |    ✅     | Maximal Stock level                                         |
+| `latitude`      | `BigDecimal` |    ❌     | Latitude of WareHouse                                       |
+| `longitude`      | `BigDecimal` |     ❌     | Longitude of WareHouse                                      |
+
+</details>
+
+| Method | Path | PathVariable                  | Notes                             |
+|:------:|------|-------------------------------|-----------------------------------|
+| ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/warehouse` | [`id`](#warehousemessage) | Deletes a warehouse with given id |
+
+</details>
+
+
+<details>
+<summary>🎯 Expand Endpoint regarding Supplier</summary>
+
+| Method | Path               | Body                                  | Notes                  |
+|:------:|--------------------|---------------------------------------|------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/supplier` | [`SupplierMessage`](#suppliermessage) | Creates a new supplier |
+
+<details>
+<summary>▶️ <strong>Request Body (<code>SupplierMessage</code>)</strong></summary>
+
+| Field        | Type         | Required | Description              |
+|--------------|--------------|:--------:|--------------------------|
+| `first_name` | `String`     |    ✅     | First name of Supplier   |
+| `last_name`  | `String`     |    ✅     | Last name of Supplier    |
+| `email`      | `String`     |    ✅     | Email of Supplier        |
+| `phone_number`      | `String`     |    ✅     | Phone number of supplier |
+| `latitude`      | `BigDecimal` |    ❌     | Latitude of WareHouse    |
+| `longitude`      | `BigDecimal` |     ❌     | Longitude of WareHouse   |
+
+
+</details>
+
+| Method | Path               | PathVariable                  | Notes                            |
+|:------:|--------------------|-------------------------------|----------------------------------|
+| ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/supplier` | [`id`](#suppliermessage) | Deletes a supplier with given id |
+
+
+</details>
+
+
+<details>
+<summary>🎯 Expand Endpoint regarding Product</summary>
+
+
+| Method | Path              | Body                                | Notes                 |
+|:------:|-------------------|-------------------------------------|-----------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/product` | [`ProductMessage`](#productmessage) | Creates a new product |
+
+<details>
+<summary>▶️ <strong>Request Body (<code>ProductMessage</code>)</strong></summary>
+
+| Field        | Type         | Required | Description            |
+|--------------|--------------|:--------:|------------------------|
+| `product_name` | `String`     |    ✅     | Product Name           |
+| `sku`  | `String`     |    ✅     | Product SKU            |
+| `product_id`      | `String`     |    ✅     | Each Product unique Id |
+| `product_price`      | `BigDecimal`     |    ✅     | Product Price          |
+| `product_description`      | `BigDecimal` |     ✅       | Product Description    |
+
+
+
+
+</details>
+
+| Method | Path              | PathVariable                  | Notes                           |
+|:------:|-------------------|-------------------------------|---------------------------------|
+| ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/product` | [`id`](#productmessage) | Deletes a product with given id |
+
+</details>
+
+
+<details>
+<summary>🎯 Expand Endpoint regarding Employee</summary>
+
+
+| Method | Path               | Body                                  | Notes                  |
+|:------:|--------------------|---------------------------------------|------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/employee` | [`EmployeeMessage`](#employeemessage) | Creates a new employee |
+
+<details>
+<summary>▶️ <strong>Request Body (<code>EmployeeMessage</code>)</strong></summary>
+
+| Field        | Type      |  Required  | Description                                                       |
+|--------------|-----------|:----------:|-------------------------------------------------------------------|
+| `first_name` | `String`  |     ✅      | First name of Employee                                            |
+| `last_name`  | `String`  |     ✅      | Last name of Employee                                             |
+| `email`      | `String`  |     ✅      | Email of Employee                                                 |
+| `phone_number`      | `String`  |     ✅      | Phone number of Employee                                          |
+| `ware_house_id`      | `Integer` |     ❌       | References WareHouse, indicates which warehouse employee works in |
+
+
+
+
+</details>
+
+| Method | Path               | PathVariable                  | Notes                            |
+|:------:|--------------------|-------------------------------|----------------------------------|
+| ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/employee` | [`id`](#employeemessage) | Deletes a employee with given id |
+
+</details>
+
+
+<details>
+<summary>🎯 Expand Endpoint regarding Stock</summary>
+
+
+| Method | Path            | Body                            | Notes               |
+|:------:|-----------------|---------------------------------|---------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/stock` | [`StockMessage`](#stockmessage) | Creates a new stock |
+
+
+<summary>▶️ <strong>Request Body (<code>StockMessage</code>)</strong></summary>
+
+| Field        | Type      | Required | Description                          |
+|--------------|-----------|:--------:|--------------------------------------|
+| `ware_house_id` | `Integer` |    ❌     | References WareHouse                 |
+| `product_id`  | `String`  |    ❌     | References Product                   |
+| `quantity`      | `Integer` |     ❌     | Quantity of Product in a given Stock |
+
+
+
+| Method | Path            | PathVariable                  | Notes                         |
+|:------:|-----------------|-------------------------------|-------------------------------|
+| ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/stock` | [`id`](#stockmessage) | Deletes a stock with given id |
+
+
+</details>
+
+
+<details>
+<summary>🎯 Expand Endpoint regarding Customer</summary>
+
+
+| Method | Path               | Body                                  | Notes                  |
+|:------:|--------------------|---------------------------------------|------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/customer` | [`CustomerMessage`](#customermessage) | Creates a new customer |
+
+
+<summary>▶️ <strong>Request Body (<code>CustomerMessage</code>)</strong></summary>
+
+| Field        | Type         | Required | Description              |
+|--------------|--------------|:--------:|--------------------------|
+| `first_name` | `String`     |    ✅     | First name of Customer   |
+| `last_name`  | `String`     |    ✅     | Last name of Customer    |
+| `email`      | `String`     |    ✅     | Email of Customer        |
+| `phone_number`      | `String`     |    ✅     | Phone number of Customer |
+| `latitude`      | `BigDecimal` |    ❌     | Latitude of Customer     |
+| `longitude`      | `BigDecimal` |     ❌     | Longitude of Customer    |
+
+
+
+| Method | Path               | PathVariable            | Notes                            |
+|:------:|--------------------|-------------------------|----------------------------------|
+| ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/customer` | [`id`](#customermessage) | Deletes a customer with given id |
+
+
+
+| Method | Path                     | Body                                            | Notes                        |
+|:------:|--------------------------|-------------------------------------------------|------------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/customer/order` | [`CustomerOrderMessage`](#customerordermessage) | Creates a new customer order |
+
+
+<summary>▶️ <strong>Request Body (<code>CustomerOrderMessage</code>)</strong></summary>
+
+| Field        | Type         | Required | Description                       |
+|--------------|--------------|:--------:|-----------------------------------|
+| `product_id` | `String`     |    ✅     | References a product              |
+| `product_amount`  | `String`     |     ❌     | Quantity of product ordered       |
+| `order_time`      | `String`     |    ✅     | Ordere Time                       |
+| `customer_id`      | `String`     |    ✅     | References customer which ordered |
+
+
+</details>
+
+
+</details>
+
+
+
+### Order-Processing ( https://localhost:8083 )
+
+<details>
+<summary>Click to view Endpoints</summary>
+
+<details>
+<summary>🎯 Expand Endpoint regarding Customer</summary>
+
+|                                       Method                                        | Path               | Notes                 |
+|:-----------------------------------------------------------------------------------:|--------------------|-----------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/customer` | Retrieve all customer |
+
+
+
+|                                       Method                                        | Path               | PathVariable        | Notes                             |
+|:-----------------------------------------------------------------------------------:|--------------------|---------------------|-----------------------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/customer` | [`id`](#customerid) | Retrieve a customer with given Id |
+
+</details>
+
+
+<details>
+<summary>🎯 Expand Endpoint regarding Employee</summary>
+
+|                                       Method                                        | Path               | Notes                 |
+|:-----------------------------------------------------------------------------------:|--------------------|-----------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/employee` | Retrieve all employee |
+
+
+
+|                                       Method                                        | Path               | PathVariable        | Notes                             |
+|:-----------------------------------------------------------------------------------:|--------------------|---------------------|-----------------------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/employee` | [`id`](#employeeId) | Retrieve a employee with given Id |
+
+
+
+
+</details>
+
+<details>
+<summary>🎯 Expand Endpoint regarding Warehouse</summary>
+
+|                                       Method                                        | Path                | Notes                 |
+|:-----------------------------------------------------------------------------------:|---------------------|-----------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/warehouse` | Retrieve all warehouse |
+
+
+
+|                                       Method                                        | Path               | PathVariable         | Notes                             |
+|:-----------------------------------------------------------------------------------:|--------------------|----------------------|-----------------------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/warehouse` | [`id`](#warehouseId) | Retrieve a warehouse with given Id |
+
+
+
+
+</details>
+
+<details>
+<summary>🎯 Expand Endpoint regarding Supplier</summary>
+
+|                                       Method                                        | Path               | Notes                 |
+|:-----------------------------------------------------------------------------------:|--------------------|-----------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/supplier` | Retrieve all supplier |
+
+
+
+|                                       Method                                        | Path               | PathVariable        | Notes                             |
+|:-----------------------------------------------------------------------------------:|--------------------|---------------------|-----------------------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/supplier` | [`id`](#supplierId) | Retrieve a supplier with given Id |
+
+
+</details>
+
+<details>
+<summary>🎯 Expand Endpoint regarding Product</summary>
+
+|                                       Method                                        | Path              | Notes                |
+|:-----------------------------------------------------------------------------------:|-------------------|----------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/product` | Retrieve all product |
+
+
+
+|                                       Method                                        | Path              | PathVariable       | Notes                            |
+|:-----------------------------------------------------------------------------------:|-------------------|--------------------|----------------------------------|
+| ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/product` | [`id`](#productId) | Retrieve a product with given Id |
+
+
+</details>
+
+
+<details>
+<summary>🎯 Expand Endpoint regarding Order System</summary>
+
+|                                       Method                                        | Path                             | PathVariable          | Notes                                        |
+|:-----------------------------------------------------------------------------------:|----------------------------------|-----------------------|----------------------------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/customer/order/speedUp` | [`orderId`](#orderId) | This endpoint speeds up customer Transaction |
+
+
+</details>
+
+<details>
+<summary>🎯 Expand Endpoint regarding Supply System</summary>
+
+|                                       Method                                        | Path                              | PathVariable           | Notes                                      |
+|:-----------------------------------------------------------------------------------:|-----------------------------------|------------------------|--------------------------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/employee/supply/speedUp` | [`supplyId`](#supplyId) | This endpoint speeds up supply Transaction |
+
+
+</details>
+
+</details>
 
 ---
 
