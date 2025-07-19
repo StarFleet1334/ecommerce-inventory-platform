@@ -79,9 +79,9 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <details>
 <summary>🎯 Expand Endpoint regarding Supply</summary>
 
-| Method | Path | Body | Notes                |
-|:------:|------|------|----------------------|
-| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/supply` | [`SupplyMessage`](#customerordermessage) | Creates a new supply |
+| Method | Path | Body                                          | Notes                |
+|:------:|------|-----------------------------------------------|----------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/supply` | [`SupplyMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/SupplyMessage.java) | Creates a new supply |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>SupplyMessage</code>)</strong></summary>
@@ -109,9 +109,9 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 
 
 
-| Method | Path                | Body                                    | Notes                   |
-|:------:|---------------------|-----------------------------------------|-------------------------|
-| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/warehouse` | [`WareHouseMessage`](#warehousemessage) | Creates a new warehouse |
+| Method | Path                | Body                                         | Notes                   |
+|:------:|---------------------|----------------------------------------------|-------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/warehouse` | [`WareHouseMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/WareHouseMessage.java) | Creates a new warehouse |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>WareHouseMessage</code>)</strong></summary>
@@ -137,9 +137,9 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <details>
 <summary>🎯 Expand Endpoint regarding Supplier</summary>
 
-| Method | Path               | Body                                  | Notes                  |
-|:------:|--------------------|---------------------------------------|------------------------|
-| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/supplier` | [`SupplierMessage`](#suppliermessage) | Creates a new supplier |
+| Method | Path               | Body                                       | Notes                  |
+|:------:|--------------------|--------------------------------------------|------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/supplier` | [`SupplierMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/SupplierMessage.java) | Creates a new supplier |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>SupplierMessage</code>)</strong></summary>
@@ -168,9 +168,9 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <summary>🎯 Expand Endpoint regarding Product</summary>
 
 
-| Method | Path              | Body                                | Notes                 |
-|:------:|-------------------|-------------------------------------|-----------------------|
-| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/product` | [`ProductMessage`](#productmessage) | Creates a new product |
+| Method | Path              | Body                                     | Notes                 |
+|:------:|-------------------|------------------------------------------|-----------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/product` | [`ProductMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/ProductMessage.java) | Creates a new product |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>ProductMessage</code>)</strong></summary>
@@ -199,9 +199,9 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <summary>🎯 Expand Endpoint regarding Employee</summary>
 
 
-| Method | Path               | Body                                  | Notes                  |
-|:------:|--------------------|---------------------------------------|------------------------|
-| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/employee` | [`EmployeeMessage`](#employeemessage) | Creates a new employee |
+| Method | Path               | Body                                       | Notes                  |
+|:------:|--------------------|--------------------------------------------|------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/employee` | [`EmployeeMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/EmployeeMessage.java) | Creates a new employee |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>EmployeeMessage</code>)</strong></summary>
@@ -230,9 +230,9 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <summary>🎯 Expand Endpoint regarding Stock</summary>
 
 
-| Method | Path            | Body                            | Notes               |
-|:------:|-----------------|---------------------------------|---------------------|
-| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/stock` | [`StockMessage`](#stockmessage) | Creates a new stock |
+| Method | Path            | Body                                | Notes               |
+|:------:|-----------------|-------------------------------------|---------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/stock` | [`StockMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/StockMessage.java) | Creates a new stock |
 
 
 <summary>▶️ <strong>Request Body (<code>StockMessage</code>)</strong></summary>
@@ -257,9 +257,9 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <summary>🎯 Expand Endpoint regarding Customer</summary>
 
 
-| Method | Path               | Body                                  | Notes                  |
-|:------:|--------------------|---------------------------------------|------------------------|
-| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/customer` | [`CustomerMessage`](#customermessage) | Creates a new customer |
+| Method | Path               | Body                                      | Notes                  |
+|:------:|--------------------|-------------------------------------------|------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/customer` | [`CustomerMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/CustomerMessage.java) | Creates a new customer |
 
 
 <summary>▶️ <strong>Request Body (<code>CustomerMessage</code>)</strong></summary>
@@ -281,9 +281,9 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 
 
 
-| Method | Path                     | Body                                            | Notes                        |
-|:------:|--------------------------|-------------------------------------------------|------------------------------|
-| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/customer/order` | [`CustomerOrderMessage`](#customerordermessage) | Creates a new customer order |
+| Method | Path                     | Body                                                | Notes                        |
+|:------:|--------------------------|-----------------------------------------------------|------------------------------|
+| ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/customer/order` | [`CustomerOrderMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/CustomerOrderMessage.java) | Creates a new customer order |
 
 
 <summary>▶️ <strong>Request Body (<code>CustomerOrderMessage</code>)</strong></summary>
