@@ -22,7 +22,7 @@ public interface ProductEntityControllerInterface {
             @ApiResponse(responseCode = "404", description = "No product with given ID exists"),
             @ApiResponse(responseCode = "400", description = "Invalid product ID")
     })
-    ResponseEntity<Product> getProductById(@PathVariable("id") String id);
+    ResponseEntity<?> getProductById(@PathVariable("id") String id);
 
     @GetMapping
     @Operation(summary = "Retrieve all product", description = "Retrieves all product entities")
