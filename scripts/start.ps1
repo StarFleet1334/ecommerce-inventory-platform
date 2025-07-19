@@ -103,7 +103,7 @@ Write-Host "$Green$Party RocketMQ folders cleaned!$Reset"
 
 # Start RocketMQ services first
 Write-Host "$Yellow$Rocket Starting RocketMQ services...$Reset"
-docker compose --profile dev up -d namesrv
+docker compose --profile dev up -d namesrv --build
 
 # Wait for namesrv to be ready (not necessarily healthy)
 Write-Host "$Yellow$Hourglass Waiting for RocketMQ namesrv to be ready...$Reset"
@@ -116,7 +116,7 @@ if (Test-Port -TargetHost "localhost" -Port 9876 -MaxAttempts 30) {
 
 # Start broker
 Write-Host "$Yellow$Rocket Starting RocketMQ broker...$Reset"
-docker compose --profile dev up -d broker
+docker compose --profile dev up -d broker --build
 
 # Wait for broker to be ready
 Write-Host "$Yellow$Hourglass Waiting for RocketMQ broker to be ready...$Reset"
