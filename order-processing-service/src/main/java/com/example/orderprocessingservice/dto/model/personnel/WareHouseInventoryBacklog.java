@@ -38,7 +38,7 @@ public class WareHouseInventoryBacklog {
 
     @Column(name = "debt_quantity")
     @JsonProperty("debt_quantity")
-    private String debtQuantity;
+    private Integer debtQuantity;
 
     @Column(name = "recorded_at")
     @JsonProperty("recorded_at")

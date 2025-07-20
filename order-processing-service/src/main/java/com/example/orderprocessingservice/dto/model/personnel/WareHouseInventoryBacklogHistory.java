@@ -1,6 +1,7 @@
 package com.example.orderprocessingservice.dto.model.personnel;
 
 import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
+import com.example.orderprocessingservice.utils.constants.CustomerConstants;
 import com.example.orderprocessingservice.utils.constants.ProductConstants;
 import com.example.orderprocessingservice.utils.constants.WareHouseConstants;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,9 +36,10 @@ public class WareHouseInventoryBacklogHistory {
     @JsonProperty("product_name")
     private String productName;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    private CustomerOrder customerOrder;
+    @Column(name = "customer_name",length = CustomerConstants.MAX_FIRST_NAME_LENGTH + CustomerConstants.MAX_LAST_NAME_LENGTH )
+    @Size(max = CustomerConstants.MAX_FIRST_NAME_LENGTH + CustomerConstants.MAX_LAST_NAME_LENGTH)
+    @JsonProperty("customer_name")
+    private String customerName;
 
     @Column(name = "debt_quantity")
     @JsonProperty("debt_quantity")
