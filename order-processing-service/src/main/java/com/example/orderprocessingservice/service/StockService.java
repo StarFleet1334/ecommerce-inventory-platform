@@ -57,6 +57,19 @@ public class StockService {
             throw StockException.capacityExceeded(wareHouse.getWareHouseId(), newTotalStock, wareHouse.getWareHouseCapacity());
         }
 
+        Stock stockExists = stockRepository.findByProductIdAndWareHouseId(stock.getProduct_id(),stock.getWare_house_id());
+        if (stockExists != null) {
+            LOGGER.warn("Stock already exists for product ID {} and warehouse ID {}", stock.getProduct_id(), stock.getWare_house_id());
+            stockExists.setQuantity(stockExists.getQuantity() + stock.getQuantity());
+            stockRepository.save(stockExists);
+            LOGGER.info("Successfully updated existing stock with product ID: {} and updated quantity to {}",
+                    stock.getProduct_id(), stockExists.getQuantity());
+            wareHouse.setWareHouseCapacity(newTotalStock);
+            wareHouseRepository.save(wareHouse);
+            LOGGER.info("Successfully updated warehouse capacity to {}", newTotalStock);
+            return;
+        }
+
         Stock newStock = stockMapper.toEntity(stock);
 
         try {
