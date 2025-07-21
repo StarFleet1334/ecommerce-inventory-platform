@@ -7,7 +7,6 @@ import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.customer.Customer;
 import com.example.orderprocessingservice.dto.model.customer.CustomerInventory;
 import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
-import com.example.orderprocessingservice.dto.model.order.RouteCalculationResponse;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouseInventoryBacklog;
 import com.example.orderprocessingservice.dto.model.transaction.CustomerTransaction;
@@ -22,16 +21,15 @@ import com.example.orderprocessingservice.repository.customer.CustomerRepository
 import com.example.orderprocessingservice.repository.personnel.WareHouseInventoryBacklogRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
 import com.example.orderprocessingservice.repository.transaction.CustomerTransactionRepository;
+import com.example.orderprocessingservice.service.domain.TransactionService;
 import com.example.orderprocessingservice.validator.CustomerOrderValidator;
 import com.example.orderprocessingservice.validator.CustomerValidator;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.math.BigDecimal;
-import java.time.Duration;
+
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -54,6 +52,7 @@ public class CustomerService {
     private final CustomerInventoryRepository customerInventoryRepository;
     private final ProductRepository productRepository;
     private final WareHouseInventoryBacklogRepository wareHouseInventoryBacklogRepository;
+    private final TransactionService transactionService;
 
     @Transactional
     public void handleNewCustomer(CustomerMP customer) {
@@ -152,45 +151,14 @@ public class CustomerService {
             customerOrderRepository.save(newCustomerOrder);
             LOGGER.info("Successfully saved new customer order: {}", customerOrder);
 
-            Set<Pair<BigDecimal, BigDecimal>> wareHouseList = usedStocks.stream()
-                    .map(Stock::getWareHouse)
-                    .map(wh -> Pair.of(wh.getLatitude(), wh.getLongitude()))
-                    .collect(Collectors.toCollection(HashSet::new));
-
+            List<WareHouse> wareHouseList = usedStocks.stream()
+                    .map(Stock::getWareHouse).collect(Collectors.toList());
 
             Optional<Customer> customer = customerRepository.findById(customerOrder.getCustomer_id());
             if (customer.isEmpty()) {
                 throw CustomerException.notFound(customerOrder.getCustomer_id());
             }
-
-            RouteCalculationResponse bestRoute = null;
-            BigDecimal customerLat = customer.get().getLatitude();
-            BigDecimal customerLon = customer.get().getLongitude();
-
-            for (Pair<BigDecimal, BigDecimal> warehouse : wareHouseList) {
-                RouteCalculationResponse route = routeCalculationService.calculateRoute(
-                        customerLat, customerLon, warehouse.getLeft(), warehouse.getRight());
-
-                if (bestRoute == null || route.getDistanceKm() < bestRoute.getDistanceKm()) {
-                    bestRoute = route;
-                }
-            }
-            LOGGER.info("Best route for customer order {} is {}", customerOrder, bestRoute);
-            CustomerTransaction customerTransaction = new CustomerTransaction();
-            customerTransaction.setCustomerOrder(newCustomerOrder);
-
-            if (bestRoute != null) {
-                OffsetDateTime now = OffsetDateTime.now();
-                OffsetDateTime expectedDeliveryTime = now.plus(Duration.ofSeconds((long) bestRoute.getDurationSeconds()));
-                customerTransaction.setExpected_delivery_time(expectedDeliveryTime);
-            } else {
-                customerTransaction.setExpected_delivery_time(OffsetDateTime.now().plusHours(24));
-                LOGGER.warn("No route found, setting default delivery time for order: {}", customerOrder);
-            }
-
-            customerTransaction.setFinished(false);
-
-            customerTransactionRepository.save(customerTransaction);
+            CustomerTransaction customerTransaction = transactionService.create(newCustomerOrder, customer.get(), wareHouseList);
             LOGGER.info("Created customer transaction with expected delivery time: {}",
                     customerTransaction.getExpected_delivery_time());
 
