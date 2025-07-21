@@ -5,7 +5,6 @@ import com.example.orderprocessingservice.dto.eventDto.StockMP;
 import com.example.orderprocessingservice.dto.model.asset.Stock;
 import com.example.orderprocessingservice.dto.model.customer.Customer;
 import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
-import com.example.orderprocessingservice.dto.model.order.RouteCalculationResponse;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouseInventoryBacklog;
 import com.example.orderprocessingservice.dto.model.transaction.CustomerTransaction;
@@ -19,7 +18,7 @@ import com.example.orderprocessingservice.repository.customer.CustomerOrderRepos
 import com.example.orderprocessingservice.repository.customer.CustomerRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseInventoryBacklogRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
-import com.example.orderprocessingservice.repository.transaction.CustomerTransactionRepository;
+import com.example.orderprocessingservice.service.domain.TransactionService;
 import com.example.orderprocessingservice.validator.StockValidator;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,8 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.*;
 
@@ -44,8 +41,7 @@ public class StockService {
     private final CustomerOrderMapper customerOrderMapper;
     private final CustomerOrderRepository customerOrderRepository;
     private final CustomerRepository customerRepository;
-    private final CustomerTransactionRepository customerTransactionRepository;
-    private final RouteCalculationService routeCalculationService;
+    private final TransactionService transactionService;
 
     @Transactional
     public void handleNewStock(StockMP stock) {
@@ -59,6 +55,19 @@ public class StockService {
 
         if (newTotalStock > wareHouse.getMaxStockLevel()) {
             throw StockException.capacityExceeded(wareHouse.getWareHouseId(), newTotalStock, wareHouse.getWareHouseCapacity());
+        }
+
+        Stock stockExists = stockRepository.findByProductIdAndWareHouseId(stock.getProduct_id(),stock.getWare_house_id());
+        if (stockExists != null) {
+            LOGGER.warn("Stock already exists for product ID {} and warehouse ID {}", stock.getProduct_id(), stock.getWare_house_id());
+            stockExists.setQuantity(stockExists.getQuantity() + stock.getQuantity());
+            stockRepository.save(stockExists);
+            LOGGER.info("Successfully updated existing stock with product ID: {} and updated quantity to {}",
+                    stock.getProduct_id(), stockExists.getQuantity());
+            wareHouse.setWareHouseCapacity(newTotalStock);
+            wareHouseRepository.save(wareHouse);
+            LOGGER.info("Successfully updated warehouse capacity to {}", newTotalStock);
+            return;
         }
 
         Stock newStock = stockMapper.toEntity(stock);
@@ -104,36 +113,10 @@ public class StockService {
                     }
 
                     WareHouse ware_house = newStock.getWareHouse();
-
-                    RouteCalculationResponse bestRoute = null;
-                    BigDecimal customerLat = customer.get().getLatitude();
-                    BigDecimal customerLon = customer.get().getLongitude();
-
-                    RouteCalculationResponse route = routeCalculationService.calculateRoute(
-                            customerLat, customerLon, ware_house.getLatitude(), ware_house.getLongitude());
-
-                    if (bestRoute == null || route.getDistanceKm() < bestRoute.getDistanceKm()) {
-                        bestRoute = route;
-                    }
-                    LOGGER.info("Best route for customer order {} is {}", customerOrderMP, bestRoute);
-                    CustomerTransaction customerTransaction = new CustomerTransaction();
-                    customerTransaction.setCustomerOrder(newCustomerOrder);
-
-                    if (bestRoute != null) {
-                        OffsetDateTime now = OffsetDateTime.now();
-                        OffsetDateTime expectedDeliveryTime = now.plus(Duration.ofSeconds((long) bestRoute.getDurationSeconds()));
-                        customerTransaction.setExpected_delivery_time(expectedDeliveryTime);
-                    } else {
-                        customerTransaction.setExpected_delivery_time(OffsetDateTime.now().plusHours(24));
-                        LOGGER.warn("No route found, setting default delivery time for order: {}", customerOrderMP);
-                    }
-
-                    customerTransaction.setFinished(false);
-
-                    customerTransactionRepository.save(customerTransaction);
+                    Collection<WareHouse> wareHouses = Collections.singleton(ware_house);
+                    CustomerTransaction customerTransaction = transactionService.create(newCustomerOrder, customer.get(), wareHouses);
                     LOGGER.info("Created customer transaction with expected delivery time: {}",
                             customerTransaction.getExpected_delivery_time());
-
                 }
                 newStock.setQuantity(amount_in_stock);
             }
