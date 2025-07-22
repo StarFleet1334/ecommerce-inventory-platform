@@ -2,9 +2,9 @@ package org.example.apigateway.utils;
 
 public enum HttpRequestTypes {
 
-    POST("post"),
-    GET("get"),
-    DELETE("delete");
+    POST("POST"),
+    GET("GET"),
+    DELETE("DELETE");
 
     private final String name;
 
