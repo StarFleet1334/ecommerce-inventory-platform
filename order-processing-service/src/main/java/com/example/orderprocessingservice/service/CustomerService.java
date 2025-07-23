@@ -48,7 +48,6 @@ public class CustomerService {
     private final CustomerOrderRepository customerOrderRepository;
     private final WareHouseRepository wareHouseRepository;
     private final StockRepository stockRepository;
-    private final RouteCalculationService routeCalculationService;
     private final CustomerInventoryRepository customerInventoryRepository;
     private final ProductRepository productRepository;
     private final WareHouseInventoryBacklogRepository wareHouseInventoryBacklogRepository;
