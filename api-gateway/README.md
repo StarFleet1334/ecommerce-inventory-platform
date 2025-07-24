@@ -27,6 +27,12 @@ Built with **Spring Cloud Gateway**, the router provides:
 
 ---
 
+##  Test Rate Limiter
+* To test rate limiter as an example, use:
+* **for i in {1..25}; do curl -s -o /dev/null -w "%{http_code} %{size_download}\\n" http://localhost:8070/customer; done*
+* Replace <PORT>, <PASSWORD>, <USER> and <URL> from Redis website / database
+
+
 ## 🌟 Features
 
 | Feature                  | Description                                                 |
@@ -57,5 +63,4 @@ Built with **Spring Cloud Gateway**, the router provides:
 * Operation people hit: 8071 (example: actuator); customers hit: 8070.  The reason is Gateway code can’t accidentally interfere with monitoring, and monitoring can’t accidentally expose production APIs
 * Actuator never touches Gateway filters, rewrites or CORS logic
 ---
-
 
