@@ -19,6 +19,8 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-gateway-server-webflux
 	implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux:4.3.0")
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 }
 
 dependencyManagement {
