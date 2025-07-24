@@ -1,7 +1,10 @@
 package org.example.apigateway.config;
 
 import org.example.apigateway.utils.HttpRequestTypes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
+import org.springframework.cloud.gateway.filter.ratelimit.RateLimiter;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.Buildable;
@@ -27,6 +30,12 @@ public class DynamicRewriteRoute {
 
     @Value("${rewrite.backend.name.primary}")
     private String primaryBackendName;
+
+    @Autowired
+    private KeyResolver ipKeyResolver;
+
+    @Autowired
+    private RateLimiter customRateLimiter;
 
     private final String streamURIPrefix;
 
@@ -64,14 +73,17 @@ public class DynamicRewriteRoute {
 
     private Function<PredicateSpec, Buildable<Route>> createRewriteRoute(
             String resource, String inbound, String backendUri, String httpRequestMethod) {
+
         String backend = streamURIPrefix + resource;
 
         return r -> r
                 .method(HttpMethod.valueOf(httpRequestMethod))
                 .and()
                 .path(inbound, inbound + "/**")
-                .filters(f -> f.rewritePath(inbound + "(?<segment>/?.*)",
-                        backend + "${segment}"))
+                .filters(f -> f.rewritePath(inbound + "(?<segment>/?.*)", backend + "${segment}")
+                        .requestRateLimiter(cfg -> cfg
+                                .setRateLimiter(customRateLimiter)
+                                .setKeyResolver(ipKeyResolver)))
                 .uri(backendUri);
     }
 

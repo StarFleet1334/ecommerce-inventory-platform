@@ -21,6 +21,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+	// https://mvnrepository.com/artifact/redis.clients/jedis
+	implementation("redis.clients:jedis:6.0.0")
+
+	compileOnly 'org.projectlombok:lombok:1.18.32'
+	annotationProcessor 'org.projectlombok:lombok:1.18.32'
 }
 
 dependencyManagement {
