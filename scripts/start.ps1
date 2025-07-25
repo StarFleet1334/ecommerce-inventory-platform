@@ -127,6 +127,11 @@ if (Test-Port -TargetHost "localhost" -Port 10911 -MaxAttempts 30) {
     exit 1
 }
 
+Write-Host "$Yellow$Rocket Starting Api-GateWay...$Reset"
+docker compose --profile dev up -d api-gateway --build
+Write-Host "$Yellow$Hourglass Waiting for Api-GateWay to be ready...$Reset"
+
+
 # Start all other services
 Write-Host "$Yellow$Rocket Starting all other services...$Reset"
 docker compose --profile dev up -d --build

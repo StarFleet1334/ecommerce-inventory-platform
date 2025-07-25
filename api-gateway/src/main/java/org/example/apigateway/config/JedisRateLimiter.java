@@ -24,7 +24,7 @@ public class JedisRateLimiter implements RateLimiter<Config> {
     public JedisRateLimiter(CryptoUtils cryptoUtils, RedisSettings redisSettings, RateLimitSettings rateLimitSettings) throws Exception {
         var clientCfg = DefaultJedisClientConfig.builder()
                     .user(redisSettings.redisUser())
-                    .password(cryptoUtils.decrypt(redisSettings.redisPassword()))
+                    .password(redisSettings.redisPassword())
                 .timeoutMillis(5_000)
                 .ssl(false)
                 .build();
