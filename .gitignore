@@ -7,3 +7,5 @@ data/
 .vscode/
 .idea/
 scripts/zipkin/zipkin.jar
+scripts/zipkin.jar
+zipkin.jar
