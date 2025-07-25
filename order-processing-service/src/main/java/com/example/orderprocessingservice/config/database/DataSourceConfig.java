@@ -31,7 +31,8 @@ public class DataSourceConfig {
     public DataSource dataSource() throws Exception {
         LOGGER.info("Initializing DataSource with URL={} and user={}", databaseUrl, databaseUserName);
 
-        String decryptedPassword = CryptoUtils.decrypt(databasePassword);
+        CryptoUtils cryptoUtils = new CryptoUtils();
+        String decryptedPassword = cryptoUtils.decrypt(databasePassword);
 
         DataSource dataSource = DataSourceBuilder.create()
                 .url(databaseUrl)
