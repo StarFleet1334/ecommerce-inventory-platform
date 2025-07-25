@@ -2,12 +2,14 @@ package org.example.apigateway.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.apigateway.model.Config;
+import org.example.apigateway.model.RateLimitSettings;
+import org.example.apigateway.model.RedisSettings;
+import org.example.apigateway.utils.CryptoUtils;
 import org.example.apigateway.utils.TokenBucketLuaScript;
 import org.springframework.cloud.gateway.filter.ratelimit.RateLimiter;
 import org.springframework.util.Assert;
 import reactor.core.publisher.Mono;
 import redis.clients.jedis.*;
-
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,18 +19,19 @@ public class JedisRateLimiter implements RateLimiter<Config> {
 
     private final JedisPool pool;
     private final Map<String, Config> configCache = new ConcurrentHashMap<>();
+    private final RateLimitSettings rateLimitSettings;
 
-    public JedisRateLimiter() {
-
+    public JedisRateLimiter(CryptoUtils cryptoUtils, RedisSettings redisSettings, RateLimitSettings rateLimitSettings) throws Exception {
         var clientCfg = DefaultJedisClientConfig.builder()
-                    .user("<USER>")
-                    .password("<PASSWORD>")
+                    .user(redisSettings.redisUser())
+                    .password(cryptoUtils.decrypt(redisSettings.redisPassword()))
                 .timeoutMillis(5_000)
                 .ssl(false)
                 .build();
+        this.rateLimitSettings = rateLimitSettings;
 
         this.pool = new JedisPool(
-                new HostAndPort("<URL>", 0), // Instead of 0 some <PORT>
+                new HostAndPort(redisSettings.redisHost(), redisSettings.redisPort()),
                 clientCfg);
     }
 
@@ -37,7 +40,7 @@ public class JedisRateLimiter implements RateLimiter<Config> {
         Assert.hasText(key, "A non-empty key is required");
 
         Config cfg = configCache.computeIfAbsent(
-                routeId, id -> new Config(1, 10, Duration.ofSeconds(10)));
+                routeId, id -> new Config(rateLimitSettings.replenishRate(), rateLimitSettings.burstCapacity(), Duration.ofSeconds(rateLimitSettings.duration())));
 
         return Mono.fromCallable(() -> executeLua(routeId, key, cfg))
                 .doOnNext(r -> log.debug(
@@ -47,7 +50,7 @@ public class JedisRateLimiter implements RateLimiter<Config> {
 
     @Override public Map<String, Config> getConfig()          { return configCache; }
     @Override public Class<Config> getConfigClass()           { return Config.class; }
-    @Override public Config newConfig()                       { return new Config(10, 20, Duration.ofSeconds(1)); }
+    @Override public Config newConfig()                       { return new Config(rateLimitSettings.replenishRate(), rateLimitSettings.burstCapacity(), Duration.ofSeconds(rateLimitSettings.duration())); }
 
 
     private Response executeLua(String routeId, String clientId, Config cfg) {
