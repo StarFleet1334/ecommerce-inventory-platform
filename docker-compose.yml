@@ -67,6 +67,41 @@ services:
       retries: 5
     profiles: ["all", "dev"]
 
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    command: redis-server --requirepass "${REDIS_PASSWORD:-defaultpassword}"
+    env_file:
+      - .env
+    networks:
+      rocketmq-net:
+        aliases:
+          - redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-defaultpassword}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["all", "dev", "prod"]
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    ports:
+      - "${ZIPKIN_PORT:-9412}:9411"
+    networks:
+      rocketmq-net:
+        aliases:
+          - zipkin
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9411/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles: ["all", "dev", "prod"]
+
   inventory-service:
     build:
       context: ./inventory-service
@@ -78,9 +113,12 @@ services:
       - .env
     environment:
       - SPRING_APPLICATION_NAME=inventory-service
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+      - MANAGEMENT_TRACING_SAMPLING_PROBABILITY=1
     depends_on:
       - namesrv
       - broker
+      - zipkin
     networks:
       rocketmq-net:
         aliases:
@@ -103,9 +141,12 @@ services:
       - .env
     environment:
       - SPRING_APPLICATION_NAME=order-processing-service
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+      - MANAGEMENT_TRACING_SAMPLING_PROBABILITY=1
     depends_on:
       - namesrv
       - broker
+      - zipkin
     networks:
       rocketmq-net:
         aliases:
@@ -115,6 +156,56 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    profiles: ["all", "dev", "prod"]
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "${API_GATEWAY_PORT:-8070}:8070"
+      - "${API_GATEWAY_MANAGEMENT_PORT:-8071}:8071"
+    env_file:
+      - .env
+    environment:
+      - SPRING_APPLICATION_NAME=api-gateway
+      - SERVER_PORT=8070
+      - REWRITE_BACKEND_URI_PRIMARY=http://inventory-service:8081
+      - REWRITE_BACKEND_URI_SECONDARY=http://order-processing-service:8083
+      - REWRITE_BACKEND_NAME_PRIMARY=inventory-service
+      - REWRITE_BACKEND_NAME_SECONDARY=order-processing-service
+      - MANAGEMENT_SERVER_PORT=8071
+      - MANAGEMENT_ENDPOINT_GATEWAY_ACCESS=read-only
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=gateway,health,info
+      - LOGGING_LEVEL_ORG_EXAMPLE_APIGATEWAY=DEBUG
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_USER=${REDIS_USER:-default}
+      - CRYPTO_SECRET=${CRYPTO_SECRET}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REPLENISH_RATE=${REPLENISH_RATE}
+      - BURST_CAPACITY=${BURST_CAPACITY}
+      - RATE_DURATION=${RATE_DURATION}
+      - MANAGEMENT_TRACING_SAMPLING_PROBABILITY=1
+      - LOGGING_PATTERN_CORRELATION=[$${SPRING_APPLICATION_NAME:},%X{traceId:-},%X{spanId:-}]
+      - LOGGING_INCLUDE_APPLICATION_NAME=false
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+    depends_on:
+      - redis
+      - inventory-service
+      - order-processing-service
+      - zipkin
+    networks:
+      rocketmq-net:
+        aliases:
+          - api-gateway
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8071/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     profiles: ["all", "dev", "prod"]
 
   graphs-service:
@@ -207,10 +298,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - inventory-service
-      - order-processing-service
-      - graphs-service
-      - backend
+      - api-gateway
     networks:
       rocketmq-net:
         aliases:
@@ -234,10 +322,7 @@ services:
     environment:
       - VITE_DEBUG=true
     depends_on:
-      - inventory-service
-      - order-processing-service
-      - graphs-service
-      - backend
+      - api-gateway
     networks:
       rocketmq-net:
         aliases:

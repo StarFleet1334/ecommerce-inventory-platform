@@ -68,5 +68,5 @@ Built with **Spring Cloud Gateway**, the router provides:
 ## OpenTelemetry with ZipKin
 * Bridging the Micrometer Observation API to OpenTelemetry.
 * Reports traces to Zipkin
-* Serving HTTP at /[0:0:0:0:0:0:0:0]:9411 - http://127.0.0.1:9411/
+* Serving HTTP at /[0:0:0:0:0:0:0:0]:9411 - http://localhost:9411 or http://localhost:9412 Depending on Port you bind
 
