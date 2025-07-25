@@ -475,7 +475,8 @@ The project includes platform-specific startup scripts in the `scripts/` directo
 
 **Windows (PowerShell):**
 ```powershell
-.\scripts\start.ps1
+cd scripts
+.\start.ps1; .\zipkin\start-zipkin.ps1
 ```
 
 **Linux/macOS (Bash):**

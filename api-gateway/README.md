@@ -64,3 +64,9 @@ Built with **Spring Cloud Gateway**, the router provides:
 * Actuator never touches Gateway filters, rewrites or CORS logic
 ---
 
+
+## OpenTelemetry with ZipKin
+* Bridging the Micrometer Observation API to OpenTelemetry.
+* Reports traces to Zipkin
+* Serving HTTP at /[0:0:0:0:0:0:0:0]:9411 - http://127.0.0.1:9411/
+
