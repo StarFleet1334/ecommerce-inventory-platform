@@ -6,4 +6,4 @@ order-processing-service/.env
 data/
 .vscode/
 .idea/
-scripts/zipkin.jar
+scripts/zipkin/zipkin.jar
