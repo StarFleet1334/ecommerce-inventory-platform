@@ -25,7 +25,6 @@ import com.example.orderprocessingservice.repository.transaction.CustomerTransac
 import com.example.orderprocessingservice.service.domain.TransactionService;
 import com.example.orderprocessingservice.validator.CustomerOrderValidator;
 import com.example.orderprocessingservice.validator.CustomerValidator;
-import com.google.common.base.Throwables;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
