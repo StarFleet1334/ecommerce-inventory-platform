@@ -26,6 +26,8 @@ public class SupplyOrderService {
     private final WareHouseRepository wareHouseRepository;
     private final StockRepository stockRepository;
 
+
+    // TODO: We need to update logic here to include method handleNewStock from StockService here
     public void speedUpEmployeeSupply(int supplyId) {
         LOGGER.info("Speeding up employee supply with ID: {}", supplyId);
         Optional<Supply> supply = supplyRepository.findById(supplyId);

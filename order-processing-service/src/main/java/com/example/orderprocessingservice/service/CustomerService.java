@@ -10,6 +10,7 @@ import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouseInventoryBacklog;
 import com.example.orderprocessingservice.dto.model.transaction.CustomerTransaction;
+import com.example.orderprocessingservice.exception.asset.StockException;
 import com.example.orderprocessingservice.exception.customer.CustomerException;
 import com.example.orderprocessingservice.mapper.customer.CustomerMapper;
 import com.example.orderprocessingservice.mapper.customer.CustomerOrderMapper;
@@ -24,6 +25,7 @@ import com.example.orderprocessingservice.repository.transaction.CustomerTransac
 import com.example.orderprocessingservice.service.domain.TransactionService;
 import com.example.orderprocessingservice.validator.CustomerOrderValidator;
 import com.example.orderprocessingservice.validator.CustomerValidator;
+import com.google.common.base.Throwables;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,39 +108,42 @@ public class CustomerService {
         }
     }
 
+    // TODO: before we add into a stock we should add into inventory_movement
     @Transactional
     public void handleCustomerNewOrder(CustomerOrderMP customerOrder) {
         LOGGER.info("Processing new customer order: {}", customerOrder);
         customerOrderValidator.validate(customerOrder);
 
         List<Stock> stockList = stockRepository.findAllByProductId(customerOrder.getProduct_id());
+        if (stockList.isEmpty()) {
+            LOGGER.warn("No stocks found for product ID {}", customerOrder.getProduct_id());
+            throw StockException.notFound(customerOrder.getProduct_id());
+        }
+        // TODO: This needs to be changed, we need to pass in request body from which ware_house we take in future
+        Stock randomStock = stockList.get(new Random().nextInt(stockList.size()));
         int remainingAmount = customerOrder.getProduct_amount();
         List<Stock> usedStocks = new ArrayList<>();
         int wareHouseId = 0;
 
-        for (Stock stock : stockList) {
-            if (remainingAmount <= 0) break;
+        int availableQuantity = randomStock.getQuantity();
+        if (availableQuantity > 0) {
+            int quantityToTake = Math.min(availableQuantity, remainingAmount);
 
-            int availableQuantity = stock.getQuantity();
-            if (availableQuantity > 0) {
-                int quantityToTake = Math.min(availableQuantity, remainingAmount);
+            randomStock.setQuantity(availableQuantity - quantityToTake);
+            randomStock.getWareHouse().setWareHouseCapacity(
+                    randomStock.getWareHouse().getWareHouseCapacity() - quantityToTake
+            );
 
-                stock.setQuantity(availableQuantity - quantityToTake);
-                stock.getWareHouse().setWareHouseCapacity(
-                        stock.getWareHouse().getWareHouseCapacity() - quantityToTake
-                );
-
-                if (stock.getQuantity() <= 0) {
-                    stockRepository.delete(stock);
-                } else {
-                    stockRepository.save(stock);
-                }
-                wareHouseId = stock.getWareHouse().getWareHouseId();
-                wareHouseRepository.save(stock.getWareHouse());
-
-                usedStocks.add(stock);
-                remainingAmount -= quantityToTake;
+            if (randomStock.getQuantity() <= 0) {
+                stockRepository.delete(randomStock);
+            } else {
+                stockRepository.save(randomStock);
             }
+            wareHouseId = randomStock.getWareHouse().getWareHouseId();
+            wareHouseRepository.save(randomStock.getWareHouse());
+
+            usedStocks.add(randomStock);
+            remainingAmount -= quantityToTake;
         }
 
         CustomerOrder newCustomerOrder = customerOrderMapper.toEntity(customerOrder);

@@ -520,7 +520,7 @@ docker-compose --profile dev up --build
 docker-compose down
 ```
 
----
+**---
 
 ## Docker Compose Profiles
 
@@ -556,7 +556,7 @@ You can specify profiles with `--profile <profile>`.
 - Spring Boot services use `/actuator/health` (ensure `spring-boot-starter-actuator` is included).
 - Flask and Ktor services should expose a `/health` endpoint returning 200 OK.
 
----
+---**
 
 ## Common Commands
 
