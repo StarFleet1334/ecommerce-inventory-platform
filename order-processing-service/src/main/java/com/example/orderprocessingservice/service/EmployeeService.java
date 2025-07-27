@@ -26,54 +26,86 @@ public class EmployeeService {
     @Transactional
     public void handleNewEmployee(EmployeeMP employee) {
         LOGGER.info("Processing new employee: {}", employee);
+        validateEmployeeRequest(employee);
+        Employee savedEmployee = createAndSaveEmployee(employee);
+        LOGGER.info("Successfully processed new employee with ID: {}", savedEmployee.getEmployee_id());
+    }
 
-        employeeValidator.validate(employee);
+    @Transactional
+    public void handleDeleteEmployee(String id) {
+        LOGGER.info("Processing employee deletion for ID: {}", id);
+        int employeeId = parseEmployeeId(id);
+        validateEmployeeExists(employeeId);
+        executeEmployeeDeletion(employeeId);
+        LOGGER.info("Successfully deleted employee with ID: {}", id);
+    }
 
-        Employee newEmployee = employeeMapper.toEntity(employee);
+    public Employee getEmployeeById(int id) {
+        LOGGER.info("Processing retrieval of employee with ID: {}", id);
+        Optional<Employee> employee = employeeRepository.findByEmployeeId(id);
+        if (employee.isEmpty()) {
+            LOGGER.warn("Employee with ID {} not found", id);
+            throw EmployeeException.notFound(id);
+        }
+        LOGGER.debug("Successfully retrieved employee with ID: {}", id);
+        return employee.get();
+    }
 
+    public List<Employee> getAllEmployee() {
+        LOGGER.info("Retrieving all employees");
+        List<Employee> employees = employeeRepository.findAllEmployees();
+        LOGGER.info("Successfully retrieved {} employees", employees.size());
+        return employees;
+    }
+
+    // Helper Methods ---------------------------------------------------------------------------------------
+
+    private void validateEmployeeRequest(EmployeeMP employeeRequest) {
         try {
+            employeeValidator.validate(employeeRequest);
+            LOGGER.debug("Employee validation successful");
+        } catch (Exception e) {
+            LOGGER.error("Employee validation failed: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    private Employee createAndSaveEmployee(EmployeeMP employeeRequest) {
+        try {
+            Employee newEmployee = employeeMapper.toEntity(employeeRequest);
             employeeRepository.save(newEmployee);
-            LOGGER.info("Successfully saved new employee with email: {}", employee.getEmail());
+            LOGGER.info("Successfully saved new employee with email: {}", employeeRequest.getEmail());
+            return newEmployee;
         } catch (Exception e) {
             LOGGER.error("Failed to save employee: {}", e.getMessage());
             throw new RuntimeException("Failed to save employee", e);
         }
     }
 
-    @Transactional
-    public void handleDeleteEmployee(String id) {
-        LOGGER.info("Processing employee deletion for ID: {}", id);
+    private int parseEmployeeId(String id) {
         try {
-            int employeeId = Integer.parseInt(id);
-            if (!employeeRepository.existsById(employeeId)) {
-                throw EmployeeException.notFound(employeeId);
-            }
+            return Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            LOGGER.error("Invalid employee ID format: {}", id);
+            throw new IllegalArgumentException("Invalid employee ID format: " + id);
+        }
+    }
+
+    private void validateEmployeeExists(int employeeId) {
+        if (!employeeRepository.existsById(employeeId)) {
+            LOGGER.warn("Employee with ID {} not found for deletion", employeeId);
+            throw EmployeeException.notFound(employeeId);
+        }
+    }
+
+    private void executeEmployeeDeletion(int employeeId) {
+        try {
             employeeRepository.deleteById(employeeId);
-            LOGGER.info("Successfully deleted employee with ID: {}", id);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid employee ID format: " + id);
+            LOGGER.debug("Successfully executed deletion for employee ID: {}", employeeId);
+        } catch (Exception e) {
+            LOGGER.error("Failed to delete employee with ID {}: {}", employeeId, e.getMessage());
+            throw new RuntimeException("Failed to delete employee with ID: " + employeeId, e);
         }
-    }
-
-    public Employee getEmployeeById(int id) {
-        LOGGER.info("Processing retrieval of employee with ID: {}", id);
-        try {
-            Optional<Employee> employee = employeeRepository.findByEmployeeId(id);
-            if (employee.isEmpty()) {
-                LOGGER.warn("Employee with ID {} not found", id);
-                throw EmployeeException.notFound(id);
-            }
-            return employee.get();
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid employee ID format: " + id);
-        }
-    }
-
-    public List<Employee> getAllEmployee() {
-        LOGGER.info("Processing retrieval of all employees");
-        List<Employee> employees = employeeRepository.findAllEmployees();
-        LOGGER.info("Successfully retrieved all employees");
-        return employees;
     }
 
 }

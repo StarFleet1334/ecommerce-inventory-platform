@@ -101,8 +101,7 @@ public class SupplyService {
 
             Supply newSupply = supplyMapper.toEntity(supply);
 
-            LOGGER.info("New Supply details: [ID: {}, Supplier: {}, Product: {}, Employee: {}, Supply Time: {}, Amount: {}]",
-                    newSupply.getId(),
+            LOGGER.info("New Supply details: [Supplier: {}, Product: {}, Employee: {}, Supply Time: {}, Amount: {}]",
                     newSupply.getSupplier() != null ? newSupply.getSupplier().getSupplier_id() : "null",
                     newSupply.getProduct() != null ? newSupply.getProduct().getProduct_id() : "null",
                     newSupply.getEmployee() != null ? newSupply.getEmployee().getEmployee_id() : "null",
@@ -112,7 +111,7 @@ public class SupplyService {
 
             LOGGER.debug("Saving new supply record...");
             supplyRepository.save(newSupply);
-            LOGGER.info("Successfully saved new supply: {}", newSupply);
+            LOGGER.info("Successfully saved new supply:");
 
             LOGGER.debug("Calculating delivery route...");
             Supplier supplierEntity = supplier.get();
@@ -122,7 +121,7 @@ public class SupplyService {
                     wareHouseEntity.getLatitude(),
                     wareHouseEntity.getLongitude()
             );
-            LOGGER.debug("Route calculated successfully: {}", route);
+            LOGGER.debug("Route calculated successfully: km {}, seconds {}", route.getDistanceKm(),route.getDurationSeconds());
 
             LOGGER.debug("Creating supply transaction...");
             OffsetDateTime now = OffsetDateTime.now();
@@ -138,7 +137,7 @@ public class SupplyService {
                     expectedDeliveryTime);
         } catch (Exception e) {
             LOGGER.error("Failed to process supply operation: {}", e.getMessage());
-            throw new RuntimeException("Failed to process supply operation", e); // Re-throw the exception
+            throw new RuntimeException("Failed to process supply operation", e);
         }
     }
 

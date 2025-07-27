@@ -28,25 +28,16 @@ public class WareHouseService {
 
     public void handleNewWareHouse(WareHouseMP wareHouse) {
         LOGGER.info("Processing new warehouse: {}", wareHouse);
-
-        wareHouseValidator.validate(wareHouse);
-
-        WareHouse newWareHouse = warehouseMapper.toEntity(wareHouse);
-
-        try {
-            wareHouseRepository.save(newWareHouse);
-            LOGGER.info("Successfully saved new wareHouse with name: {}", wareHouse.getWare_house_name());
-        } catch (Exception e) {
-            LOGGER.error("Failed to save wareHouse: {}", e.getMessage());
-            throw new RuntimeException("Failed to save wareHouse", e);
-        }
+        validateWareHouseRequest(wareHouse);
+        WareHouse savedWareHouse = createAndSaveWareHouse(wareHouse);
+        LOGGER.info("Successfully processed new warehouse with ID: {}", savedWareHouse.getWareHouseId());
     }
 
     @Transactional
     public void handleDeleteWareHouse(String id) {
         LOGGER.info("Processing warehouse deletion for ID: {}", id);
         try {
-            int wareHouseId = Integer.parseInt(id);
+            int wareHouseId = parseWareHouseId(id);
             if (!wareHouseRepository.existsById(wareHouseId)) {
                 throw WareHouseException.notFound(wareHouseId);
             }
@@ -66,20 +57,60 @@ public class WareHouseService {
 
     public WareHouse getWareHouseById(String id) {
         LOGGER.info("Fetching warehouse with ID: {}", id);
-        Optional<WareHouse> wareHouse = wareHouseRepository.findById(Integer.parseInt(id));
-        if (wareHouse.isEmpty()) {
-            LOGGER.error("WareHouse not found with ID: {}", id);
-            throw WareHouseException.notFound(Integer.parseInt(id));
-        }
-        LOGGER.debug("WareHouse found successfully");
-        return wareHouse.get();
+        int wareHouseId = parseWareHouseId(id);
+        return getWareHouseById(wareHouseId);
     }
 
     public List<WareHouse> getAllWareHouse() {
-        LOGGER.info("Fetching all warehouse");
+        LOGGER.info("Fetching all warehouses");
         List<WareHouse> wareHouses = wareHouseRepository.findAll();
-        LOGGER.debug("WareHouses found successfully");
+        LOGGER.info("Successfully retrieved {} warehouses", wareHouses.size());
         return wareHouses;
     }
 
+    // Helper Methods ---------------------------------------------------------------------------------------
+
+    private WareHouse getWareHouseById(int wareHouseId) {
+        LOGGER.debug("Fetching warehouse with ID: {}", wareHouseId);
+
+        Optional<WareHouse> wareHouse = wareHouseRepository.findById(wareHouseId);
+        if (wareHouse.isEmpty()) {
+            LOGGER.error("WareHouse not found with ID: {}", wareHouseId);
+            throw WareHouseException.notFound(wareHouseId);
+        }
+
+        LOGGER.debug("WareHouse found successfully with ID: {}", wareHouseId);
+        return wareHouse.get();
+    }
+
+    private void validateWareHouseRequest(WareHouseMP wareHouseRequest) {
+        try {
+            wareHouseValidator.validate(wareHouseRequest);
+            LOGGER.debug("Warehouse validation successful for: {}", wareHouseRequest.getWare_house_name());
+        } catch (Exception e) {
+            LOGGER.error("Warehouse validation failed: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    private WareHouse createAndSaveWareHouse(WareHouseMP wareHouseRequest) {
+        try {
+            WareHouse newWareHouse = warehouseMapper.toEntity(wareHouseRequest);
+            wareHouseRepository.save(newWareHouse);
+            LOGGER.info("Successfully saved new warehouse with name: {}", wareHouseRequest.getWare_house_name());
+            return newWareHouse;
+        } catch (Exception e) {
+            LOGGER.error("Failed to save warehouse: {}", e.getMessage());
+            throw new RuntimeException("Failed to save warehouse", e);
+        }
+    }
+
+    private int parseWareHouseId(String id) {
+        try {
+            return Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            LOGGER.error("Invalid warehouse ID format: {}", id);
+            throw new IllegalArgumentException("Invalid warehouse ID format: " + id);
+        }
+    }
 }
