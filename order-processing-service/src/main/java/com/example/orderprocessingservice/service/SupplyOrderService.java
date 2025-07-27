@@ -7,7 +7,6 @@ import com.example.orderprocessingservice.dto.model.personnel.Employee;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.dto.model.transaction.SupplyTransaction;
 import com.example.orderprocessingservice.exception.asset.SupplyException;
-import com.example.orderprocessingservice.repository.asset.StockRepository;
 import com.example.orderprocessingservice.repository.asset.SupplyRepository;
 import com.example.orderprocessingservice.repository.personnel.WareHouseRepository;
 import com.example.orderprocessingservice.repository.transaction.SupplyTransactionRepository;
@@ -26,7 +25,6 @@ public class SupplyOrderService {
     private final WareHouseRepository wareHouseRepository;
     private final StockService stockService;
 
-    // TODO: We need to update logic here to include method handleNewStock from StockService here ( TO BE TESTED ) !!!
     public void speedUpEmployeeSupply(int supplyId) {
         LOGGER.info("Speeding up employee supply with ID: {}", supplyId);
         Optional<Supply> supply = supplyRepository.findById(supplyId);
