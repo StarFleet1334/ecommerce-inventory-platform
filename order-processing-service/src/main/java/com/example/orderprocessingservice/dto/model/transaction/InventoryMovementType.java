@@ -26,10 +26,10 @@ public class InventoryMovementType {
     @Column(name = "type_name", nullable = false, length = InventoryMovementTypeConstants.TYPE_NAME_LENGTH)
     private String type_name;
 
-    @Column(name = "affect_stock", nullable = false)
+    @Column(name = "affects_stock", nullable = false)
     private int affect_stock;
 
-    @Column(name = "text")
+    @Column(name = "description")
     private String text;
 
     @Column(name = "is_active")
