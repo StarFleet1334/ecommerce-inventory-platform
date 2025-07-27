@@ -49,12 +49,6 @@ public class SupplyOrderService {
         if (wareHouseEntity.isEmpty()) {
             throw SupplyException.notFound(supplyId);
         }
-        WareHouse wareHouse = wareHouseEntity.get();
-
-        LOGGER.debug("Updating warehouse capacity...");
-        wareHouse.setWareHouseCapacity(wareHouse.getWareHouseCapacity() + supplyEntity.getAmount());
-        wareHouseRepository.save(wareHouse);
-        LOGGER.info("Updated warehouse capacity to: {}", wareHouse.getWareHouseCapacity());
 
         Product product = supplyEntity.getProduct();
         StockMP stockMP = new StockMP();

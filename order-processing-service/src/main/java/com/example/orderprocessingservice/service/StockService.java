@@ -102,10 +102,10 @@ public class StockService {
         if (wareHouseOpt.isEmpty()) {
             throw WareHouseException.notFound(stockRequest.getWare_house_id());
         }
-
         WareHouse wareHouse = wareHouseOpt.get();
+        LOGGER.info("WareHouse: warHouseCapacity: {}, wareHouseName: {}", wareHouse.getWareHouseCapacity(),wareHouse.getWareHouseName());
         int newTotalCapacity = wareHouse.getWareHouseCapacity() + stockRequest.getQuantity();
-
+        LOGGER.info("Warehouse capacity to {} is {}", newTotalCapacity, wareHouse.getWareHouseCapacity());
         return StockContext.builder()
                 .wareHouse(wareHouse)
                 .newTotalCapacity(newTotalCapacity)

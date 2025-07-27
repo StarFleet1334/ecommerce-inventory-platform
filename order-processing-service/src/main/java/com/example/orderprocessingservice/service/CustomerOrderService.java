@@ -11,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,36 +22,30 @@ public class CustomerOrderService {
     private final CustomerTransactionRepository customerTransactionRepository;
     private final CustomerInventoryRepository customerInventoryRepository;
 
+    @Transactional
     public void speedUpCustomerOrder(int orderId) {
-        LOGGER.info("Speeding up customer order with ID: {}", orderId);
-        Optional<CustomerOrder> customerOrder = orderRepository.findById(orderId);
-        if (customerOrder.isEmpty()) {
-            throw CustomerOrderException.notFound(orderId);
-        }
-        CustomerTransaction customerTransaction = customerTransactionRepository.findByCustomerOrder_OrderId(orderId);
-        if (customerTransaction.isFinished()) {
-            LOGGER.info("Customer order with ID {} is already finished", orderId);
+        LOGGER.info("Speeding up customer order {}", orderId);
+
+        CustomerOrder order = orderRepository.findById(orderId)
+                .orElseThrow(() -> CustomerOrderException.notFound(orderId));
+
+        CustomerTransaction tx = customerTransactionRepository
+                .findByCustomerOrder_OrderId(orderId);
+
+        if (tx.isFinished()) {
+            LOGGER.info("Order {} is already finished", orderId);
             return;
         }
-        customerTransaction.setFinished(true);
-        customerTransactionRepository.save(customerTransaction);
-        LOGGER.info("Successfully finished speedUp of customer order with ID {}", orderId);
+        tx.setFinished(true);
+        customerTransactionRepository.save(tx);
+        int delta           = order.getProductAmount();
+        int customerId      = order.getCustomer().getCustomer_id();
+        String productId    = order.getProduct().getProduct_id();
+        OffsetDateTime now  = OffsetDateTime.now();
 
-        CustomerOrder order = customerOrder.get();
-        Integer customerId = order.getCustomer().getCustomer_id();
-        String productId = order.getProduct().getProduct_id();
-        if (customerInventoryRepository.existsByCustomerIdAndProductId(customerId, productId)) {
-            CustomerInventory existingInventory = customerInventoryRepository
-                    .findByCustomerIdAndProductId(customerId, productId)
-                    .orElseThrow();
+        customerInventoryRepository.upsertQuantity(customerId, productId, delta, now);
 
-            existingInventory.setQuantity(existingInventory.getQuantity() + order.getProductAmount());
-            existingInventory.setLastUpdated(OffsetDateTime.now());
-            customerInventoryRepository.save(existingInventory);
-        } else {
-            customerInventoryRepository.save(constructrCustomerInventory(order));
-        }
-        LOGGER.info("Successfully saved new customer inventory for order with ID: {}", orderId);
+        LOGGER.info("Inventory updated for customer {} / product {} (+{})", customerId, productId, delta);
 
     }
 
