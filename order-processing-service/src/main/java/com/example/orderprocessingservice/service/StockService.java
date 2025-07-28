@@ -4,6 +4,7 @@ import com.example.orderprocessingservice.dto.eventDto.CustomerOrderMP;
 import com.example.orderprocessingservice.dto.eventDto.StockMP;
 import com.example.orderprocessingservice.dto.model.asset.Product;
 import com.example.orderprocessingservice.dto.model.asset.Stock;
+import com.example.orderprocessingservice.dto.model.asset.Supply;
 import com.example.orderprocessingservice.dto.model.customer.Customer;
 import com.example.orderprocessingservice.dto.model.order.CustomerOrder;
 import com.example.orderprocessingservice.dto.model.personnel.Employee;
@@ -11,6 +12,7 @@ import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouseInventoryBacklog;
 import com.example.orderprocessingservice.dto.model.transaction.CustomerTransaction;
 import com.example.orderprocessingservice.dto.model.transaction.InventoryMovement;
+import com.example.orderprocessingservice.dto.model.transaction.SupplyTransaction;
 import com.example.orderprocessingservice.exception.asset.StockException;
 import com.example.orderprocessingservice.exception.customer.CustomerException;
 import com.example.orderprocessingservice.exception.personnel.WareHouseException;
@@ -33,7 +35,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
 import java.time.OffsetDateTime;
+import java.time.Year;
 import java.util.*;
 
 @Service
@@ -93,6 +97,29 @@ public class StockService {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid Stock ID format: " + id);
         }
+    }
+
+    public void createSupplyOrderForInventoryMovement(WareHouse wareHouse, Product product, Supply supply, SupplyTransaction supplyTransaction,Employee employee) {
+        InventoryMovement inventoryMovement = new InventoryMovement();
+        inventoryMovement.setWareHouse(wareHouse);
+        inventoryMovement.setProduct(product);
+        inventoryMovement.setInventoryMovementType(inventoryMovementTypeRepository.findByInventoryMovementTypeId(
+                InventoryMovementReferenceType.RECEIVE.getType_id()));
+        inventoryMovement.setQuantity(supply.getAmount());
+        inventoryMovement.setUnitCost(product.getProduct_price());
+        String batchNumber = String.format(
+                "BATCH-%d-%04d",
+                Year.now().getValue(),
+                new SecureRandom().nextInt(10_000)
+        );
+        inventoryMovement.setBatch_number(batchNumber);
+        inventoryMovement.setExpiry_date(supplyTransaction.getExpected_delivery_time().toLocalDateTime());
+        inventoryMovement.setReference_type(InventoryMovementReferenceType.PURCHASE_ORDER.getValue());
+        inventoryMovement.setReference_id(supply.getId());
+        inventoryMovement.setEmployee(employee);
+        inventoryMovement.setNotes(String.format("Purchased product %s with quantity %s",product.getProduct_name(),supply.getAmount()));
+
+        inventoryMovementRepository.save(inventoryMovement);
     }
 
     // Helper Methods ---------------------------------------------------------------------------------------
@@ -237,6 +264,7 @@ public class StockService {
                     customerTransaction.getExpected_delivery_time());
 
             // Recording inventory movement for debt payment
+            // TODO We need to call this if we have a debt
             recordDebtPaymentInventoryMovement(customer, backlog.getProduct(), wareHouse, fulfilledQuantity);
 
         } catch (Exception e) {
@@ -367,4 +395,5 @@ public class StockService {
         private int newCapacity;
         private int stockId;
     }
+
 }
