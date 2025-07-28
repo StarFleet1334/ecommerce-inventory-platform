@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 @Service
@@ -24,6 +25,7 @@ public class SupplyOrderService {
     private final SupplyTransactionRepository supplyTransactionRepository;
     private final WareHouseRepository wareHouseRepository;
     private final StockService stockService;
+
 
     public void speedUpEmployeeSupply(int supplyId) {
         LOGGER.info("Speeding up employee supply with ID: {}", supplyId);
@@ -58,6 +60,8 @@ public class SupplyOrderService {
 
         LOGGER.info("Using StockService.handleNewStock for product ID: {} with quantity: {}",
                 product.getProduct_id(), supplyEntity.getAmount());
+
+        stockService.createSupplyOrderForInventoryMovement(wareHouseEntity.get(),product,supplyEntity,supplyTransaction,employee);
 
         stockService.handleNewStock(stockMP);
 
