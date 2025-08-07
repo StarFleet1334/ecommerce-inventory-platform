@@ -1,6 +1,7 @@
 package com.example.orderprocessingservice.service;
 
 import com.example.orderprocessingservice.dto.eventDto.WareHouseMP;
+import com.example.orderprocessingservice.dto.messages.WhTransferMessage;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.exception.personnel.WareHouseException;
 import com.example.orderprocessingservice.mapper.warehouse.WarehouseMapper;
@@ -66,6 +67,11 @@ public class WareHouseService {
         List<WareHouse> wareHouses = wareHouseRepository.findAll();
         LOGGER.info("Successfully retrieved {} warehouses", wareHouses.size());
         return wareHouses;
+    }
+
+
+    public void handleWareHouseTransaction(WhTransferMessage whTransferMessage) {
+        LOGGER.info("Processing warehouse transaction: {}", whTransferMessage);
     }
 
     // Helper Methods ---------------------------------------------------------------------------------------

@@ -53,7 +53,12 @@ public class WareHouseEntityController implements WareHouseEntityControllerInter
 
     @Override
     public ResponseEntity<String> transferProduct(WhTransferMessage whTransferMessage) {
-        LOGGER.info("Transfer product request received: {}", whTransferMessage);
-        return null;
+        try {
+            wareHouseService.handleWareHouseTransaction(whTransferMessage);
+            return ResponseEntity.ok("Successfully transferred product");
+        } catch (Exception e) {
+            LOGGER.error("Failed to transfer product", e);
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

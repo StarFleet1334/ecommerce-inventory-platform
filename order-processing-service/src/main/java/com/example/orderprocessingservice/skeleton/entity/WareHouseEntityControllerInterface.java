@@ -32,7 +32,7 @@ public interface WareHouseEntityControllerInterface {
     })
     ResponseEntity<List<WareHouse>> getAllWareHouse();
 
-    @PostMapping("/trasnfer")
+    @PostMapping("/transfer")
     @Operation(summary = "Transfer product from one warehouse to another", description = "Transfers product from one warehouse to another")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Product successfully transferred"),
