@@ -1,5 +1,6 @@
 package com.example.orderprocessingservice.controller.entity;
 
+import com.example.orderprocessingservice.dto.messages.WhTransferMessage;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
 import com.example.orderprocessingservice.exception.personnel.WareHouseException;
 import com.example.orderprocessingservice.service.WareHouseService;
@@ -48,5 +49,11 @@ public class WareHouseEntityController implements WareHouseEntityControllerInter
             LOGGER.error("Failed to retrieve all warehouses", e);
             return ResponseEntity.badRequest().body(null);
         }
+    }
+
+    @Override
+    public ResponseEntity<String> transferProduct(WhTransferMessage whTransferMessage) {
+        LOGGER.info("Transfer product request received: {}", whTransferMessage);
+        return null;
     }
 }
