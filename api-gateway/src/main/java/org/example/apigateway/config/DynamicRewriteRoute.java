@@ -68,6 +68,7 @@ public class DynamicRewriteRoute {
                 .route(generateIdentifier("employee", primaryBackendName), createRewriteRoute("employee", generateInboundPath("employee"), primaryBackendUri, HttpRequestTypes.DELETE.getName()))
                 .route(generateIdentifier("customer", primaryBackendName), createRewriteRoute("customer/order/speedUp", generateInboundPath("customer-order-speedUp"), secondaryBackendUri, HttpRequestTypes.POST.getName()))
                 .route(generateIdentifier("employee", primaryBackendName), createRewriteRoute("employee/supply/speedUp", generateInboundPath("employee-supply-speedUp"), secondaryBackendUri, HttpRequestTypes.POST.getName()))
+                .route(generateIdentifier("warehouse", primaryBackendName), createRewriteRoute("warehouse/transfer", generateInboundPath("warehouse-transfer"), secondaryBackendUri, HttpRequestTypes.POST.getName()))
                 .build();
     }
 
