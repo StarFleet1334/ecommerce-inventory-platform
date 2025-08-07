@@ -2,6 +2,7 @@ package com.example.orderprocessingservice.controller.entity;
 
 import com.example.orderprocessingservice.dto.messages.WhTransferMessage;
 import com.example.orderprocessingservice.dto.model.personnel.WareHouse;
+import com.example.orderprocessingservice.exception.asset.ProductException;
 import com.example.orderprocessingservice.exception.personnel.WareHouseException;
 import com.example.orderprocessingservice.service.WareHouseService;
 import com.example.orderprocessingservice.skeleton.entity.WareHouseEntityControllerInterface;
@@ -56,9 +57,23 @@ public class WareHouseEntityController implements WareHouseEntityControllerInter
         try {
             wareHouseService.handleWareHouseTransaction(whTransferMessage);
             return ResponseEntity.ok("Successfully transferred product");
+        } catch (WareHouseException e) {
+            LOGGER.error("Warehouse transaction failed", e);
+            return ResponseEntity.badRequest().body("Warehouse transaction failed");
+        } catch (ProductException e) {
+            LOGGER.error("Product not found", e);
+            return ResponseEntity.badRequest().body("Product not found");
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("Invalid product ID format", e);
+            return ResponseEntity.badRequest().body("Invalid product ID format");
         } catch (Exception e) {
             LOGGER.error("Failed to transfer product", e);
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.internalServerError().body("Failed to transfer product");
+        } finally {
+            LOGGER.info("Finished request to transfer product");
+            LOGGER.info("Received request to transfer product: {}", whTransferMessage);
+            LOGGER.info("Successfully transferred product: {}", whTransferMessage);
+            LOGGER.info("Finished request to transfer product");
         }
     }
 }

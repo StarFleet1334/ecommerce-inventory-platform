@@ -10,6 +10,8 @@ public enum InventoryMovementReferenceType {
     PURCHASE_ORDER("purchase_order",0),
     RECEIVE("Stock Received",1),
     DEBT_PAYED("Customer debt",12),
+    TRANSFER_IN("Transfer In",5),
+    TRANSFER_OUT("Transfer Out",6),
     SALE("Customer Sale",2);
 
     private final String value;
