@@ -10,3 +10,4 @@ scripts/zipkin/zipkin.jar
 scripts/zipkin.jar
 zipkin.jar
 order-processing-service/inventory_movement_db.md
+node_modules
