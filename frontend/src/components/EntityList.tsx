@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface EntityListProps {
   items: Record<string, any>[];
@@ -9,7 +9,7 @@ interface EntityListProps {
   displayFields: Array<{
     key: string;
     label: string;
-    type?: 'text' | 'number' | 'currency' | 'date';
+    type?: "text" | "number" | "currency" | "date";
   }>;
   emptyMessage: string;
 }
@@ -21,23 +21,23 @@ const EntityList: React.FC<EntityListProps> = ({
   title,
   idField,
   displayFields,
-  emptyMessage
+  emptyMessage,
 }) => {
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
+    if (window.confirm("Are you sure you want to delete this item?")) {
       await onDelete(id);
     }
   };
 
   const formatValue = (value: any, type?: string) => {
-    if (value === null || value === undefined) return '-';
-    
+    if (value === null || value === undefined) return "-";
+
     switch (type) {
-      case 'currency':
-        return typeof value === 'number' ? `$${value.toFixed(2)}` : value;
-      case 'number':
-        return typeof value === 'number' ? value.toLocaleString() : value;
-      case 'date':
+      case "currency":
+        return typeof value === "number" ? `$${value.toFixed(2)}` : value;
+      case "number":
+        return typeof value === "number" ? value.toLocaleString() : value;
+      case "date":
         return new Date(value).toLocaleDateString();
       default:
         return value;
@@ -92,4 +92,4 @@ const EntityList: React.FC<EntityListProps> = ({
   );
 };
 
-export default EntityList; 
+export default EntityList;

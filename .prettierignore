@@ -1,0 +1,10 @@
+node_modules/
+.venv/
+venv/
+build/
+dist/
+target/
+.idea/
+.vscode/
+.gradle/
+graphs/build/

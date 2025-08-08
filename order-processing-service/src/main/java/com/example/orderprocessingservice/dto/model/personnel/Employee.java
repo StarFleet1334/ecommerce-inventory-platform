@@ -62,4 +62,3 @@ public class Employee {
         return wareHouse != null ? wareHouse.getWareHouseId() : null;
     }
 }
-

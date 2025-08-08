@@ -17,4 +17,4 @@ README.md
 *.swo
 dist
 build
-coverage 
+coverage

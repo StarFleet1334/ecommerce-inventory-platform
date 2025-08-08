@@ -1,0 +1,51 @@
+minimum_pre_commit_version: "3.5.0"
+repos:
+  # --- Universal sanity checks ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: end-of-file-fixer
+        exclude: ^(node_modules/|\.venv/|venv/|dist/|build/|target/|\.idea/|\.vscode/|graphs/build/)
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-json
+      - id: detect-private-key
+
+  # --- Python formatting + linting ---
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+        language_version: python3
+        additional_dependencies: []
+        files: ^(.*\.py)$
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.8
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^(.*\.py)$
+      - id: ruff-format
+        files: ^(.*\.py)$
+
+  # --- Markdown/JSON/YAML/TOML formatting (via Prettier) ---
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      - id: prettier
+        files: \.(md|json|ya?ml|toml|css|scss|html|js|ts|tsx)$
+        exclude: ^(node_modules/|\.venv/|venv/|dist/|build/|target/|\.idea/|\.vscode/|graphs/build/)
+
+  - repo: local
+    hooks:
+      - id: gradle-spotless-apply
+        name: Gradle Spotless (Java/Kotlin) – format (multi-module)
+        entry: powershell
+        args:
+          [-NoProfile, -ExecutionPolicy, Bypass, -File, tools/run-spotless.ps1]
+        language: system
+        pass_filenames: false
+        files: \.(java|kt|kts)$

@@ -22,4 +22,3 @@ public interface SupplySystemControllerInterface {
     })
     ResponseEntity<String> speedUpEmployeesSupply(@PathVariable("supplyId") int supplyId);
 }
-

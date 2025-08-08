@@ -3,5 +3,3 @@ In Separate IDEA or Shell <> Terminal
 1. Docker must be up and running either with client or GUI
 2. docker build -t eta-client .
 3. docker run --name eta-service --network rocketmq-net -p 5000:5000 eta-client
-
-

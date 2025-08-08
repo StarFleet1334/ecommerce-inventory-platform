@@ -13,4 +13,3 @@ public class RouteCalculationResponse {
     @JsonProperty("durationSeconds")
     private double durationSeconds;
 }
-

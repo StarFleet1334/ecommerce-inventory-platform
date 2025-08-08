@@ -14,7 +14,7 @@ check_port() {
     local port=$2
     local max_attempts=$3
     local attempt=1
-    
+
     while [ $attempt -le $max_attempts ]; do
         if nc -z $host $port 2>/dev/null; then
             return 0
@@ -32,7 +32,7 @@ wait_for_service() {
     local health_url=$2
     local max_attempts=30
     local attempt=1
-    
+
     echo -e "${YELLOW}Waiting for $service_name to be healthy...${NC}"
     while [ $attempt -le $max_attempts ]; do
         if curl -f -s $health_url >/dev/null 2>&1; then
@@ -127,4 +127,4 @@ echo -e "  Backend: ${GREEN}http://localhost:5000${NC}"
 echo -e "  RocketMQ Dashboard: ${GREEN}http://localhost:8080${NC}"
 
 echo -e "${YELLOW}📝 To view logs: docker compose logs -f${NC}"
-echo -e "${YELLOW}🛑 To stop: docker compose down${NC}" 
+echo -e "${YELLOW}🛑 To stop: docker compose down${NC}"

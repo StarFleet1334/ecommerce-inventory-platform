@@ -65,4 +65,4 @@ export interface Supply {
   product_id: string;
   quantity: number;
   supply_date: string;
-} 
+}

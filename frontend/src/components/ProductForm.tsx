@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import type { ProductMessage } from '../types/inventory';
+import React, { useState } from "react";
+import type { ProductMessage } from "../types/inventory";
 
 interface ProductFormProps {
   onSubmit: (product: ProductMessage) => Promise<void>;
@@ -7,20 +7,26 @@ interface ProductFormProps {
   initialData?: Partial<ProductMessage>;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, loading, initialData }) => {
+const ProductForm: React.FC<ProductFormProps> = ({
+  onSubmit,
+  loading,
+  initialData,
+}) => {
   const [form, setForm] = useState<ProductMessage>({
-    product_name: initialData?.product_name || '',
-    sku: initialData?.sku || '',
-    product_id: initialData?.product_id || '',
+    product_name: initialData?.product_name || "",
+    sku: initialData?.sku || "",
+    product_id: initialData?.product_id || "",
     product_price: initialData?.product_price || 0,
-    product_description: initialData?.product_description || ''
+    product_description: initialData?.product_description || "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    setForm(prev => ({
+    setForm((prev) => ({
       ...prev,
-      [name]: name === 'product_price' ? parseFloat(value) || 0 : value
+      [name]: name === "product_price" ? parseFloat(value) || 0 : value,
     }));
   };
 
@@ -29,18 +35,21 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, loading, initialDat
     await onSubmit(form);
     // Reset form after successful submission
     setForm({
-      product_name: '',
-      sku: '',
-      product_id: '',
+      product_name: "",
+      sku: "",
+      product_id: "",
       product_price: 0,
-      product_description: ''
+      product_description: "",
     });
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="product_name" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="product_name"
+          className="block text-sm font-medium text-gray-700"
+        >
           Product Name
         </label>
         <input
@@ -56,7 +65,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, loading, initialDat
       </div>
 
       <div>
-        <label htmlFor="sku" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="sku"
+          className="block text-sm font-medium text-gray-700"
+        >
           SKU
         </label>
         <input
@@ -72,7 +84,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, loading, initialDat
       </div>
 
       <div>
-        <label htmlFor="product_id" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="product_id"
+          className="block text-sm font-medium text-gray-700"
+        >
           Product ID
         </label>
         <input
@@ -88,7 +103,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, loading, initialDat
       </div>
 
       <div>
-        <label htmlFor="product_price" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="product_price"
+          className="block text-sm font-medium text-gray-700"
+        >
           Price
         </label>
         <input
@@ -106,7 +124,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, loading, initialDat
       </div>
 
       <div>
-        <label htmlFor="product_description" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="product_description"
+          className="block text-sm font-medium text-gray-700"
+        >
           Description
         </label>
         <textarea
@@ -126,10 +147,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, loading, initialDat
         disabled={loading}
         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {loading ? 'Adding Product...' : 'Add Product'}
+        {loading ? "Adding Product..." : "Add Product"}
       </button>
     </form>
   );
 };
 
-export default ProductForm; 
+export default ProductForm;
