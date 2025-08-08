@@ -22,4 +22,3 @@ public interface OrderSystemControllerInterface {
     })
     ResponseEntity<String> speedUpCustomersOrder(@PathVariable("orderId") int orderId);
 }
-

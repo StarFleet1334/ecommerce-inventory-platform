@@ -39,7 +39,8 @@ services:
         aliases:
           - rmqbroker
     healthcheck:
-      test: [ "CMD", "sh", "-c", "nc -z localhost 10911 && nc -z localhost 10909" ]
+      test:
+        ["CMD", "sh", "-c", "nc -z localhost 10911 && nc -z localhost 10909"]
       interval: 5s
       timeout: 3s
       retries: 10
@@ -80,7 +81,8 @@ services:
         aliases:
           - redis
     healthcheck:
-      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-defaultpassword}", "ping"]
+      test:
+        ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-defaultpassword}", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -250,7 +252,13 @@ services:
         aliases:
           - backend
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/calculate?originLat=0&originLon=0&destLat=0&destLon=0"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://localhost:5000/calculate?originLat=0&originLon=0&destLat=0&destLon=0",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -281,12 +289,12 @@ services:
         aliases:
           - rocketmq-service
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8085/actuator/health" ]
+      test: ["CMD", "curl", "-f", "http://localhost:8085/actuator/health"]
       interval: 5s
       timeout: 3s
       retries: 20
       start_period: 30s
-    profiles: [ "all", "dev", "prod" ]
+    profiles: ["all", "dev", "prod"]
 
   frontend:
     build:

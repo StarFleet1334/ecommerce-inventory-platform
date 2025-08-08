@@ -22,7 +22,7 @@ check_docker() {
 # Function to check if services are running
 check_services() {
     echo -e "${YELLOW}🔍 Checking backend services...${NC}"
-    
+
     # Check inventory service
     if curl -s http://localhost:8081/actuator/health > /dev/null 2>&1; then
         echo -e "${GREEN}✅ Inventory Service is running${NC}"
@@ -38,16 +38,16 @@ start_dev() {
     echo -e "${GREEN}🚀 Starting Development Frontend...${NC}"
     echo -e "${YELLOW}   Features: Hot reload, Debug panel, Source maps${NC}"
     echo ""
-    
+
     check_docker
     check_services
-    
+
     echo -e "${YELLOW}📦 Building development container...${NC}"
     docker compose build frontend-dev
-    
+
     echo -e "${YELLOW}🌐 Starting development frontend...${NC}"
     docker compose --profile dev up -d frontend-dev
-    
+
     echo ""
     echo -e "${GREEN}✅ Development Frontend Started!${NC}"
     echo -e "${GREEN}🌐 Access at: http://localhost:5173${NC}"
@@ -60,16 +60,16 @@ start_prod() {
     echo -e "${GREEN}🚀 Starting Production Frontend...${NC}"
     echo -e "${YELLOW}   Features: Optimized build, Nginx, Health checks${NC}"
     echo ""
-    
+
     check_docker
     check_services
-    
+
     echo -e "${YELLOW}📦 Building production container...${NC}"
     docker compose build frontend
-    
+
     echo -e "${YELLOW}🌐 Starting production frontend...${NC}"
     docker compose --profile prod up -d frontend
-    
+
     echo ""
     echo -e "${GREEN}✅ Production Frontend Started!${NC}"
     echo -e "${GREEN}🌐 Access at: http://localhost:3000${NC}"
@@ -81,16 +81,16 @@ start_prod() {
 start_both() {
     echo -e "${GREEN}🚀 Starting Both Frontends...${NC}"
     echo ""
-    
+
     check_docker
     check_services
-    
+
     echo -e "${YELLOW}📦 Building both containers...${NC}"
     docker compose build frontend frontend-dev
-    
+
     echo -e "${YELLOW}🌐 Starting both frontends...${NC}"
     docker compose --profile dev up -d frontend frontend-dev
-    
+
     echo ""
     echo -e "${GREEN}✅ Both Frontends Started!${NC}"
     echo -e "${GREEN}🌐 Development: http://localhost:5173${NC}"
@@ -104,24 +104,24 @@ show_status() {
     echo -e "${BLUE}📊 Frontend Status${NC}"
     echo -e "${BLUE}================${NC}"
     echo ""
-    
+
     # Check development frontend
     if docker ps --filter "name=frontend-dev" --format "table {{.Names}}\t{{.Status}}" | grep -q frontend-dev; then
         echo -e "${GREEN}✅ Development Frontend (5173): Running${NC}"
     else
         echo -e "${RED}❌ Development Frontend (5173): Not running${NC}"
     fi
-    
+
     # Check production frontend
     if docker ps --filter "name=frontend" --format "table {{.Names}}\t{{.Status}}" | grep -q frontend; then
         echo -e "${GREEN}✅ Production Frontend (3000): Running${NC}"
     else
         echo -e "${RED}❌ Production Frontend (3000): Not running${NC}"
     fi
-    
+
     echo ""
     echo -e "${YELLOW}🔍 Backend Services:${NC}"
-    
+
     # Check inventory service
     if curl -s http://localhost:8081/actuator/health > /dev/null 2>&1; then
         echo -e "${GREEN}✅ Inventory Service (8081): Running${NC}"
@@ -172,4 +172,4 @@ case "${1:-help}" in
     "help"|*)
         show_help
         ;;
-esac 
+esac

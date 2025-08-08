@@ -29,4 +29,3 @@ public class StockLoaderImpl extends StockLoader {
     }
 
 }
-

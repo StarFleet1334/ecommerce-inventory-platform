@@ -37,4 +37,4 @@ echo "📊 Container resource usage:"
 docker stats frontend --no-stream --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}"
 
 echo ""
-echo "✅ Debug complete. Check the output above for issues." 
+echo "✅ Debug complete. Check the output above for issues."

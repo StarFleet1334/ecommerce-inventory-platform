@@ -23,4 +23,3 @@ public abstract class AbstractEventPBSender<T> implements BaseEventPB<T> {
         }
     }
 }
-

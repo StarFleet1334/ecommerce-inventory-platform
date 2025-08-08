@@ -2,22 +2,26 @@
 line-length = 100
 target-version = ["py311"]
 skip-string-normalization = true
-extend-exclude = [
-  "/build/",
-  "/dist/",
-  "/.venv/",
-  "/venv/",
-  "/.mypy_cache/",
-]
+extend-exclude = '''
+(
+  ^/build/|
+  ^/dist/|
+  ^/\.venv/|
+  ^/venv/|
+  ^/\.mypy_cache/
+)
+'''
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-select = ["E", "F", "I", "B", "UP"]
-ignore = ["E501"]
 extend-exclude = [".venv", "venv", "build", "dist"]
 
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]  # Let Black handle line length
+
 [tool.ruff.lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
 known-first-party = []
-profile = "black"
-force-single-line = false

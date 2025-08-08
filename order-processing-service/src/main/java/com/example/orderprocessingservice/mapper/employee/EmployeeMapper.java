@@ -38,4 +38,3 @@ public abstract class EmployeeMapper implements BaseMapper<EmployeeMP, Employee>
     }
 
 }
-

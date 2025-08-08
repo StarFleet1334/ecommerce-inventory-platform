@@ -1,5 +1,5 @@
-import React from 'react';
-import type { Product } from '../types/inventory';
+import React from "react";
+import type { Product } from "../types/inventory";
 
 interface ProductListProps {
   products: Product[];
@@ -7,9 +7,13 @@ interface ProductListProps {
   loading: boolean;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ products, onDelete, loading }) => {
+const ProductList: React.FC<ProductListProps> = ({
+  products,
+  onDelete,
+  loading,
+}) => {
   const handleDelete = async (productId: string) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
+    if (window.confirm("Are you sure you want to delete this product?")) {
       await onDelete(productId);
     }
   };
@@ -17,7 +21,9 @@ const ProductList: React.FC<ProductListProps> = ({ products, onDelete, loading }
   if (products.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-gray-500">No products found. Add your first product above.</p>
+        <p className="text-gray-500">
+          No products found. Add your first product above.
+        </p>
       </div>
     );
   }
@@ -61,4 +67,4 @@ const ProductList: React.FC<ProductListProps> = ({ products, onDelete, loading }
   );
 };
 
-export default ProductList; 
+export default ProductList;

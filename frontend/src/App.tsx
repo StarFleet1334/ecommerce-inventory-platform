@@ -1,4 +1,4 @@
-import InventoryDashboard from './InventoryDashboard';
+import InventoryDashboard from "./InventoryDashboard";
 
 function App() {
   return <InventoryDashboard />;

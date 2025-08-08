@@ -5,6 +5,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 ---
 
 ## Table of Contents
+
 - [Project Structure](#project-structure)
 - [Assets](#assets)
 - [Swagger](#Swagger)
@@ -20,6 +21,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 - [Healthchecks](#healthchecks)
 - [Common Commands](#common-commands)
 - [Troubleshooting](#troubleshooting)
+
 ---
 
 ## Project Structure
@@ -46,6 +48,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 ---
 
 ## Assets
+
 - **public.customer_order**: https://ibb.co/cXvpX5Wz
 - **public.customer**: https://ibb.co/zhW19F3X
 - **public.customer_transaction**: https://ibb.co/prZ1ZtxQ
@@ -79,229 +82,194 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <details>
 <summary>🎯 Expand Endpoint regarding Supply</summary>
 
-| Method | Path | Body                                          | Notes                |
-|:------:|------|-----------------------------------------------|----------------------|
+|                                        Method                                         | Path             | Body                                                                                                                    | Notes                |
+| :-----------------------------------------------------------------------------------: | ---------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------- |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/supply` | [`SupplyMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/SupplyMessage.java) | Creates a new supply |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>SupplyMessage</code>)</strong></summary>
 
-| Field        | Type             | Required | Description                  |
-|--------------|------------------|:-------:|------------------------------|
-| `supplier_id` | `Integer`        | ✅ | References Supplier          |
-| `product_id`  | `String`         | ✅ | Refereces Product            |
-| `employee_id`      | `Integer`        | ✅ | References Employee          |
-| `supply_time`      | `OffsetDateTime` | ✅ | Time this supply was created |
-| `amount`      | `Integer`        | ✅ | Amount of Supply             |
+| Field         | Type             | Required | Description                  |
+| ------------- | ---------------- | :------: | ---------------------------- |
+| `supplier_id` | `Integer`        |    ✅    | References Supplier          |
+| `product_id`  | `String`         |    ✅    | Refereces Product            |
+| `employee_id` | `Integer`        |    ✅    | References Employee          |
+| `supply_time` | `OffsetDateTime` |    ✅    | Time this supply was created |
+| `amount`      | `Integer`        |    ✅    | Amount of Supply             |
 
 </details>
 
-
-| Method | Path | PathVariable                  | Notes                          |
-|:------:|------|-------------------------------|--------------------------------|
+|                                          Method                                           | Path             | PathVariable                  | Notes                          |
+| :---------------------------------------------------------------------------------------: | ---------------- | ----------------------------- | ------------------------------ |
 | ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/supply` | [`id`](#customerordermessage) | Deletes a supply with given id |
 
 </details>
 
-
 <details>
 <summary>🎯 Expand Endpoint regarding WareHouse</summary>
 
-
-
-| Method | Path                | Body                                         | Notes                   |
-|:------:|---------------------|----------------------------------------------|-------------------------|
+|                                        Method                                         | Path                | Body                                                                                                                          | Notes                   |
+| :-----------------------------------------------------------------------------------: | ------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/warehouse` | [`WareHouseMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/WareHouseMessage.java) | Creates a new warehouse |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>WareHouseMessage</code>)</strong></summary>
 
-| Field        | Type         | Required | Description                                                 |
-|--------------|--------------|:--------:|-------------------------------------------------------------|
-| `ware_house_name` | `String`     |    ✅     | WareHouse Name                                              |
-| `refrigerated`  | `Boolean`    |    ✅     | If WareHouse can contain items that needs to be in a fridge |
-| `min_stock_level`      | `Integer`    |    ✅     | Minimal Stock level                                         |
-| `max_stock_level`      | `Integer`    |    ✅     | Maximal Stock level                                         |
-| `latitude`      | `BigDecimal` |    ❌     | Latitude of WareHouse                                       |
-| `longitude`      | `BigDecimal` |     ❌     | Longitude of WareHouse                                      |
+| Field             | Type         | Required | Description                                                 |
+| ----------------- | ------------ | :------: | ----------------------------------------------------------- |
+| `ware_house_name` | `String`     |    ✅    | WareHouse Name                                              |
+| `refrigerated`    | `Boolean`    |    ✅    | If WareHouse can contain items that needs to be in a fridge |
+| `min_stock_level` | `Integer`    |    ✅    | Minimal Stock level                                         |
+| `max_stock_level` | `Integer`    |    ✅    | Maximal Stock level                                         |
+| `latitude`        | `BigDecimal` |    ❌    | Latitude of WareHouse                                       |
+| `longitude`       | `BigDecimal` |    ❌    | Longitude of WareHouse                                      |
 
 </details>
 
-| Method | Path | PathVariable                  | Notes                             |
-|:------:|------|-------------------------------|-----------------------------------|
+|                                          Method                                           | Path                | PathVariable              | Notes                             |
+| :---------------------------------------------------------------------------------------: | ------------------- | ------------------------- | --------------------------------- |
 | ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/warehouse` | [`id`](#warehousemessage) | Deletes a warehouse with given id |
 
 </details>
 
-
 <details>
 <summary>🎯 Expand Endpoint regarding Supplier</summary>
 
-| Method | Path               | Body                                       | Notes                  |
-|:------:|--------------------|--------------------------------------------|------------------------|
+|                                        Method                                         | Path               | Body                                                                                                                        | Notes                  |
+| :-----------------------------------------------------------------------------------: | ------------------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/supplier` | [`SupplierMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/SupplierMessage.java) | Creates a new supplier |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>SupplierMessage</code>)</strong></summary>
 
-| Field        | Type         | Required | Description              |
-|--------------|--------------|:--------:|--------------------------|
-| `first_name` | `String`     |    ✅     | First name of Supplier   |
-| `last_name`  | `String`     |    ✅     | Last name of Supplier    |
-| `email`      | `String`     |    ✅     | Email of Supplier        |
-| `phone_number`      | `String`     |    ✅     | Phone number of supplier |
-| `latitude`      | `BigDecimal` |    ❌     | Latitude of WareHouse    |
-| `longitude`      | `BigDecimal` |     ❌     | Longitude of WareHouse   |
-
+| Field          | Type         | Required | Description              |
+| -------------- | ------------ | :------: | ------------------------ |
+| `first_name`   | `String`     |    ✅    | First name of Supplier   |
+| `last_name`    | `String`     |    ✅    | Last name of Supplier    |
+| `email`        | `String`     |    ✅    | Email of Supplier        |
+| `phone_number` | `String`     |    ✅    | Phone number of supplier |
+| `latitude`     | `BigDecimal` |    ❌    | Latitude of WareHouse    |
+| `longitude`    | `BigDecimal` |    ❌    | Longitude of WareHouse   |
 
 </details>
 
-| Method | Path               | PathVariable                  | Notes                            |
-|:------:|--------------------|-------------------------------|----------------------------------|
+|                                          Method                                           | Path               | PathVariable             | Notes                            |
+| :---------------------------------------------------------------------------------------: | ------------------ | ------------------------ | -------------------------------- |
 | ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/supplier` | [`id`](#suppliermessage) | Deletes a supplier with given id |
 
-
 </details>
-
 
 <details>
 <summary>🎯 Expand Endpoint regarding Product</summary>
 
-
-| Method | Path              | Body                                     | Notes                 |
-|:------:|-------------------|------------------------------------------|-----------------------|
+|                                        Method                                         | Path              | Body                                                                                                                      | Notes                 |
+| :-----------------------------------------------------------------------------------: | ----------------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------- |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/product` | [`ProductMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/ProductMessage.java) | Creates a new product |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>ProductMessage</code>)</strong></summary>
 
-| Field        | Type         | Required | Description            |
-|--------------|--------------|:--------:|------------------------|
-| `product_name` | `String`     |    ✅     | Product Name           |
-| `sku`  | `String`     |    ✅     | Product SKU            |
-| `product_id`      | `String`     |    ✅     | Each Product unique Id |
-| `product_price`      | `BigDecimal`     |    ✅     | Product Price          |
-| `product_description`      | `BigDecimal` |     ✅       | Product Description    |
-
-
-
+| Field                 | Type         | Required | Description            |
+| --------------------- | ------------ | :------: | ---------------------- |
+| `product_name`        | `String`     |    ✅    | Product Name           |
+| `sku`                 | `String`     |    ✅    | Product SKU            |
+| `product_id`          | `String`     |    ✅    | Each Product unique Id |
+| `product_price`       | `BigDecimal` |    ✅    | Product Price          |
+| `product_description` | `BigDecimal` |    ✅    | Product Description    |
 
 </details>
 
-| Method | Path              | PathVariable                  | Notes                           |
-|:------:|-------------------|-------------------------------|---------------------------------|
+|                                          Method                                           | Path              | PathVariable            | Notes                           |
+| :---------------------------------------------------------------------------------------: | ----------------- | ----------------------- | ------------------------------- |
 | ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/product` | [`id`](#productmessage) | Deletes a product with given id |
 
 </details>
 
-
 <details>
 <summary>🎯 Expand Endpoint regarding Employee</summary>
 
-
-| Method | Path               | Body                                       | Notes                  |
-|:------:|--------------------|--------------------------------------------|------------------------|
+|                                        Method                                         | Path               | Body                                                                                                                        | Notes                  |
+| :-----------------------------------------------------------------------------------: | ------------------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/employee` | [`EmployeeMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/EmployeeMessage.java) | Creates a new employee |
 
 <details>
 <summary>▶️ <strong>Request Body (<code>EmployeeMessage</code>)</strong></summary>
 
-| Field        | Type      |  Required  | Description                                                       |
-|--------------|-----------|:----------:|-------------------------------------------------------------------|
-| `first_name` | `String`  |     ✅      | First name of Employee                                            |
-| `last_name`  | `String`  |     ✅      | Last name of Employee                                             |
-| `email`      | `String`  |     ✅      | Email of Employee                                                 |
-| `phone_number`      | `String`  |     ✅      | Phone number of Employee                                          |
-| `ware_house_id`      | `Integer` |     ❌       | References WareHouse, indicates which warehouse employee works in |
-
-
-
+| Field           | Type      | Required | Description                                                       |
+| --------------- | --------- | :------: | ----------------------------------------------------------------- |
+| `first_name`    | `String`  |    ✅    | First name of Employee                                            |
+| `last_name`     | `String`  |    ✅    | Last name of Employee                                             |
+| `email`         | `String`  |    ✅    | Email of Employee                                                 |
+| `phone_number`  | `String`  |    ✅    | Phone number of Employee                                          |
+| `ware_house_id` | `Integer` |    ❌    | References WareHouse, indicates which warehouse employee works in |
 
 </details>
 
-| Method | Path               | PathVariable                  | Notes                            |
-|:------:|--------------------|-------------------------------|----------------------------------|
+|                                          Method                                           | Path               | PathVariable             | Notes                            |
+| :---------------------------------------------------------------------------------------: | ------------------ | ------------------------ | -------------------------------- |
 | ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/employee` | [`id`](#employeemessage) | Deletes a employee with given id |
 
 </details>
 
-
 <details>
 <summary>🎯 Expand Endpoint regarding Stock</summary>
 
-
-| Method | Path            | Body                                | Notes               |
-|:------:|-----------------|-------------------------------------|---------------------|
+|                                        Method                                         | Path            | Body                                                                                                                  | Notes               |
+| :-----------------------------------------------------------------------------------: | --------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------- |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/stock` | [`StockMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/StockMessage.java) | Creates a new stock |
-
 
 <summary>▶️ <strong>Request Body (<code>StockMessage</code>)</strong></summary>
 
-| Field        | Type      | Required | Description                          |
-|--------------|-----------|:--------:|--------------------------------------|
-| `ware_house_id` | `Integer` |    ❌     | References WareHouse                 |
-| `product_id`  | `String`  |    ❌     | References Product                   |
-| `quantity`      | `Integer` |     ❌     | Quantity of Product in a given Stock |
+| Field           | Type      | Required | Description                          |
+| --------------- | --------- | :------: | ------------------------------------ |
+| `ware_house_id` | `Integer` |    ❌    | References WareHouse                 |
+| `product_id`    | `String`  |    ❌    | References Product                   |
+| `quantity`      | `Integer` |    ❌    | Quantity of Product in a given Stock |
 
-
-
-| Method | Path            | PathVariable                  | Notes                         |
-|:------:|-----------------|-------------------------------|-------------------------------|
+|                                          Method                                           | Path            | PathVariable          | Notes                         |
+| :---------------------------------------------------------------------------------------: | --------------- | --------------------- | ----------------------------- |
 | ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/stock` | [`id`](#stockmessage) | Deletes a stock with given id |
 
-
 </details>
-
 
 <details>
 <summary>🎯 Expand Endpoint regarding Customer</summary>
 
-
-| Method | Path               | Body                                      | Notes                  |
-|:------:|--------------------|-------------------------------------------|------------------------|
+|                                        Method                                         | Path               | Body                                                                                                                        | Notes                  |
+| :-----------------------------------------------------------------------------------: | ------------------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/customer` | [`CustomerMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/CustomerMessage.java) | Creates a new customer |
-
 
 <summary>▶️ <strong>Request Body (<code>CustomerMessage</code>)</strong></summary>
 
-| Field        | Type         | Required | Description              |
-|--------------|--------------|:--------:|--------------------------|
-| `first_name` | `String`     |    ✅     | First name of Customer   |
-| `last_name`  | `String`     |    ✅     | Last name of Customer    |
-| `email`      | `String`     |    ✅     | Email of Customer        |
-| `phone_number`      | `String`     |    ✅     | Phone number of Customer |
-| `latitude`      | `BigDecimal` |    ❌     | Latitude of Customer     |
-| `longitude`      | `BigDecimal` |     ❌     | Longitude of Customer    |
+| Field          | Type         | Required | Description              |
+| -------------- | ------------ | :------: | ------------------------ |
+| `first_name`   | `String`     |    ✅    | First name of Customer   |
+| `last_name`    | `String`     |    ✅    | Last name of Customer    |
+| `email`        | `String`     |    ✅    | Email of Customer        |
+| `phone_number` | `String`     |    ✅    | Phone number of Customer |
+| `latitude`     | `BigDecimal` |    ❌    | Latitude of Customer     |
+| `longitude`    | `BigDecimal` |    ❌    | Longitude of Customer    |
 
-
-
-| Method | Path               | PathVariable            | Notes                            |
-|:------:|--------------------|-------------------------|----------------------------------|
+|                                          Method                                           | Path               | PathVariable             | Notes                            |
+| :---------------------------------------------------------------------------------------: | ------------------ | ------------------------ | -------------------------------- |
 | ![DELETE](https://img.shields.io/badge/DELETE-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/customer` | [`id`](#customermessage) | Deletes a customer with given id |
 
-
-
-| Method | Path                     | Body                                                | Notes                        |
-|:------:|--------------------------|-----------------------------------------------------|------------------------------|
+|                                        Method                                         | Path                     | Body                                                                                                                                  | Notes                        |
+| :-----------------------------------------------------------------------------------: | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=CC0000) | `/api/v1/customer/order` | [`CustomerOrderMessage.java`](inventory-service/src/main/java/com/example/inventoryservice/entity/messages/CustomerOrderMessage.java) | Creates a new customer order |
-
 
 <summary>▶️ <strong>Request Body (<code>CustomerOrderMessage</code>)</strong></summary>
 
-| Field        | Type         | Required | Description                       |
-|--------------|--------------|:--------:|-----------------------------------|
-| `product_id` | `String`     |    ✅     | References a product              |
-| `product_amount`  | `String`     |     ❌     | Quantity of product ordered       |
-| `order_time`      | `String`     |    ✅     | Ordere Time                       |
-| `customer_id`      | `String`     |    ✅     | References customer which ordered |
-
-
-</details>
-
+| Field            | Type     | Required | Description                       |
+| ---------------- | -------- | :------: | --------------------------------- |
+| `product_id`     | `String` |    ✅    | References a product              |
+| `product_amount` | `String` |    ❌    | Quantity of product ordered       |
+| `order_time`     | `String` |    ✅    | Ordere Time                       |
+| `customer_id`    | `String` |    ✅    | References customer which ordered |
 
 </details>
 
-
+</details>
 
 ### Order-Processing ( https://localhost:8083 )
 
@@ -312,51 +280,38 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <summary>🎯 Expand Endpoint regarding Customer</summary>
 
 |                                       Method                                        | Path               | Notes                 |
-|:-----------------------------------------------------------------------------------:|--------------------|-----------------------|
+| :---------------------------------------------------------------------------------: | ------------------ | --------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/customer` | Retrieve all customer |
 
-
-
 |                                       Method                                        | Path               | PathVariable        | Notes                             |
-|:-----------------------------------------------------------------------------------:|--------------------|---------------------|-----------------------------------|
+| :---------------------------------------------------------------------------------: | ------------------ | ------------------- | --------------------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/customer` | [`id`](#customerid) | Retrieve a customer with given Id |
 
 </details>
-
 
 <details>
 <summary>🎯 Expand Endpoint regarding Employee</summary>
 
 |                                       Method                                        | Path               | Notes                 |
-|:-----------------------------------------------------------------------------------:|--------------------|-----------------------|
+| :---------------------------------------------------------------------------------: | ------------------ | --------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/employee` | Retrieve all employee |
 
-
-
 |                                       Method                                        | Path               | PathVariable        | Notes                             |
-|:-----------------------------------------------------------------------------------:|--------------------|---------------------|-----------------------------------|
+| :---------------------------------------------------------------------------------: | ------------------ | ------------------- | --------------------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/employee` | [`id`](#employeeId) | Retrieve a employee with given Id |
-
-
-
 
 </details>
 
 <details>
 <summary>🎯 Expand Endpoint regarding Warehouse</summary>
 
-|                                       Method                                        | Path                | Notes                 |
-|:-----------------------------------------------------------------------------------:|---------------------|-----------------------|
+|                                       Method                                        | Path                | Notes                  |
+| :---------------------------------------------------------------------------------: | ------------------- | ---------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/warehouse` | Retrieve all warehouse |
 
-
-
-|                                       Method                                        | Path               | PathVariable         | Notes                             |
-|:-----------------------------------------------------------------------------------:|--------------------|----------------------|-----------------------------------|
+|                                       Method                                        | Path                | PathVariable         | Notes                              |
+| :---------------------------------------------------------------------------------: | ------------------- | -------------------- | ---------------------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/warehouse` | [`id`](#warehouseId) | Retrieve a warehouse with given Id |
-
-
-
 
 </details>
 
@@ -364,15 +319,12 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <summary>🎯 Expand Endpoint regarding Supplier</summary>
 
 |                                       Method                                        | Path               | Notes                 |
-|:-----------------------------------------------------------------------------------:|--------------------|-----------------------|
+| :---------------------------------------------------------------------------------: | ------------------ | --------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/supplier` | Retrieve all supplier |
 
-
-
 |                                       Method                                        | Path               | PathVariable        | Notes                             |
-|:-----------------------------------------------------------------------------------:|--------------------|---------------------|-----------------------------------|
+| :---------------------------------------------------------------------------------: | ------------------ | ------------------- | --------------------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/supplier` | [`id`](#supplierId) | Retrieve a supplier with given Id |
-
 
 </details>
 
@@ -380,36 +332,30 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 <summary>🎯 Expand Endpoint regarding Product</summary>
 
 |                                       Method                                        | Path              | Notes                |
-|:-----------------------------------------------------------------------------------:|-------------------|----------------------|
+| :---------------------------------------------------------------------------------: | ----------------- | -------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/product` | Retrieve all product |
 
-
-
 |                                       Method                                        | Path              | PathVariable       | Notes                            |
-|:-----------------------------------------------------------------------------------:|-------------------|--------------------|----------------------------------|
+| :---------------------------------------------------------------------------------: | ----------------- | ------------------ | -------------------------------- |
 | ![GET](https://img.shields.io/badge/GET-FFFFFF?style=flat-square&labelColor=0B5394) | `/api/v1/product` | [`id`](#productId) | Retrieve a product with given Id |
 
-
 </details>
-
 
 <details>
 <summary>🎯 Expand Endpoint regarding Order System</summary>
 
-|                                       Method                                        | Path                             | PathVariable          | Notes                                        |
-|:-----------------------------------------------------------------------------------:|----------------------------------|-----------------------|----------------------------------------------|
+|                                        Method                                         | Path                             | PathVariable          | Notes                                        |
+| :-----------------------------------------------------------------------------------: | -------------------------------- | --------------------- | -------------------------------------------- |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/customer/order/speedUp` | [`orderId`](#orderId) | This endpoint speeds up customer Transaction |
-
 
 </details>
 
 <details>
 <summary>🎯 Expand Endpoint regarding Supply System</summary>
 
-|                                       Method                                        | Path                              | PathVariable           | Notes                                      |
-|:-----------------------------------------------------------------------------------:|-----------------------------------|------------------------|--------------------------------------------|
+|                                        Method                                         | Path                              | PathVariable            | Notes                                      |
+| :-----------------------------------------------------------------------------------: | --------------------------------- | ----------------------- | ------------------------------------------ |
 | ![POST](https://img.shields.io/badge/POST-FFFFFF?style=flat-square&labelColor=28a745) | `/api/v1/employee/supply/speedUp` | [`supplyId`](#supplyId) | This endpoint speeds up supply Transaction |
-
 
 </details>
 
@@ -429,6 +375,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 ---
 
 ## Prerequisites
+
 - [Docker](https://docs.docker.com/get-docker/) (v20+ recommended)
 - [Docker Compose](https://docs.docker.com/compose/) (v2+ recommended)
 - (Optional) Java 17+, Python 3.12+ for local development outside containers
@@ -438,12 +385,14 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 ## Setup & Configuration
 
 1. **Clone the repository:**
+
    ```sh
    git clone <your-repo-url>
    cd ecommerce-inventory-platform
    ```
 
 2. **Configure environment variables:**
+
    - The startup scripts will automatically fetch branch-specific environment files from GitHub (e.g., `.env_dev` for `dev` branch)
    - If no branch-specific file exists, it will fallback to `.env_example`
    - You can also manually copy and configure:
@@ -466,6 +415,7 @@ This project is a microservices-based ecommerce inventory platform, orchestrated
 The project includes platform-specific startup scripts in the `scripts/` directory that handle environment setup, cleanup, and service orchestration:
 
 ### Features
+
 - **Automatic Environment Loading**: Scripts detect the current git branch and attempt to download a branch-specific `.env` file from GitHub (e.g., `.env_dev` for `dev` branch)
 - **Fallback Mechanism**: If no branch-specific environment file exists, falls back to `.env_example`
 - **RocketMQ Cleanup**: Cleans RocketMQ data directories for fresh starts
@@ -474,18 +424,21 @@ The project includes platform-specific startup scripts in the `scripts/` directo
 ### Usage
 
 **Windows (PowerShell):**
+
 ```powershell
 cd scripts
 .\start.ps1; .\zipkin\start-zipkin.ps1
 ```
 
 **Linux/macOS (Bash):**
+
 ```bash
 chmod +x scripts/start.sh
 ./scripts/start.sh
 ```
 
 ### How It Works
+
 1. Detects current git branch using `git rev-parse --abbrev-ref HEAD`
 2. Attempts to download `.env_{branch}` from GitHub's raw content API
 3. If successful, saves as `.env`; otherwise copies `.env_example` to `.env`
@@ -494,9 +447,11 @@ chmod +x scripts/start.sh
 6. Waits 10 seconds for services to initialize
 
 ### Branch-Specific Environment Files
+
 To use this feature, commit `.env_{branch}` files to your repository:
+
 - `.env_dev` for development branch
-- `.env_staging` for staging branch  
+- `.env_staging` for staging branch
 - `.env_prod` for production branch
 
 **Note**: Ensure sensitive environment files are properly secured and don't contain secrets in plain text.
@@ -506,21 +461,24 @@ To use this feature, commit `.env_{branch}` files to your repository:
 ## Building & Running
 
 ### Build and start all services:
+
 ```sh
 docker-compose up --build
 ```
 
 ### Start with a specific profile (e.g., only dev services):
+
 ```sh
 docker-compose --profile dev up --build
 ```
 
 ### Stop all services:
+
 ```sh
 docker-compose down
 ```
 
-**---
+\*\*---
 
 ## Docker Compose Profiles
 
@@ -556,7 +514,7 @@ You can specify profiles with `--profile <profile>`.
 - Spring Boot services use `/actuator/health` (ensure `spring-boot-starter-actuator` is included).
 - Flask and Ktor services should expose a `/health` endpoint returning 200 OK.
 
----**
+---\*\*
 
 ## Common Commands
 
@@ -586,15 +544,18 @@ You can specify profiles with `--profile <profile>`.
 ## Troubleshooting
 
 - **Service not healthy?**
+
   - Check the healthcheck endpoint in the service code.
   - Ensure the correct ports are exposed and not in use by other processes.
   - Use `docker-compose logs <service-name>` for debugging.
 
 - **Environment variable issues?**
+
   - Ensure `.env` is present and correctly configured.
   - Compare with `.env_example` for required variables.
 
 - **Volume/data issues?**
+
   - Ensure the `./data` directory and subdirectories are writable by Docker.
   - Remove and recreate volumes if persistent data is corrupted.
 

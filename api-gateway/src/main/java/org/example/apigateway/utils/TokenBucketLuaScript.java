@@ -33,4 +33,3 @@ public class TokenBucketLuaScript {
                     + "redis.call('PEXPIRE', key, 2000)\n"
                     + "return { allowed, tokens }";
 }
-

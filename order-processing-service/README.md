@@ -4,17 +4,18 @@ This is a Spring Boot-based microservice responsible for processing customer ord
 
 ---
 
-
 ## 📚 Run Information
-* docker compose build
-* docker-compose up -d
-* Add an.env file in a root project called: order-processing-service
+
+- docker compose build
+- docker-compose up -d
+- Add an.env file in a root project called: order-processing-service
+
 ```bash
    # Database Configuration
    SPRING_DATASOURCE_URL=your-database-url
    SPRING_DATASOURCE_USERNAME=your-database-username
    SPRING_DATASOURCE_PASSWORD=your-database-password
-   ```
+```
 
 ---
 
@@ -28,15 +29,15 @@ This is a Spring Boot-based microservice responsible for processing customer ord
 
 ## ⚙️ Tech Stack
 
-| Component           | Technology        |
-|--------------------|-------------------|
-| Language            | Java 17+          |
-| Framework           | Spring Boot       |
-| Messaging Broker    | Apache RocketMQ   |
-| Cache (optional)    | Redis             |
-| Database            | PostgreSQL        |
-| Build Tool          | Gradle            |
-| API Format          | REST (JSON)       |
+| Component        | Technology      |
+| ---------------- | --------------- |
+| Language         | Java 17+        |
+| Framework        | Spring Boot     |
+| Messaging Broker | Apache RocketMQ |
+| Cache (optional) | Redis           |
+| Database         | PostgreSQL      |
+| Build Tool       | Gradle          |
+| API Format       | REST (JSON)     |
 
 ---
 
@@ -50,5 +51,3 @@ This is a Spring Boot-based microservice responsible for processing customer ord
 - PostgreSQL (running locally or in Docker)
 
 ---
-
-
