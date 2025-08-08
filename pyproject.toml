@@ -1,0 +1,23 @@
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+skip-string-normalization = true
+extend-exclude = [
+  "/build/",
+  "/dist/",
+  "/.venv/",
+  "/venv/",
+  "/.mypy_cache/",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+extend-exclude = [".venv", "venv", "build", "dist"]
+
+[tool.ruff.lint.isort]
+known-first-party = []
+profile = "black"
+force-single-line = false
